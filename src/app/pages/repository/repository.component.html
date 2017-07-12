@@ -1,0 +1,44 @@
+<div class="container zodiac_box zodiac_box_repos">
+  <div class="row">
+    <div class="col-sm-3 col-xs-4 leftSideBar">
+      <ul class="nav nav-pills nav-stacked menuS">
+
+        <li *ngFor="let tag of tags" class="presentation">
+          <a href="#">{{tag.key}}</a>
+          <ul class="nav nav-pills nav-stacked subMenuS">
+            <li *ngFor="let subCat of tag.tags" class="subManuLi">
+              <a>{{subCat}}</a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div class="col-sm-9 col-xs-8 zodiacCont" *ngIf="animations">
+      <div *ngFor="let animation of animations" class="box fadeInUp clust">
+
+        <div>
+        <a href=""></a>
+        <a href=""></a>
+        </div>
+        <video autoplay loop muted src="{{animation.mp4Url}}">
+
+        </video>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col-lg-5 col-lg-offset-5">
+      <nav aria-label="...">
+        <ul class="pagination repo-pages">
+          <li class="active"><a href="#" onclick="getVideos(1, this);">1 <span class="sr-only">(current)</span></a></li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

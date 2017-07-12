@@ -1,0 +1,90 @@
+:host {
+  background: #412a58;
+}
+.zodiac_box {
+  overflow: hidden;
+  background: #412a58;
+  text-align: center;
+  padding: 0;
+  font-family: 'Questrial', sans-serif;
+}
+.leftSideBar {
+  background-color: #2F1D41;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 54%;
+
+  & ul li {
+    background-color: #4E3F5D;
+    position: relative;
+    float: none;
+    & a {
+      color: #DCD7E0;
+      border-radius: 0;
+    }
+  }
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  background-color: #E36480!important;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #E36480!important;
+}
+.subMenuS {
+  float: right;
+  position: absolute;
+  overflow: visible;
+  margin-left: 100%;
+  margin-top: -1.5%;
+  width: 87%;
+  z-index: 2;
+
+  & li {
+    display: none;
+    width: 70%;
+    z-index: 9999;
+    margin-top: -14%;
+    background-color: #261635!important;
+    opacity: 0.7;
+    float: right;
+    cursor: pointer;
+  }
+}
+li.presentation:hover {
+  & .subMenuS {
+
+    & .subManuLi {
+      display: block;
+    }
+  }
+}
+.menuS li {
+  position: relative;
+
+  &:hover .subMenuS li {
+    display: block;
+  }
+}
+.nav>li>a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+.menuS li:hover .subMenuS li {
+  display: block;
+}
+.nav-stacked>li+li {
+  margin-top: 2px;
+  margin-left: 0;
+}
+.zodiacCont .box {
+  width: 23%;
+  margin-right: 7px;
+  padding: 0;
+  background: #412A58;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}

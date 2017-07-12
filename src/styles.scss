@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+$icon-font-path: '/assets/fonts/';
+$fa-font-path: '/assets/fonts/font-awesome/fonts';
+
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "assets/fonts/font-awesome/scss/font-awesome";
+@import "animate";
+
+html body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #412a58;
+}
+h3 {
+  font: 20px/1em 'Questrial';
+  color: #e46b86;
+  letter-spacing: 1px;
+  margin: 0 0 19px 0;
+  font-weight: 500;
+  line-height: 1.1;
+  font-size: 24px;
+}

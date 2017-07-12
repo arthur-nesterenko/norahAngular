@@ -1,0 +1,159 @@
+.main {
+  position: relative;
+  background: #412a58 url(/assets/images/glow.png) center bottom no-repeat;
+}
+
+.container {
+  text-align: center;
+
+  @media (min-width: 1220px) {
+    padding: 0;
+  }
+}
+header {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #4b3065;
+  box-shadow: 0 4px 4px 0 #3D2854;
+}
+
+nav.tm_navbar {
+  border: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+  min-height: 0;
+  background: none;
+  li:hover>a {
+    color: #ffffff;
+    background: #e36480 !important;
+    transition: all 0.3s;
+  }
+
+  li {
+    position: relative;
+    font-size: 14px;
+    line-height: 50px;
+    padding: 0;
+    margin: 0;
+    float: left;
+
+    :hover {
+      >a {
+        color: #ffffff;
+        background: #e36480 !important;
+        transition: all 0.3s;
+      }
+      >span {
+        color: #ffffff;
+        transition: all 0.3s;
+      }
+    }
+
+    a {
+      position: relative;
+      padding: 0;
+      font: 18px/68px 'Questrial';
+      width: 180px;
+      text-align: center;
+      color: #ffffff;
+      background: #4b3065;
+      transition: all 0.3s;
+    }
+    span {
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 9px;
+      color: #ffffff;
+      font-size: 12px;
+      z-index: 0;
+      transition: all 0.35s;
+    }
+  }
+  .sub-menu>ul {
+    background-color: #2F2041;
+    left: -2px;
+    position: absolute;
+    display: none;
+    width: 183px;
+    top: 68px;
+    list-style: none !important;
+    z-index: 11;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    text-align: left;
+    border: 1px solid #412a58;
+
+
+    li {
+      position: relative;
+      background: none !important;
+      border: none;
+      width: auto;
+      float: none;
+      margin: 0;
+      padding: 10px 0;
+      display: block;
+      border-bottom: 1px solid #432B5A;
+
+      &:hover {
+        background-color: #22162E!important;
+
+      }
+      a     {
+        display: block;
+        background: transparent !important;
+        padding: 0 0 0 0px;
+        margin: 0;
+        font: 18px/28px 'Questrial';
+        color: #ffffff;
+        width: 100%;
+        text-align: center;
+        border: none;
+        -webkit-transition: all 0.25s ease;
+        -o-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+        text-decoration: none;
+      }
+    }
+    ul {
+      display: none;
+      top: 0;
+      list-style: none !important;
+      zoom: 1;
+      z-index: 11;
+      background-color: #22162E!important;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      position: absolute;
+      left: 100%;
+    }
+  }
+}
+.homeSub .bodysub {
+  width: 183px !important;
+}
+footer {
+  padding: 20px 0 50px 0;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background-color: #fff;
+}
+.radioBox {
+  background-color: #4B2F66;
+  margin-bottom: 1%;
+  & span {
+    font-size: 23px;
+    text-align: center;
+    color: white;
+    margin-left: 3%;
+  }
+  font: 18px/68px 'Questrial';
+}

@@ -1,0 +1,69 @@
+<div class="main">
+  <!--header-->
+  <div class="container">
+    <header class="clearfix">
+      <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix" role="navigation">
+        <ul class="nav sf-menu  clearfix">
+
+          <li class="sub-menu">
+            <a [routerLink]="['']">Home</a>
+            <span class="fa fa-angle-down"></span>
+            <ul class="homeSub">
+              <li>
+                <a href="#">Animation</a>
+                <ul class="bodysub">
+                  <li><a href="ARigger" style="cursor:pointer;">Auto Rigger</a></li>
+                  <li><a [routerLink]="['repository']">Repository</a></li>
+                  <li><a href="merger_tool">Style Transfer Tool</a></li>
+                  <li><a href="pose_editor">Motion Editor</a></li>
+                </ul>
+              </li>
+              <li><a href="#">3D Modelling</a>
+                <ul class="bodysub">
+                  <li><a href="#">Yet To Launch</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Game maker</a>
+                <ul class="bodysub">
+                  <li><a href="#">Yet To Launch</a></li>
+                </ul>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a [routerLink]="['about']">About</a>
+          </li>
+          <li>
+            <a [routerLink]="['my-library']">My Library</a>
+          </li>
+          <li>
+            <a [routerLink]="['contact-us']">Contact Us</a>
+          </li>
+        </ul>
+      </nav>
+      <app-auth></app-auth>
+    </header>
+    <div *ngIf="showFilters" class="radioBox">
+      <div class="container">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 filter">
+          <div class="row">
+            <div class="col-lg-3">
+              <span class="text-center pull-left">Filters: </span>
+            </div>
+            <div class="col-lg-9 tagName">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<!--footer-->
+<footer>
+  <div class="container">
+    <figure><img src="/assets/images/fotterLogo.jpg" alt="" class="footerLogo"></figure>
+  </div>
+</footer>
