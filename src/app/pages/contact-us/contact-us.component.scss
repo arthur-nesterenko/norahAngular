@@ -58,6 +58,9 @@ h2 {
     float: left;
     width: 237px;
     margin-right: 13px;
+    line-height: 20px;
+    padding: 12px 14px;
+    background-color: rgba(255, 255, 255, 0.5);
 
     & strong {
       font: 16px/18px 'Roboto';
@@ -70,6 +73,9 @@ h2 {
   & .form-div-4 {
     margin-right: 0;
     margin-bottom: 28px;
+    line-height: 20px;
+    padding: 12px 14px;
+    background-color: rgba(255, 255, 255, 0.5);
 
     & strong {
       font: 16px/18px 'Roboto';
@@ -174,6 +180,24 @@ h2 {
     padding: 13px 15px;
     border-radius: 25px;
   }
+}
+#contact-form ._placeholder {
+  width: 100% !important;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: text;
+  border: 1px solid #d7d7d7;
+  background: none;
+  font: 16px/18px 'Roboto';
+  height: 48px;
+  color: #cbcbcb;
+  padding: 13px 15px;
+  border-radius: 25px;
 }
 .logo-box {
   background: #412a58 url(/assets/images/glow2.png) center bottom no-repeat;

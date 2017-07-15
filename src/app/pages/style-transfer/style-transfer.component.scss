@@ -1,0 +1,152 @@
+.blending_control, .blending_options {
+  line-height: 1.428571429;
+  color: #cbcbcb;
+  font-family: 'Questrial', sans-serif;
+}
+#slider1::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #09F 48%, lightgray 48%)
+}
+
+#slider1::-moz-range-track {
+  background: linear-gradient(to right, #09F 48%, lightgray 48%)
+}
+.slider-container {
+  border: none;
+  padding: 5px;
+  background: blue;
+}
+
+input[type=range] {
+  //-webkit-appearance: none;
+  /* Hides the slider so that custom slider can be made */
+  width: 100%;
+  /* Specific width is required for Firefox. */
+}
+
+input[type=range]::-webkit-slider-thumb {
+  //-webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  /* Hides the slider so custom styles can be added */
+  border-color: transparent;
+  color: transparent;
+}
+
+.range-label {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.range-container {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 5px;
+}
+
+.slider {
+  width: 100%;
+  margin: 0;
+  margin-top: 5px;
+  height: 30px;
+  background: #39244E;
+}
+
+.slider::-webkit-slider-thumb {
+  //-webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #aeaeae;
+  cursor: pointer;
+  margin-top: -7px;
+}
+
+.slider::-moz-range-thumb {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #aeaeae;
+  cursor: pointer;
+  margin-top: -7px;
+}
+
+.slider::-ms-thumb {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #aeaeae;
+  cursor: pointer;
+  margin-top: -7px;
+  margin-top: -3px;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 6px;
+  background: blue;
+}
+
+.slider::-moz-range-track {
+  height: 6px;
+  border-radius: 6px;
+  background: blue;
+}
+
+.slider::-moz-focus-outer {
+  border: 0;
+}
+
+.slider::-ms-track {
+  height: 6px;
+  border-radius: 6px;
+  background: blue;
+}
+
+.slider::-ms-fill-lower {
+  background: #09f;
+  border-radius: 6px;
+}
+
+.slider::-ms-fill-upper {
+  background: lightgray;
+  border-radius: 6px;
+}
+
+.slider::-ms-tooltip {
+  //display: none;
+}
+
+.main {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+p1 {
+  font-size: 35px;
+}
+
+p2 {
+  font-size: 20px;
+}

@@ -8,23 +8,29 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
+import { DialogComponent, DialogService } from './dialog/dialog.component';
+import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
-    AuthComponent
+    AuthComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    NgbModalModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    DialogService
   ],
   exports: [
     AuthComponent
-  ]
+  ],
+  entryComponents: [DialogComponent]
 })
 export class AuthModule { }

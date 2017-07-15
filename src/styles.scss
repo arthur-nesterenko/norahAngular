@@ -11,6 +11,7 @@ html body {
   font-size: 14px;
   color: #333;
   background-color: #412a58;
+  height: 100%;
 }
 h3 {
   font: 20px/1em 'Questrial';
@@ -20,4 +21,20 @@ h3 {
   font-weight: 500;
   line-height: 1.1;
   font-size: 24px;
+}
+span.property-name {
+  text-align: left !important;
+}
+.content.indent {
+  padding: 53px 0 0 0;
+  background-image: url(assets/images/contactus.jpg) !important;
+}
+.modal-backdrop.fade {
+  opacity: 0.3;
+}
+.fade.show {
+  opacity: 1;
+}
+ngb-modal-window {
+  opacity: 0.3;
 }

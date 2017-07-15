@@ -1,7 +1,7 @@
 <div class="main">
   <!--header-->
   <div class="container">
-    <header class="clearfix">
+    <header [class]="'clearfix ' + (updateIndex ? 'updateIndex' : '')" class="clearfix">
       <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix" role="navigation">
         <ul class="nav sf-menu  clearfix">
 
@@ -12,10 +12,10 @@
               <li>
                 <a href="#">Animation</a>
                 <ul class="bodysub">
-                  <li><a href="ARigger" style="cursor:pointer;">Auto Rigger</a></li>
+                  <li [routerLink]="['auto-rigger']"><a style="cursor:pointer;">Auto Rigger</a></li>
                   <li><a [routerLink]="['repository']">Repository</a></li>
-                  <li><a href="merger_tool">Style Transfer Tool</a></li>
-                  <li><a href="pose_editor">Motion Editor</a></li>
+                  <li (click)="checkLogin('style-transfer')"><a [routerLink]="['style-transfer']">Style Transfer Tool</a></li>
+                  <li (click)="checkLogin('motion-editor')"><a [routerLink]="['motion-editor']">Motion Editor</a></li>
                 </ul>
               </li>
               <li><a href="#">3D Modelling</a>
@@ -35,7 +35,7 @@
           <li class="sub-menu">
             <a [routerLink]="['about']">About</a>
           </li>
-          <li>
+          <li (click)="checkLogin('my-library')">
             <a [routerLink]="['my-library']">My Library</a>
           </li>
           <li>
@@ -43,7 +43,9 @@
           </li>
         </ul>
       </nav>
-      <app-auth></app-auth>
+      <template ngbModalContainer></template>
+
+      <app-auth [showModal]="userAuthorized"></app-auth>
     </header>
     <div *ngIf="showFilters" class="radioBox">
       <div class="container">
@@ -62,7 +64,7 @@
 </div>
 <router-outlet></router-outlet>
 <!--footer-->
-<footer>
+<footer *ngIf="!hideFooter">
   <div class="container">
     <figure><img src="/assets/images/fotterLogo.jpg" alt="" class="footerLogo"></figure>
   </div>

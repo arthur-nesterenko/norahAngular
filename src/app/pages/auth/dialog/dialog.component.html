@@ -1,0 +1,56 @@
+<div class="modal fade" style="display: block; opacity: 1;"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="reg">
+      <img src="/assets/images/blank_modal.png" alt="logo" class="img-logo img responsive">
+      <form novalidate [formGroup]="authForm" class="login-form">
+        <div class="form-group">
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input formControlName="email" required email type="email" class="form-control" id="inputEmail"
+                 placeholder="ENTER EMAIL ID">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input formControlName="password"
+                 required minlength="5"
+                 maxlength="30"
+                 type="password"
+                 class="form-control"
+                 id="inputPassword"
+                 placeholder="ENTER PASSWORD">
+        </div>
+        <div class="form-group">
+          <label
+            class="form-control"
+            placeholder="ENTER PASSWORD"></label>
+        </div>
+
+        <button (click)="signWithCredentials()"
+                [class]="'btn btn-default but' + (state === 'login' ? '1' : '2')"
+                type="button"
+                id="loginBtn">{{ state === 'login' ? 'Log-in' : 'Create account' }}
+        </button>
+        <div *ngIf="state === 'login'" id="firebaseui-auth-container">
+          <div class="SocialContainer">
+            <div class="SocialContainer-Card">
+              <ul class="SocialContainer-Card List">
+                <li *ngFor="let provider of providers" class="List-Item">
+                  <button (click)="loginWithProvider(provider)" class="Button Button-{{provider}}">
+                    <img class="SocialIcon"
+                         src="https://www.gstatic.com/firebasejs/ui/0.5.0/images/auth/{{provider.toLowerCase()}}.svg">
+                    <span>Sign in with {{provider}}</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <p (click)="switchForm()"
+           align="center"
+           class="new-animake">{{ state === 'login' ? 'Sign-up' : 'Already registered?' }}</p>
+      </form>
+    </div>
+  </div>
+</div>

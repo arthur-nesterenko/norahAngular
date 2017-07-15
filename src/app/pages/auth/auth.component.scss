@@ -8,6 +8,7 @@
   cursor: pointer;
   color: white;
   padding: 15px 0 10px 22px;
+  height: 67px
 }
 .SignBtn {
   padding: 10px 19px!important;
@@ -38,7 +39,11 @@
   }
 }
 .UserEmail {
-  margin-right: 5%!important;
+  padding-top: 10px;
+  margin-right: 13%!important;
+}
+.log-Out {
+  padding-top: 10px;
 }
 .modal {
   z-index: 1050;

@@ -7,6 +7,10 @@ import { HomeModule } from './pages/home/home.module';
 import { AboutComponent } from './pages/about/about.component';
 import { LogoModule } from './pages/logo/logo.module';
 import { AuthModule } from './pages/auth/auth.module';
+import { BrowserGlobalRef, GlobalRef } from './global-ref';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthGuard } from './pages/auth/auth-guard.service';
+import { DialogService } from './pages/auth/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +19,14 @@ import { AuthModule } from './pages/auth/auth.module';
   ],
   imports: [
     BrowserModule,
+    NgbModule.forRoot(),
     AppRoutingModule,
     AuthModule,
     HomeModule,
-    LogoModule
+    LogoModule,
+
   ],
-  providers: [],
+  providers: [{ provide: GlobalRef, useClass: BrowserGlobalRef }, AuthGuard, DialogService],
 
   bootstrap: [AppComponent]
 })

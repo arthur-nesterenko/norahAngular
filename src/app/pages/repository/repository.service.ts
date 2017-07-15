@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { FirebaseApp } from 'angularfire2';
+import { FirebaseApp } from 'angularfire2/angularfire2';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RepositoryService {
   private firebaseApp;
+  public page: BehaviorSubject<number> = new BehaviorSubject(1);
 
   constructor(
     @Inject(FirebaseApp) firebaseApp,
@@ -17,8 +19,7 @@ export class RepositoryService {
   get animations(): Observable<any[]> {
     return this.db.list('/animations', {
       query: {
-        orderByChild: 'name',
-        limitToFirst: 12
+        orderByChild: 'name'
       }
     });
   }

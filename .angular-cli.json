@@ -20,12 +20,25 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
-        "assets/css/firebaseui.css"
+        "assets/css/firebaseui.css",
+        "assets/css/style.css",
+        "assets/libs/dat.gui.css",
+        "assets/css/main.css",
+        "assets/css/reg_form.css"
       ],
       "scripts": [
         "assets/libs/jquery.js",
         "assets/libs/jquery.mobilemenu.js",
-        "assets/libs/superfish.js"
+        "assets/libs/superfish.js",
+        "assets/libs/three.js",
+        "assets/libs/Detector.js",
+        "assets/libs/TrackballControls.js",
+        "assets/libs/MTLLoader.js",
+        "assets/libs/dat.gui.min.js",
+        "assets/libs/OBJLoader2.js",
+        "assets/libs/WWOBJLoader2.js",
+        "assets/libs/UnityLoader.js",
+        "assets/libs/UnityProgress.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
