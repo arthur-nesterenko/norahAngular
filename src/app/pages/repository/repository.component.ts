@@ -8,24 +8,29 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./repository.component.scss']
 })
 export class RepositoryComponent implements OnInit {
-  animations: Animation[];
+  animations = [];
   tags: Tag[];
+  selectedTags: Tag[];
+  page = 1;
 
 
   constructor(private repService: RepositoryService) { }
 
   ngOnInit() {
+    const arr = [];
+    this.animations = arr;
+    this.selectedTags = [];
+    this.repService.page$.next(50);
+
     this.repService.animations.subscribe((result: Animation[]) => {
       result.forEach((animation: Animation) => {
+        arr.push(animation);
         this.repService.animationsFiles(animation.name)
           .then((urls) => {
-
-          animation.animUrl = urls.animURL;
-          animation.mp4Url = urls.mp4URL;
-
-          this.animations = result;
-
-        }).then(() => this.animations = result)
+            animation.animUrl = urls.animURL;
+            animation.mp4Url = urls.mp4URL;
+            console.log(animation.animUrl, animation.mp4Url);
+          });
       });
     });
 
@@ -33,7 +38,7 @@ export class RepositoryComponent implements OnInit {
       this.tags = tags.map((tag: Tag) => {
         delete tag.$exists;
 
-        let store = [];
+        const store = [];
         for ( let i in tag ) {
           if (i !== '$key') {
             store.push(tag[i])
@@ -42,6 +47,12 @@ export class RepositoryComponent implements OnInit {
         return {key: tag['$key'], tags: store};
       });
     });
+  }
+  setPage(page) {
+    this.repService.page$.next(page * 8 || 8);
+  }
+  addTag(tag) {
+    this.repService.addTag(tag);
   }
 }
 
@@ -58,7 +69,7 @@ export interface Animation {
 }
 
 export interface Tag {
-  $exist: Function,
-  $key: string;
+  $exist?: Function,
+  $key?: string;
   [key: string]: any;
 }

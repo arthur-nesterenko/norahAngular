@@ -5,10 +5,12 @@ import { RouterModule } from '@angular/router';
 import { environment } from 'environments/environment';
 import { AngularFireModule } from 'angularfire2/angularfire2';
 import { RepositoryService } from './repository.service';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
+    NgbPaginationModule.forRoot(),
     RouterModule.forChild([{
       path: '',
       component: RepositoryComponent
@@ -17,6 +19,6 @@ import { RepositoryService } from './repository.service';
 
   ],
   providers: [RepositoryService],
-  declarations: [RepositoryComponent]
+  declarations: [RepositoryComponent],
 })
 export class RepositoryModule { }

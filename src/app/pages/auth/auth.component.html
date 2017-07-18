@@ -1,9 +1,12 @@
 <div class="AuthContainer">
-  <div *ngIf="user" class="UserEmail pull-right">{{ user?.email }}</div>
-  <div *ngIf="user" (click)="logout()" class="log-Out" id="logOutBtn" type="button">Log-Out</div>
+  <img class="facebook" src="/assets/images/Facebook.png" alt="">
+  <img class="google" src="/assets/images/Google+.png" alt="">
+  <img class="twitter" src="/assets/images/Twitter.png" alt="">
+  <!--<div *ngIf="user" class="UserEmail pull-right">{{ user?.email }}</div>-->
+  <div *ngIf="user" (click)="logout()" class="SignBtn" id="logOutBtn" type="button">Log-Out</div>
   <div *ngIf="!user" class="sign-in">
     <!-- Trigger the modal with a button -->
-    <button type="button" class="SignBtn" (click)="authModal.show()"><i class="fa fa-lock" aria-hidden="true"></i><span>Sign in</span></button>
+    <button type="button" class="SignBtn" (click)="authModal.show()"><span>Login</span></button>
   </div>
 </div>
 

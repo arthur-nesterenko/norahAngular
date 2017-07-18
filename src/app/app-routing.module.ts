@@ -9,6 +9,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    pathMatch: 'full'
   },
   {
     path: 'about',

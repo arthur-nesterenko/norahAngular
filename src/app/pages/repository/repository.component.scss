@@ -1,21 +1,26 @@
+@import "../../../styles/colors";
+@import "../../../styles/variables";
 :host {
-  background: #412a58;
+  background: $background-color;
 }
 .zodiac_box {
   overflow: hidden;
-  background: #412a58;
+  background: $background-color;
   text-align: center;
   padding: 0;
+  min-height: 800px;
   font-family: 'Questrial', sans-serif;
 }
 .leftSideBar {
-  background-color: #2F1D41;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 54%;
+  background-color: $navbar-color;
+  margin-top: -80px;
+  padding: 10px 0;
+  width: 350px;
+  height: 620px;
+  margin-left: 40px;
 
   & ul li {
-    background-color: #4E3F5D;
+    background-color: $navbar-color;
     position: relative;
     float: none;
     & a {
@@ -25,11 +30,11 @@
   }
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
-  background-color: #E36480!important;
+  background-color: $blue!important;
 }
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
-  background-color: #E36480!important;
+  background-color: $blue!important;
 }
 .subMenuS {
   float: right;
@@ -45,7 +50,7 @@
     width: 70%;
     z-index: 9999;
     margin-top: -14%;
-    background-color: #261635!important;
+    background-color: $home-box-color!important;
     opacity: 0.7;
     float: right;
     cursor: pointer;
@@ -82,9 +87,15 @@ li.presentation:hover {
   width: 23%;
   margin-right: 7px;
   padding: 0;
-  background: #412A58;
+  background: $home-box-color;
   display: inline-block;
   position: relative;
   z-index: 1;
   overflow: hidden;
+}
+.pagination > li > a, .pagination > li > span {
+  background-colo: $navbar-color !important;
+  color: darkgrey;
+  border: 1px solid $home-box-color;
+
 }

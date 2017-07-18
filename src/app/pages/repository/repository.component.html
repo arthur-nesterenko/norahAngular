@@ -1,13 +1,13 @@
-<div class="container zodiac_box zodiac_box_repos">
+<div class=" container-fluid zodiac_box zodiac_box_repos">
   <div class="row">
     <div class="col-sm-3 col-xs-4 leftSideBar">
       <ul class="nav nav-pills nav-stacked menuS">
 
         <li *ngFor="let tag of tags" class="presentation">
-          <a href="#">{{tag.key}}</a>
+          <a (click)="addTag(tag.key)">{{tag.key}}</a>
           <ul class="nav nav-pills nav-stacked subMenuS">
             <li *ngFor="let subCat of tag.tags" class="subManuLi">
-              <a>{{subCat}}</a>
+              <a (click)="addTag(subCat)">{{subCat}}</a>
             </li>
           </ul>
         </li>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-sm-9 col-xs-8 zodiacCont" *ngIf="animations">
-      <div *ngFor="let animation of animations" class="box fadeInUp clust">
+      <div *ngFor="let animation of animations.slice((page - 1) * 8 , (page - 1) * 8 + 8)" class="box fadeInUp clust">
 
         <div>
         <a href=""></a>
@@ -31,14 +31,11 @@
 
 
   </div>
-  <div class="row">
+  <div class="row" *ngIf="animations?.length">
     <div class="col-lg-5 col-lg-offset-5">
-      <nav aria-label="...">
-        <ul class="pagination repo-pages">
-          <li class="active"><a href="#" onclick="getVideos(1, this);">1 <span class="sr-only">(current)</span></a></li>
+            <ngb-pagination [collectionSize]="animations?.length" [(page)]="page" (pageChange)="setPage($event)" [maxSize]="12" [rotate]="true" [boundaryLinks]="true">
 
-        </ul>
-      </nav>
+            </ngb-pagination>
     </div>
   </div>
 </div>

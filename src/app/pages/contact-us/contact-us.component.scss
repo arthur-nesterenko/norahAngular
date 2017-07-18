@@ -31,6 +31,7 @@ h2 {
   position: relative;
   text-align: left;
 
+
   label {
     width: 100%;
     position: relative;
@@ -60,11 +61,11 @@ h2 {
     margin-right: 13px;
     line-height: 20px;
     padding: 12px 14px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: transparent !important;
 
     & strong {
       font: 16px/18px 'Roboto';
-      color: #cbcbcb;
+      color: black;
       margin-bottom: 7px;
       display: block;
     }
@@ -75,11 +76,11 @@ h2 {
     margin-bottom: 28px;
     line-height: 20px;
     padding: 12px 14px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: transparent !important;
 
     & strong {
       font: 16px/18px 'Roboto';
-      color: #cbcbcb;
+      color: black;
       margin-bottom: 7px;
       display: block;
     }
@@ -91,11 +92,11 @@ h2 {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
-    border: 1px solid #d7d7d7;
+    border: 1px solid black;
     background: none;
     font: 16px/18px 'Roboto';
     height: 48px;
-    color: #cbcbcb;
+    color: black !important;
     padding: 13px 15px;
     border-radius: 25px;
   }
@@ -129,11 +130,11 @@ h2 {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     resize: none;
-    border: 1px solid #d7d7d7;
+    border: 1px solid black;
     background: none;
     font: 16px/18px 'Roboto';
     height: 158px;
-    color: #cbcbcb;
+    color: black !important;
     border-radius: 25px;
     line-height: 20px;
     padding: 12px 14px;

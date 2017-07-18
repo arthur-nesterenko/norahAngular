@@ -16,7 +16,7 @@ export class AuthComponent {
   user: User;
   authForm: FormGroup;
   providers = ['Google', 'Facebook', 'Twitter'];
-  state: string = 'login';
+  state = 'login';
   @Input() showModal: Observable<boolean>;
   @ViewChild('authModal') public authModal: ModalDirective;
 

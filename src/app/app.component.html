@@ -1,52 +1,34 @@
 <div class="main">
   <!--header-->
+  <header [class]="'clearfix ' + (updateIndex ? 'updateIndex' : '')" class="clearfix">
+    <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix" role="navigation">
+      <div [routerLink]="['']" class="logo">
+
+      </div>
+      <ul class="nav sf-menu  clearfix">
+
+        <li class="sub-menu">
+          <a [routerLink]="['']">Home</a>
+        </li>
+
+        <li class="sub-menu">
+          <a [routerLink]="['about']" routerLinkActive="active">About</a>
+        </li>
+        <li (click)="checkLogin('my-library')">
+          <a [routerLink]="['my-library']" routerLinkActive="active">My Library</a>
+        </li>
+        <li>
+          <a [routerLink]="['contact-us']" routerLinkActive="active">Contact Us</a>
+        </li>
+      </ul>
+
+    </nav>
+    <template ngbModalContainer></template>
+
+    <app-auth [showModal]="userAuthorized"></app-auth>
+  </header>
   <div class="container">
-    <header [class]="'clearfix ' + (updateIndex ? 'updateIndex' : '')" class="clearfix">
-      <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix" role="navigation">
-        <ul class="nav sf-menu  clearfix">
 
-          <li class="sub-menu">
-            <a [routerLink]="['']">Home</a>
-            <span class="fa fa-angle-down"></span>
-            <ul class="homeSub">
-              <li>
-                <a href="#">Animation</a>
-                <ul class="bodysub">
-                  <li [routerLink]="['auto-rigger']"><a style="cursor:pointer;">Auto Rigger</a></li>
-                  <li><a [routerLink]="['repository']">Repository</a></li>
-                  <li (click)="checkLogin('style-transfer')"><a [routerLink]="['style-transfer']">Style Transfer Tool</a></li>
-                  <li (click)="checkLogin('motion-editor')"><a [routerLink]="['motion-editor']">Motion Editor</a></li>
-                </ul>
-              </li>
-              <li><a href="#">3D Modelling</a>
-                <ul class="bodysub">
-                  <li><a href="#">Yet To Launch</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Game maker</a>
-                <ul class="bodysub">
-                  <li><a href="#">Yet To Launch</a></li>
-                </ul>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="sub-menu">
-            <a [routerLink]="['about']">About</a>
-          </li>
-          <li (click)="checkLogin('my-library')">
-            <a [routerLink]="['my-library']">My Library</a>
-          </li>
-          <li>
-            <a [routerLink]="['contact-us']">Contact Us</a>
-          </li>
-        </ul>
-      </nav>
-      <template ngbModalContainer></template>
-
-      <app-auth [showModal]="userAuthorized"></app-auth>
-    </header>
     <div *ngIf="showFilters" class="radioBox">
       <div class="container">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 filter">
@@ -55,6 +37,7 @@
               <span class="text-center pull-left">Filters: </span>
             </div>
             <div class="col-lg-9 tagName">
+              <button *ngFor="let tag of tags" class="closeDiv">{{tag}}</button>
             </div>
           </div>
         </div>
@@ -65,7 +48,58 @@
 <router-outlet></router-outlet>
 <!--footer-->
 <footer *ngIf="!hideFooter">
-  <div class="container">
-    <figure><img src="/assets/images/fotterLogo.jpg" alt="" class="footerLogo"></figure>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3  text-left">
+        <h3 class="listTitle">
+          Horoscopes
+        </h3>
+        <ul class="list-unstyled text-justify">
+          <li> - 2015 Horoscope </li>
+          <li> - 2014 Chinese</li>
+          <li> - Daily Horoscope</li>
+          <li> - Weekly Horoscope</li>
+        </ul>
+      </div>
+      <div class="col-lg-3  text-left">
+        <h3 class="listTitle">
+          Horoscopes
+        </h3>
+        <ul class="list-unstyled text-justify">
+          <li> - 2015 Horoscope</li>
+          <li> - 2014 Chinese</li>
+          <li> - Daily Horoscope</li>
+          <li> - Weekly Horoscope</li>
+        </ul>
+      </div>
+      <div class="col-lg-3  text-left">
+        <h3 class="listTitle">
+          Horoscopes
+        </h3>
+        <ul class="list-unstyled">
+          <li> - 2015 Horoscope</li>
+          <li> - 2014 Chinese</li>
+          <li> - Daily Horoscope</li>
+          <li> - Weekly Horoscope</li>
+        </ul>
+      </div>
+      <div class="col-lg-3  text-left">
+        <h3 class="listTitle">
+          Horoscopes
+        </h3>
+        <ul class="list-unstyled">
+          <li> - 2015 Horoscope</li>
+          <li> - 2014 Chinese</li>
+          <li> - Daily Horoscope</li>
+          <li> - Weekly Horoscope</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row footerBanner">
+      <div class="form-group">
+        <input type="email" class="form-control banner-form" id="exampleInputEmail1" placeholder="Email">
+        <span class="subscribe">SUBSCRIBE</span>
+      </div>
+    </div>
   </div>
 </footer>

@@ -5,14 +5,8 @@ $fa-font-path: '/assets/fonts/font-awesome/fonts';
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap";
 @import "assets/fonts/font-awesome/scss/font-awesome";
 @import "animate";
+@import "styles/colors";
 
-html body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #333;
-  background-color: #412a58;
-  height: 100%;
-}
 h3 {
   font: 20px/1em 'Questrial';
   color: #e46b86;
@@ -37,4 +31,16 @@ span.property-name {
 }
 ngb-modal-window {
   opacity: 0.3;
+}
+
+
+html body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  background-color: $background-color;
+  height: 100%;
+}
+.main {
+  background: none !important;
 }

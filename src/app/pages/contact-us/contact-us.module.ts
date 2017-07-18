@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { ModalModule } from 'ngx-bootstrap/modal/modal.module';
 
 import { ContactUsComponent } from './contact-us.component';
-import { LogoModule } from '../logo/logo.module';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import { LogoModule } from '../logo/logo.module';
       path: '',
       component: ContactUsComponent
     }]),
-    ModalModule.forRoot(),
-    LogoModule
+    ModalModule.forRoot()
   ],
   providers: []
 })

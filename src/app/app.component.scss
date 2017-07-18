@@ -1,6 +1,9 @@
+@import "../styles/colors";
+@import "../styles/variables";
+
 .main {
   position: relative;
-  background: #412a58 url(/assets/images/glow.png) center bottom no-repeat;
+  background: $background-color url(/assets/images/glow.png) center bottom no-repeat;
 }
 
 .container {
@@ -15,8 +18,8 @@ header {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: #4b3065;
-  box-shadow: 0 4px 4px 0 #3D2854;
+  background: $navbar-color;
+  box-shadow: 0 4px 4px 0 #1b2836;
 }
 
 nav.tm_navbar {
@@ -26,12 +29,23 @@ nav.tm_navbar {
   float: left;
   min-height: 0;
   background: none;
-  li:hover>a {
-    color: #ffffff;
-    background: #e36480 !important;
-    transition: all 0.3s;
+
+  .logo {
+    background: url("/assets/images/logo.png") no-repeat center;
+    float: left;
+    width: 120px;
+    height: 70px;
   }
 
+  ul {
+    float: left;
+  }
+
+  li:hover>a {
+    color: $blue;
+    background: $navbar-color !important;
+    transition: all 0.3s;
+  }
   li {
     position: relative;
     font-size: 14px;
@@ -42,8 +56,8 @@ nav.tm_navbar {
 
     :hover {
       >a {
-        color: #ffffff;
-        background: #e36480 !important;
+        color:white;
+        background:$navbar-color !important;
         transition: all 0.3s;
       }
       >span {
@@ -51,16 +65,19 @@ nav.tm_navbar {
         transition: all 0.3s;
       }
     }
-
     a {
       position: relative;
       padding: 0;
-      font: 18px/68px 'Questrial';
-      width: 180px;
+      font: $navbar-font;
+      width: 130px;
       text-align: center;
       color: #ffffff;
-      background: #4b3065;
+      background: $navbar-color;
       transition: all 0.3s;
+
+      &.active {
+        color: $blue;
+      }
     }
     span {
       text-align: center;
@@ -70,24 +87,22 @@ nav.tm_navbar {
       bottom: 9px;
       color: #ffffff;
       font-size: 12px;
-      z-index: 0;
       transition: all 0.35s;
     }
   }
   .sub-menu>ul {
-    background-color: #2F2041;
+    background-color: $navbar-color;
     left: -2px;
     position: absolute;
     display: none;
     width: 183px;
     top: 68px;
     list-style: none !important;
-    z-index: 11;
     padding: 0;
     margin: 0;
     overflow: visible;
     text-align: left;
-    border: 1px solid #412a58;
+    border: 1px solid $navbar-color;
 
 
     li {
@@ -99,10 +114,10 @@ nav.tm_navbar {
       margin: 0;
       padding: 10px 0;
       display: block;
-      border-bottom: 1px solid #432B5A;
+      border-bottom: 1px solid $navbar-color;
 
       &:hover {
-        background-color: #22162E!important;
+        background-color: $navbar-color!important;
 
       }
       a     {
@@ -110,7 +125,7 @@ nav.tm_navbar {
         background: transparent !important;
         padding: 0 0 0 0px;
         margin: 0;
-        font: 18px/28px 'Questrial';
+        font: $navbar-font;
         color: #ffffff;
         width: 100%;
         text-align: center;
@@ -126,8 +141,7 @@ nav.tm_navbar {
       top: 0;
       list-style: none !important;
       zoom: 1;
-      z-index: 11;
-      background-color: #22162E!important;
+      background-color: $navbar-color!important;
       padding: 0;
       margin: 0;
       text-align: left;
@@ -140,14 +154,14 @@ nav.tm_navbar {
   width: 183px !important;
 }
 footer {
-  padding: 20px 0 50px 0;
+  padding: 70px 0 50px 70px;
   position: relative;
   overflow: hidden;
   text-align: center;
   background-color: #fff;
 }
 .radioBox {
-  background-color: #4B2F66;
+  background-color: $navbar-color;
   margin-bottom: 1%;
   & span {
     font-size: 23px;
@@ -155,8 +169,37 @@ footer {
     color: white;
     margin-left: 3%;
   }
-  font: 18px/68px 'Questrial';
+  font: $navbar-font;
 }
-.updateIndex {
-  z-index: 11;
+h3.listTitle {
+  color: $blue;
+  padding: 0 5px;
+  text-transform: uppercase;
+
+}
+ul.list-unstyled {
+  li {
+    padding: 5px;
+  }
+}
+.footerBanner {
+  width: 100%;
+  height: 250px;
+  background: white url('/assets/images/Layer 26.png') no-repeat center;
+}
+.banner-form {
+  position: absolute;
+  left: 59%;
+  top: 64%;
+  width: 268px;
+  height: 41px;
+  background-color: transparent;
+  border: none;
+}
+.subscribe {
+  position: absolute;
+  right: 19%;
+  top: 66%;
+  color: white;
+  font-size: 15px;
 }

@@ -1,33 +1,24 @@
+@import "../../../styles/colors";
+@import "../../../styles/variables";
+
 .AuthContainer {
-  margin: 0;
-  list-style: none;
   float: right;
-  overflow: hidden;
-  background-color: #E36480;
-  width: 27%;
-  cursor: pointer;
+  background-color: $navbar-color;
   color: white;
-  padding: 15px 0 10px 22px;
-  height: 67px
 }
 .SignBtn {
-  padding: 10px 19px!important;
-  width: 129px;
-  margin-bottom: 0;
+  padding: 10px 20px!important;
+  width: 160px;
+  margin-top: 10px;
+  margin-right: 20px;
   font-weight: 400;
-  line-height: 1.42857143;
-  text-align: left;
-  white-space: nowrap;
-  vertical-align: middle;
-  touch-action: manipulation;
-  cursor: pointer;
-  user-select: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  text-align: center;
+  border: 1px solid $blue;
+  border-radius: 30px;
   color: #fff;
-  background: #E36480 none;
+  background: $navbar-color none;
   transition: all 0.2s ease-in-out;
-  font-size: 19px;
+  font-size: $navbar-font;
   float: left;
 
   i {
@@ -226,4 +217,28 @@
       }
     }
   }
+}
+.facebook {
+
+  position: absolute;
+  right: 18%;
+  width: 38px;
+  top: 15%;
+
+}
+.google {
+
+  position: absolute;
+  right: 15%;
+  width: 38px;
+  top: 15%;
+
+}
+.twitter {
+
+  position: absolute;
+  right: 12%;
+  width: 38px;
+  top: 18%;
+
 }
