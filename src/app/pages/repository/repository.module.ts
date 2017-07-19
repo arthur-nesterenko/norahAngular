@@ -18,7 +18,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFireModule.initializeApp(environment.firebase)
 
   ],
-  providers: [RepositoryService],
+  providers: [],
   declarations: [RepositoryComponent],
 })
 export class RepositoryModule { }

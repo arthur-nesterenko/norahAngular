@@ -14,7 +14,7 @@
         <li class="sub-menu">
           <a [routerLink]="['about']" routerLinkActive="active">About</a>
         </li>
-        <li (click)="checkLogin('my-library')">
+        <li>
           <a [routerLink]="['my-library']" routerLinkActive="active">My Library</a>
         </li>
         <li>
@@ -31,15 +31,25 @@
 
     <div *ngIf="showFilters" class="radioBox">
       <div class="container">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 filter">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 filter" *ngIf="!myLibrary">
           <div class="row">
             <div class="col-lg-3">
               <span class="text-center pull-left">Filters: </span>
             </div>
             <div class="col-lg-9 tagName">
-              <button *ngFor="let tag of tags" class="closeDiv">{{tag}}</button>
+              <button (click)="removeTag(tag)" *ngFor="let tag of tags" class="tag closeDiv">{{tag}} <i class="fa "></i></button>
             </div>
           </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 filter" *ngIf="myLibrary">
+          <div class="col-md-3">
+            <p style="margin-top:5px;font-size:15px;color:white;">MY ASSETS</p>
+          </div>
+          <div class="del_btn">
+            <a href="javascript:;" onclick="" class="btn"
+               >Delete Selected</a>
+          </div>
+
         </div>
       </div>
     </div>

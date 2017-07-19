@@ -4,7 +4,7 @@ import { GlobalRef } from '../../global-ref';
 @Component({
   selector: 'app-auto-rigger',
   templateUrl: './auto-rigger.component.html',
-  styleUrls: ['../../../assets/css/rigger_popup.css','./auto-rigger.component.scss']
+  styleUrls: ['../../../assets/css/rigger_popup.css', './auto-rigger.component.scss']
 })
 export class AutoRiggerComponent implements AfterViewInit {
 

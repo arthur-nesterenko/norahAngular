@@ -203,3 +203,38 @@ ul.list-unstyled {
   color: white;
   font-size: 15px;
 }
+.tag {
+  color: darkgrey;
+  border: 1px solid $home-box-color;
+  background-color: $home-box-color3;
+  border-radius: 30px;
+  height: 40px;
+  padding: 0 14px 3px;
+  float: left;
+  margin-top: 10px;
+  line-height: 1;
+}
+
+.del_btn a {
+  padding: 10px 20px !important;
+  width: 160px;
+  margin-top: 18px;
+  margin-right: 20px;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid $blue;
+  border-radius: 30px;
+  color: #fff;
+  background: $navbar-color none;
+  transition: all 0.2s ease-in-out;
+  font-size: $navbar-font;
+  float: left;
+
+  i {
+    padding-right: 19%;
+  }
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25);
+  }
+}

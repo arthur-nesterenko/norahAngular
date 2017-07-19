@@ -4,7 +4,7 @@ export interface MyGlobal {
       WWOBJLoader2: any;
     },
     TrackballControls: any;
-  }
+  };
   dat: any;
   UnityLoader: any;
   UnityProgress: any;
@@ -12,6 +12,8 @@ export interface MyGlobal {
   mp4library: any;
   UnityLoadFinished: any;
   downloadAnim: any;
+  toastr: any;
+  download: any;
 }
 
 export abstract class GlobalRef {
@@ -19,5 +21,7 @@ export abstract class GlobalRef {
 }
 
 export class BrowserGlobalRef extends GlobalRef {
-  get nativeGlobal(): MyGlobal { return <any>window as MyGlobal; }
+  get nativeGlobal(): MyGlobal {
+    return <any>window as MyGlobal;
+  }
 }

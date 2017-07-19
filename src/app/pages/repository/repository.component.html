@@ -16,12 +16,13 @@
 
     </div>
 
-    <div class="col-sm-9 col-xs-8 zodiacCont" *ngIf="animations">
-      <div *ngFor="let animation of animations.slice((page - 1) * 8 , (page - 1) * 8 + 8)" class="box fadeInUp clust">
+    <div class="col-sm-9 col-xs-8 zodiacCont" *ngIf="displayAnimations">
+      <div *ngFor="let animation of displayAnimations.slice((page - 1) * 15 , (page - 1) * 15 + 15)" class="box-video fadeInUp clust">
 
-        <div>
-        <a href=""></a>
-        <a href=""></a>
+        <div style="z-index: 111;">
+        <a class="newwwww" (click)="addVideo(animation)"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+        <a href="{{animation.mp4Url}}" target="_blank" class="download-anim"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
+          <div class="animation-name">{{animation.name}}</div>
         </div>
         <video autoplay loop muted src="{{animation.mp4Url}}">
 
@@ -33,7 +34,7 @@
   </div>
   <div class="row" *ngIf="animations?.length">
     <div class="col-lg-5 col-lg-offset-5">
-            <ngb-pagination [collectionSize]="animations?.length" [(page)]="page" (pageChange)="setPage($event)" [maxSize]="12" [rotate]="true" [boundaryLinks]="true">
+            <ngb-pagination [collectionSize]="displayAnimations?.length" [(page)]="page" (pageChange)="setPage($event)" [maxSize]="15" [rotate]="true" [boundaryLinks]="true">
 
             </ngb-pagination>
     </div>

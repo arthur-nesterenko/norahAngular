@@ -33,7 +33,10 @@
         "assets/libs/OBJLoader2.js",
         "assets/libs/WWOBJLoader2.js",
         "assets/libs/UnityLoader.js",
-        "assets/libs/UnityProgress.js"
+        "assets/libs/UnityProgress.js",
+        "assets/libs/toastr.js",
+        "assets/libs/tm-scripts.js"
+
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

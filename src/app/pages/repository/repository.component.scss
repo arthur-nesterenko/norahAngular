@@ -15,14 +15,13 @@
   background-color: $navbar-color;
   margin-top: -80px;
   padding: 10px 0;
-  width: 350px;
+  width: 310px;
   height: 620px;
   margin-left: 40px;
 
   & ul li {
     background-color: $navbar-color;
     position: relative;
-    float: none;
     & a {
       color: #DCD7E0;
       border-radius: 0;
@@ -39,11 +38,11 @@
 .subMenuS {
   float: right;
   position: absolute;
-  overflow: visible;
-  margin-left: 100%;
-  margin-top: -1.5%;
-  width: 87%;
-  z-index: 2;
+  overflow: scroll;
+  margin-left: 70%;
+  margin-top: -13%;
+  width: 100%;
+  height: 0;
 
   & li {
     display: none;
@@ -58,6 +57,7 @@
 }
 li.presentation:hover {
   & .subMenuS {
+    height: 337px;
 
     & .subManuLi {
       display: block;
@@ -83,19 +83,14 @@ li.presentation:hover {
   margin-top: 2px;
   margin-left: 0;
 }
-.zodiacCont .box {
-  width: 23%;
-  margin-right: 7px;
-  padding: 0;
-  background: $home-box-color;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
+
 .pagination > li > a, .pagination > li > span {
   background-colo: $navbar-color !important;
   color: darkgrey;
   border: 1px solid $home-box-color;
+
+}
+.menuS {
+  padding-top: 70px;
 
 }
