@@ -32,8 +32,8 @@ export class DialogComponent   {
   }
   signWithCredentials() {
     this.state === 'login' ?
-      this.authService.login(this.email, this.password) :
-      this.authService.signWithCredentials(this.email, this.password);
+      this.authService.login({email: this.email, password: this.password}) :
+      this.authService.signWithCredentials({email: this.email, password: this.password});
   }
   loginWithProvider(provider: string): void {
     switch (provider) {

@@ -2,26 +2,47 @@
   <!--header-->
   <header [class]="'clearfix ' + (updateIndex ? 'updateIndex' : '')" class="clearfix">
     <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix" role="navigation">
-      <div [routerLink]="['']" class="logo">
-
-      </div>
+       <div class="logo"></div>
       <ul class="nav sf-menu  clearfix">
 
         <li class="sub-menu">
           <a [routerLink]="['']">Home</a>
+          <span class="fa fa-angle-down"></span>
+          <ul class="homeSub">
+            <li>
+              <a href="#">Animation</a>
+              <ul class="bodysub">
+                <li [routerLink]="['auto-rigger']"><a style="cursor:pointer;">Auto Rigger</a></li>
+                <li><a [routerLink]="['repository']">Repository</a></li>
+                <li><a [routerLink]="['style-transfer']">Style Transfer Tool</a>
+                </li>
+                <li><a [routerLink]="['motion-editor']">Motion Editor</a></li>
+              </ul>
+            </li>
+            <li><a href="#">3D Modelling</a>
+              <ul class="bodysub">
+                <li><a href="#">Yet To Launch</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Game maker</a>
+              <ul class="bodysub">
+                <li><a href="#">Yet To Launch</a></li>
+              </ul>
+            </li>
+
+          </ul>
         </li>
 
         <li class="sub-menu">
-          <a [routerLink]="['about']" routerLinkActive="active">About</a>
+          <a [routerLink]="['about']">About</a>
         </li>
         <li>
-          <a [routerLink]="['my-library']" routerLinkActive="active">My Library</a>
+          <a [routerLink]="['my-library']">My Library</a>
         </li>
         <li>
-          <a [routerLink]="['contact-us']" routerLinkActive="active">Contact Us</a>
+          <a [routerLink]="['contact-us']">Contact Us</a>
         </li>
       </ul>
-
     </nav>
     <template ngbModalContainer></template>
 
@@ -37,7 +58,8 @@
               <span class="text-center pull-left">Filters: </span>
             </div>
             <div class="col-lg-9 tagName">
-              <button (click)="removeTag(tag)" *ngFor="let tag of tags" class="tag closeDiv">{{tag}} <i class="fa "></i></button>
+              <button (click)="removeTag(tag)" *ngFor="let tag of tags" class="tag closeDiv">{{tag}} <i class="fa "></i>
+              </button>
             </div>
           </div>
         </div>
@@ -47,7 +69,7 @@
           </div>
           <div class="del_btn">
             <a href="javascript:;" onclick="" class="btn"
-               >Delete Selected</a>
+            >Delete Selected</a>
           </div>
 
         </div>
@@ -58,58 +80,7 @@
 <router-outlet></router-outlet>
 <!--footer-->
 <footer *ngIf="!hideFooter">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-3  text-left">
-        <h3 class="listTitle">
-          Horoscopes
-        </h3>
-        <ul class="list-unstyled text-justify">
-          <li> - 2015 Horoscope </li>
-          <li> - 2014 Chinese</li>
-          <li> - Daily Horoscope</li>
-          <li> - Weekly Horoscope</li>
-        </ul>
-      </div>
-      <div class="col-lg-3  text-left">
-        <h3 class="listTitle">
-          Horoscopes
-        </h3>
-        <ul class="list-unstyled text-justify">
-          <li> - 2015 Horoscope</li>
-          <li> - 2014 Chinese</li>
-          <li> - Daily Horoscope</li>
-          <li> - Weekly Horoscope</li>
-        </ul>
-      </div>
-      <div class="col-lg-3  text-left">
-        <h3 class="listTitle">
-          Horoscopes
-        </h3>
-        <ul class="list-unstyled">
-          <li> - 2015 Horoscope</li>
-          <li> - 2014 Chinese</li>
-          <li> - Daily Horoscope</li>
-          <li> - Weekly Horoscope</li>
-        </ul>
-      </div>
-      <div class="col-lg-3  text-left">
-        <h3 class="listTitle">
-          Horoscopes
-        </h3>
-        <ul class="list-unstyled">
-          <li> - 2015 Horoscope</li>
-          <li> - 2014 Chinese</li>
-          <li> - Daily Horoscope</li>
-          <li> - Weekly Horoscope</li>
-        </ul>
-      </div>
-    </div>
-    <div class="row footerBanner">
-      <div class="form-group">
-        <input type="email" class="form-control banner-form" id="exampleInputEmail1" placeholder="Email">
-        <span class="subscribe">SUBSCRIBE</span>
-      </div>
-    </div>
+  <div class="container">
+    <figure><img src="/assets/images/fotterLogo.jpg" alt="" class="footerLogo"></figure>
   </div>
 </footer>

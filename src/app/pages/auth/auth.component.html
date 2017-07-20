@@ -2,8 +2,7 @@
   <!--<img class="facebook" src="/assets/images/Facebook.png" alt="">-->
   <!--<img class="google" src="/assets/images/Google+.png" alt="">-->
   <!--<img class="twitter" src="/assets/images/Twitter.png" alt="">-->
-  <!--<div *ngIf="user" class="UserEmail pull-right">{{ user?.email }}</div>-->
-  <div *ngIf="user" (click)="logout()" class="SignBtn" id="logOutBtn" type="button">Log-Out</div>
+  <div *ngIf="user" (click)="logout()" class="SignBtn" id="logOutBtn" type="button">Log-Out     {{ user?.email }}</div>
   <div *ngIf="!user" class="sign-in">
     <!-- Trigger the modal with a button -->
     <button type="button" class="SignBtn" (click)="authModal.show()"><span>Login</span></button>
@@ -15,7 +14,7 @@
   <div class="modal-dialog modal-sm">
     <div class="reg">
       <img src="/assets/images/blank_modal.png" alt="logo" class="img-logo img responsive">
-      <form novalidate [formGroup]="authForm" class="login-form">
+      <form (submit)="signWithCredentials()" novalidate [formGroup]="authForm" class="login-form">
         <div class="form-group">
           <label for="inputEmail" class="sr-only">Email address</label>
           <input formControlName="email" required email type="email" class="form-control" id="inputEmail" placeholder="ENTER EMAIL ID">

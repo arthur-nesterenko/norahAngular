@@ -12,6 +12,7 @@ import { AuthGuard } from './pages/auth/auth-guard.service';
 import { DialogService } from './pages/auth/dialog/dialog.component';
 import { RepositoryService } from './pages/repository/repository.service';
 import { RepositoryModule } from './pages/repository/repository.module';
+import { LogoComponent } from './pages/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,6 @@ import { RepositoryModule } from './pages/repository/repository.module';
 
   ],
   providers: [{ provide: GlobalRef, useClass: BrowserGlobalRef }, AuthGuard, DialogService, RepositoryService],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

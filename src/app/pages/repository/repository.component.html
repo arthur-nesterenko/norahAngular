@@ -5,7 +5,7 @@
 
         <li *ngFor="let tag of tags" class="presentation">
           <a>{{tag.key}}</a>
-          <ul class="nav nav-pills nav-stacked subMenuS">
+          <ul class="nav nav-pills nav-stacked subMenuS" ngClass="{{tag.tags.length > 9 ? 'scroll' : ''}}">
             <li *ngFor="let subCat of tag.tags" class="subManuLi">
               <a (click)="addTag(subCat)">{{subCat}}</a>
             </li>

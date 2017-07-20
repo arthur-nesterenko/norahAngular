@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/map';
-import { AngularFireAuth, AuthMethods, AuthProviders } from 'angularfire2/auth';
 import { Router } from '@angular/router';
-import { User } from 'firebase/app';
 import { FirebaseAuthState } from 'angularfire2';
+import {
+  AngularFireAuth, AuthConfiguration, AuthMethods, AuthProviders,
+  EmailPasswordCredentials
+} from 'angularfire2/auth';
+import { User } from 'firebase/app';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
@@ -14,18 +17,24 @@ export class AuthService {
   currentUser: User;
   currentState;
 
-  constructor (private afAuth: AngularFireAuth, private router: Router){
+  constructor (private afAuth: AngularFireAuth, private router: Router) {
     this.currentState = afAuth.map((state: FirebaseAuthState) => {
       this.currentUser = state !== null ? state.auth : null;
       return state;
-    })
+    });
   }
 
-  login(email, password): void {
-    this.afAuth.login({email, password});
+  login(auth: EmailPasswordCredentials): void {
+    const loginConfig: AuthConfiguration = {
+      method: AuthMethods.Password,
+      provider: AuthProviders.Password
+    };
+    this.afAuth.login({email: auth.email, password: auth.password}, loginConfig).then(
+      () => location.reload()
+    );
   }
-  signWithCredentials(email, password): void {
-    this.afAuth.createUser({email, password});
+  signWithCredentials(auth): void {
+    this.afAuth.createUser({email: auth.email, password: auth.password});
   }
   loginWithGoogle(): void {
     this.afAuth.login({
@@ -46,7 +55,10 @@ export class AuthService {
     });
   }
   logout() {
-    this.afAuth.logout().then(() => this.router.navigate(['/']));
+    this.afAuth.logout().then(() => {
+      this.router.navigate(['/']);
+      location.reload();
+    });
   }
   get authenticated(): boolean {
     return this.currentUser !== null;

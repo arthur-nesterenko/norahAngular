@@ -36,13 +36,22 @@
   background-color: $blue!important;
 }
 .subMenuS {
+  z-index: 9999;
   float: right;
   position: absolute;
-  overflow: scroll;
+  overflow-y: scroll;
   margin-left: 70%;
   margin-top: -13%;
   width: 100%;
   height: 0;
+  &.scroll::-webkit-scrollbar {
+    width: 7px;
+    height: 8px;
+    background-color: #aaa;
+  }
+  &.scroll::-webkit-scrollbar-thumb {
+    background: #000;
+  }
 
   & li {
     display: none;
@@ -59,9 +68,14 @@ li.presentation:hover {
   & .subMenuS {
     height: 320px;
 
+
     & .subManuLi {
       display: block;
       margin-top: 0;
+
+      &::-webkit-scrollbar {
+        -webkit-appearance: scrollbartrack-vertical;
+      }
     }
   }
 }
