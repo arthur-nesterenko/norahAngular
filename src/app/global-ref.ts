@@ -14,6 +14,7 @@ export interface MyGlobal {
   downloadAnim: any;
   toastr: any;
   download: any;
+  deleteSelected: any;
 }
 
 export abstract class GlobalRef {
