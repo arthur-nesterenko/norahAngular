@@ -15,7 +15,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host {\n  background: #202a34; }\n\n.zodiac_box {\n  overflow: hidden;\n  background: #202a34;\n  text-align: left;\n  padding: 0;\n  min-height: 800px;\n  font-family: 'Questrial', sans-serif; }\n\n.leftSideBar {\n  background-color: #202a34;\n  margin-top: -80px;\n  padding: 10px 0;\n  width: 310px;\n  height: 620px;\n  margin-left: 40px; }\n  .leftSideBar ul li {\n    background-color: #253443;\n    position: relative; }\n    .leftSideBar ul li a {\n      color: #DCD7E0;\n      border-radius: 0; }\n\n.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {\n  background-color: #008aff !important; }\n\n.nav > li > a:hover, .nav > li > a:focus {\n  text-decoration: none;\n  background-color: #008aff !important; }\n\n.subMenuS {\n  float: right;\n  position: absolute;\n  overflow: scroll;\n  margin-left: 70%;\n  margin-top: -13%;\n  width: 100%;\n  height: 0; }\n  .subMenuS li {\n    display: none;\n    width: 70%;\n    z-index: 9999;\n    margin-top: -14%;\n    background-color: #1f2933 !important;\n    opacity: 0.7;\n    float: right;\n    cursor: pointer; }\n\nli.presentation:hover .subMenuS {\n  height: 337px; }\n  li.presentation:hover .subMenuS .subManuLi {\n    display: block; }\n\n.menuS li {\n  position: relative; }\n  .menuS li:hover .subMenuS li {\n    display: block; }\n\n.nav > li > a {\n  position: relative;\n  display: block;\n  padding: 10px 15px; }\n\n.menuS li:hover .subMenuS li {\n  display: block; }\n\n.nav-stacked > li + li {\n  margin-top: 2px;\n  margin-left: 0; }\n\n.pagination > li > a, .pagination > li > span {\n  background-colo: #253443 !important;\n  color: darkgrey;\n  border: 1px solid #1f2933; }\n\n.menuS {\n  padding-top: 70px; }\n\n.download-anim {\n  float: left; }\n", ""]);
+exports.push([module.i, ":host {\n  background: #202a34; }\n\n.zodiac_box {\n  overflow: hidden;\n  background: #202a34;\n  text-align: left;\n  padding: 0;\n  min-height: 800px;\n  font-family: 'Questrial', sans-serif; }\n\n.leftSideBar {\n  background-color: #202a34;\n  margin-top: -80px;\n  padding: 10px 0;\n  width: 310px;\n  height: 620px;\n  margin-left: 40px; }\n  .leftSideBar ul li {\n    background-color: #253443;\n    position: relative; }\n    .leftSideBar ul li a {\n      color: #DCD7E0;\n      border-radius: 0; }\n\n.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {\n  background-color: #008aff !important; }\n\n.nav > li > a:hover, .nav > li > a:focus {\n  text-decoration: none;\n  background-color: #008aff !important; }\n\n.subMenuS {\n  float: right;\n  position: absolute;\n  overflow: scroll;\n  margin-left: 70%;\n  margin-top: -13%;\n  width: 100%;\n  height: 0; }\n  .subMenuS li {\n    display: none;\n    width: 70%;\n    z-index: 9999;\n    margin-top: -14%;\n    background-color: #1f2933 !important;\n    opacity: 0.7;\n    float: right;\n    cursor: pointer; }\n\nli.presentation:hover .subMenuS {\n  height: 337px; }\n  li.presentation:hover .subMenuS .subManuLi {\n    display: block; }\n\n.menuS li {\n  position: relative; }\n  .menuS li:hover .subMenuS li {\n    display: block; }\n\n.nav > li > a {\n  position: relative;\n  display: block;\n  padding: 10px 15px; }\n\n.menuS li:hover .subMenuS li {\n  display: block; }\n\n.nav-stacked > li + li {\n  margin-top: 2px;\n  margin-left: 0; }\n\n.pagination > li > a, .pagination > li > span {\n  background-colo: #253443 !important;\n  color: darkgrey;\n  border: 1px solid #1f2933; }\n\n.menuS {\n  padding-top: 70px; }\n", ""]);
 
 // exports
 
@@ -60,7 +60,7 @@ var LibraryComponent = (function () {
                 var animationsArray_1 = [];
                 var k_1 = 1;
                 var userId = __WEBPACK_IMPORTED_MODULE_2_firebase__["auth"]().currentUser.uid;
-                __WEBPACK_IMPORTED_MODULE_2_firebase__["database"]().ref('usernames').child(userId).child('mylibrary').once('value', function (ss) {
+                __WEBPACK_IMPORTED_MODULE_2_firebase__["database"]().ref('usernames').child(userId).child('mylibrary').orderByValue().once('value', function (ss) {
                     var animations = ss.val();
                     if (!animations) {
                         alert('No items in library');
@@ -78,15 +78,13 @@ var LibraryComponent = (function () {
                             anim.mp4Url = mp4Url;
                             anim.animUrl = animFileUrl;
                             return anim;
-                        }).sort(function (anim1, anim2) {
-                            return (anim1['displayName']).localeCompare(anim2['displayName']);
                         }).forEach(function (anim) {
                             blocks_1 += '<div class="box-video box' + k_1 + ' fadeInUp clust" data-wow-delay="0.3s" data-page="#">';
                             blocks_1 += '<div style="z-index: 111;">';
-                            blocks_1 += '<div class="animation-name" style="text-align:center;margin-top:40px;display:block">' + anim.displayName + '</div>';
+                            blocks_1 += '<div class="animation-name" style="text-align:center;margin-top:40px;display:block">' + anim.name + '</div>';
                             blocks_1 += '<a class="download-anim" target="_blank" href="' + anim.mp4Url + '" data-url="' + anim.animUrl + '" data-duration="' + anim.duration + '" data-name="' + anim.name + '.anim" style="float:none !important;text-align:center;display:block;margin-top:0px"><br/><i class="fa fa-download fa-2x" aria-hidden="true"></i></a></center>';
-                            blocks_1 += '<label class="fancy-checkbox">';
-                            blocks_1 += '<input type="checkbox" name="demo_' + anim.firebaseKey + '" click="if(this.checked){ document.getElementById(' + k_1 + ').checked = true;} else {document.getElementById(' + k_1 + ').checked = false;}"/>';
+                            blocks_1 += '<label class="fancy-checkbox library-checkbox">';
+                            blocks_1 += '<input  type="checkbox" name="demo_' + anim.firebaseKey + '" click="if(this.checked){ document.getElementById(' + k_1 + ').checked = true;} else {document.getElementById(' + k_1 + ').checked = false;}"/>';
                             blocks_1 += '<span></span>';
                             blocks_1 += '</label>';
                             blocks_1 += '</div>';
