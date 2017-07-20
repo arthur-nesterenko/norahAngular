@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { RepositoryService } from './repository.service';
-import 'rxjs/add/operator/map';
-import { GlobalRef } from '../../global-ref';
 import * as firebase from 'firebase';
 import * as $ from 'jquery';
+import 'rxjs/add/operator/map';
+import { GlobalRef } from '../../global-ref';
+import { RepositoryService } from './repository.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   constructor(private repService: RepositoryService, private global: GlobalRef) {
     repService.unselectedTags$.subscribe(tag => {
       this.removeTag(tag);
-    })
+    });
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     this.animations = arr;
     this.displayAnimations = arr;
     this.selectedTags = [];
-    this.repService.page$.next(50);
+    this.repService.page$.next(500);
 
     this.repService.animations.subscribe((result: Animation[]) => {
       result.forEach((animation: Animation) => {
@@ -48,7 +48,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
         delete tag.$exists;
 
         const store = [];
-        for ( const i in tag ) {
+        for (const i in tag) {
           if (i !== '$key') {
             store.push(tag[i]);
           }
@@ -57,31 +57,54 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
       });
     });
   }
+
   setPage(page) {
     this.repService.page$.next(page * 8 || 8);
   }
+
   addTag(tag) {
-    this.repService.addTag(tag);
     if (!this.selectedTags.includes(tag)) {
       this.selectedTags.push(tag);
+      this.repService.addTag(tag);
     }
     this.filterAnimations();
   }
+
   removeTag(tag) {
     this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
     this.filterAnimations();
   }
+
   filterAnimations() {
-    const arr = [];
-    this.animations.forEach(item => {
-      this.selectedTags.forEach(tag => {
-        if (item.tags[tag]) {
-          arr.push(item);
+    let selectedTags = this.selectedTags;
+    const arrayLength = selectedTags.length;
+    const anim_final = [];
+    if (arrayLength > 0 && !$.isEmptyObject(this.animations)) {
+      this.animations.forEach(function (anim) {
+
+        let count = 0;
+        for (const t in anim['tags']) {
+          for (let i = 0; i < arrayLength; i++) {
+            if (t === selectedTags[i]) {
+              count++;
+            }
+          }
+        }
+        if (count === arrayLength) {
+          anim_final.push(anim);
         }
       });
-    });
-    this.displayAnimations = arr.length ? arr : this.animations;
+    } else {
+      return;
+    }
+    this.displayAnimations = anim_final;
   }
+
+  checkTag(tag, array) {
+    const a = array.filter((item) => item.tags[tag]);
+    return a.length === array.length;
+  }
+
   addVideo(animation) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
@@ -125,7 +148,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
       const animDownloadUrl = $(this).data('url');
       const animName = $(this).data('name');
       $.ajax({
-        url: animDownloadUrl,
+        url: animDownloadUrl
       });
     });
   }
@@ -151,5 +174,6 @@ export interface Animation {
 export interface Tag {
   $exist?: Function;
   $key?: string;
+
   [key: string]: any;
 }

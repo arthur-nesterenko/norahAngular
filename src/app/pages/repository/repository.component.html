@@ -4,7 +4,7 @@
       <ul class="nav nav-pills nav-stacked menuS">
 
         <li *ngFor="let tag of tags" class="presentation">
-          <a (click)="addTag(tag.key)">{{tag.key}}</a>
+          <a>{{tag.key}}</a>
           <ul class="nav nav-pills nav-stacked subMenuS">
             <li *ngFor="let subCat of tag.tags" class="subManuLi">
               <a (click)="addTag(subCat)">{{subCat}}</a>

@@ -57,10 +57,11 @@
 }
 li.presentation:hover {
   & .subMenuS {
-    height: 337px;
+    height: 320px;
 
     & .subManuLi {
       display: block;
+      margin-top: 0;
     }
   }
 }
