@@ -488,7 +488,7 @@ nav.tm_navbar .sub-menu ul ul li a:hover {
     z-index: 20;
     width: 27px;
     height: 19px;
-    /*background: url(/assets/images/top.png) no-repeat;*/
+    /*background: url(/norahAngular/dist/norahAngular/dist/assets/images/top.png) no-repeat;*/
     text-indent: -999px;
 }
 
