@@ -6,7 +6,21 @@ $fa-font-path: '/assets/fonts/font-awesome/fonts';
 @import "assets/fonts/font-awesome/scss/font-awesome";
 @import "animate";
 @import "styles/colors";
+@font-face {
+  font-family: "Lato2OFL";
+  src: url('assets/fonts/Lato2OFL/Lato-Regular.ttf')
+}
 
+.logo_box {
+  font: 70px "Lato2OFL" !important;
+  div {
+    color: white;
+    font-size: 70px;
+  }
+  .secondary {
+    font-size: 20px;
+  }
+}
 h3 {
   font: 20px/1em 'Questrial';
   color: #e46b86;
@@ -55,7 +69,13 @@ html body {
   z-index: 1;
   overflow: hidden;
 }
+.zodiac_box {
+  margin-bottom: 250px !important;
+}
 
+.content.indent {
+  padding-bottom: 250px !important;
+}
 .zodiac_box .box-video > div {
   padding: 45px 35px 0 35px;
   display: block;

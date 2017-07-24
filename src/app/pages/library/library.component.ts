@@ -9,6 +9,7 @@ import { GlobalRef } from '../../global-ref';
   styleUrls: ['./library.component.scss']
 })
 export class LibraryComponent implements AfterViewInit {
+  animations: any;
 
   constructor(private glob: GlobalRef) {
   }

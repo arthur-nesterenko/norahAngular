@@ -17,7 +17,7 @@ header {
   position: relative;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 20px 0 0;
   background: $navbar-color;
   box-shadow: 0 4px 4px 0 #1b2836;
 }
@@ -154,11 +154,18 @@ nav.tm_navbar {
   width: 183px !important;
 }
 footer {
-  padding: 70px 0 50px 70px;
+  padding: 70px 0 70px 70px;
   position: relative;
   overflow: hidden;
   text-align: center;
-  background-color: #fff;
+  background-color: #1c252f;
+  color: $blue;
+  font-size: 38px;
+
+  .footerCopyright {
+    font-size: 14px;
+    color: grey;
+  }
 }
 .radioBox {
   background-color: $navbar-color;

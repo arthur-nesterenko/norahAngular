@@ -1,35 +1,54 @@
 @import "../../../styles/colors";
 @import "../../../styles/variables";
 .zodiac_box {
-  margin-top: $navbar-height;
+  margin: 0 $navbar-height;
   overflow: hidden;
   background: $background-color;
   text-align: center;
 
+
   .box {
-    width: 22.5%;
+    font-size: 14px;
+    width: $box-dim;
     height: $box-dim;
-    border: 1px solid $home-box-border-color;
+    border: 1px solid grey;
     background-color: $home-box-color;
     display: inline-block;
     position: relative;
     animation-name: fadeInUp;
-    padding-top: 75px;
+    padding-top: 190px;
     &:hover {
       background-color: $home-box-color2;
-      border: 2px solid $blue;
+      border: 1px solid $blue;
+      box-shadow: 0 8px 20px 0 black;
     }
 
     &.box1 {
       animation-delay: 0.3s;
+      background: url("/assets/images/2-01.png") no-repeat center;
+      &:hover {
+        background: url("/assets/images/1-01.png") no-repeat center;
+      }
     }
     &.box2 {
       animation-delay: 0.2s;
+      background: url("/assets/images/2-02.png") no-repeat center;
+      &:hover {
+        background: url("/assets/images/1-02.png") no-repeat center;
+      }
     }
     &.box3 {
       animation-delay: 0.1s;
+      background: url("/assets/images/2-03.png") no-repeat center;
+      &:hover {
+        background: url("/assets/images/1-03.png") no-repeat center;
+      }
     }
     &.box4 {
+      background: url("/assets/images/2-04.png") no-repeat center;
+      &:hover {
+        background: url("/assets/images/1-04.png") no-repeat center;
+      }
     }
 
     &>div {
@@ -65,7 +84,7 @@
       }
     }
     strong {
-      font: 18px 'Questrial';
+      font: 14px 'Questrial';
       color: #ffffff;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -76,6 +95,9 @@
       transition: all 0.35s;
       opacity: 1;
       filter: alpha(opacity=100);
+    }
+    &:hover>strong {
+      color: $blue;
     }
   }
   &.secondary {

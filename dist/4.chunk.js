@@ -3,7 +3,7 @@ webpackJsonp([4],{
 /***/ "../../../../../src/app/pages/library/library.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\" container-fluid zodiac_box zodiac_box_repos\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-3 col-xs-4 leftSideBar\">\r\n\r\n    </div>\r\n\r\n    <div class=\"col-sm-9 col-xs-8 zodiacCont library\">\r\n      <!--<div *ngFor=\"let animation of animations.slice((page - 1) * 15 , (page - 1) * 15 + 15)\" class=\"box fadeInUp clust\">-->\r\n\r\n      <!--&lt;!&ndash;<div style=\"z-index: 111;\">&ndash;&gt;-->\r\n      <!--&lt;!&ndash;<a class=\"newwwww\" href=\"\"><i class=\"fa fa-plus-circle fa-2x\" aria-hidden=\"true\"></i></a>&ndash;&gt;-->\r\n      <!--&lt;!&ndash;<a href=\"\"></a>&ndash;&gt;-->\r\n      <!--&lt;!&ndash;</div>&ndash;&gt;-->\r\n      <!--&lt;!&ndash;<video autoplay loop muted src=\"{{animation.mp4Url}}\">&ndash;&gt;-->\r\n\r\n      <!--&lt;!&ndash;</video>&ndash;&gt;-->\r\n      <!--</div>-->\r\n    </div>\r\n\r\n\r\n  </div>\r\n  <div class=\"row\" *ngIf=\"animations?.length\">\r\n    <div class=\"col-lg-5 col-lg-offset-5\">\r\n      <ngb-pagination [collectionSize]=\"animations?.length\" [(page)]=\"page\" (pageChange)=\"setPage($event)\"\r\n                      [maxSize]=\"15\" [rotate]=\"true\" [boundaryLinks]=\"true\">\r\n\r\n      </ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\" container-fluid zodiac_box zodiac_box_repos\">\n  <div class=\"row\">\n    <div class=\"col-sm-3 col-xs-4 leftSideBar\">\n\n    </div>\n\n    <div class=\"col-sm-9 col-xs-8 zodiacCont library\">\n      <!--<div *ngFor=\"let animation of animations.slice((page - 1) * 15 , (page - 1) * 15 + 15)\" class=\"box fadeInUp clust\">-->\n\n      <!--&lt;!&ndash;<div style=\"z-index: 111;\">&ndash;&gt;-->\n      <!--&lt;!&ndash;<a class=\"newwwww\" href=\"\"><i class=\"fa fa-plus-circle fa-2x\" aria-hidden=\"true\"></i></a>&ndash;&gt;-->\n      <!--&lt;!&ndash;<a href=\"\"></a>&ndash;&gt;-->\n      <!--&lt;!&ndash;</div>&ndash;&gt;-->\n      <!--&lt;!&ndash;<video autoplay loop muted src=\"{{animation.mp4Url}}\">&ndash;&gt;-->\n\n      <!--&lt;!&ndash;</video>&ndash;&gt;-->\n      <!--</div>-->\n    </div>\n\n\n  </div>\n  <div class=\"row\" *ngIf=\"animations?.length\">\n    <div class=\"col-lg-5 col-lg-offset-5\">\n      <ngb-pagination [collectionSize]=\"animations?.length\" [(page)]=\"page\" (pageChange)=\"setPage($event)\"\n                      [maxSize]=\"15\" [rotate]=\"true\" [boundaryLinks]=\"true\">\n\n      </ngb-pagination>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -34,6 +34,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__("../../../../firebase/firebase-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global_ref__ = __webpack_require__("../../../../../src/app/global-ref.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LibraryComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -47,10 +48,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LibraryComponent = (function () {
-    function LibraryComponent() {
+    function LibraryComponent(glob) {
+        this.glob = glob;
     }
     LibraryComponent.prototype.ngAfterViewInit = function () {
+        var wnd = this.glob.nativeGlobal;
         __WEBPACK_IMPORTED_MODULE_1_jquery__(document).ready(function () {
             setTimeout(loadPage, 1500);
         });
@@ -82,9 +86,9 @@ var LibraryComponent = (function () {
                             blocks_1 += '<div class="box-video box' + k_1 + ' fadeInUp clust" data-wow-delay="0.3s" data-page="#">';
                             blocks_1 += '<div style="z-index: 111;">';
                             blocks_1 += '<div class="animation-name" style="text-align:center;margin-top:40px;display:block">' + anim.name + '</div>';
-                            blocks_1 += '<a class="download-anim" target="_blank" href="' + anim.mp4Url + '" data-url="' + anim.animUrl + '" data-duration="' + anim.duration + '" data-name="' + anim.name + '.anim" style="float:none !important;text-align:center;display:block;margin-top:0px"><br/><i class="fa fa-download fa-2x" aria-hidden="true"></i></a></center>';
+                            blocks_1 += '<a class="download-anim" href="' + anim.animUrl + '" data-url="' + anim.animUrl + '" data-duration="' + anim.duration + '" data-name="' + anim.name + '.anim" style="float:none !important;text-align:center;display:block;margin-top:0px"><br/><i class="fa fa-download fa-2x" aria-hidden="true"></i></a></center>';
                             blocks_1 += '<label class="fancy-checkbox library-checkbox">';
-                            blocks_1 += '<input  type="checkbox" name="demo_' + anim.firebaseKey + '" click="if(this.checked){ document.getElementById(' + k_1 + ').checked = true;} else {document.getElementById(' + k_1 + ').checked = false;}"/>';
+                            blocks_1 += '<input  type="checkbox" name="' + anim.firebaseKey + '" click="if(this.checked){ document.getElementById(' + k_1 + ').checked = true;} else {document.getElementById(' + k_1 + ').checked = false;}"/>';
                             blocks_1 += '<span></span>';
                             blocks_1 += '</label>';
                             blocks_1 += '</div>';
@@ -121,17 +125,17 @@ var LibraryComponent = (function () {
                 __WEBPACK_IMPORTED_MODULE_1_jquery__('.temp_margin').hide();
             }
         }
-        function deleteSelected() {
+        wnd.deleteSelected = function () {
             __WEBPACK_IMPORTED_MODULE_1_jquery__('.fancy-checkbox input').each(function () {
                 var input = __WEBPACK_IMPORTED_MODULE_1_jquery__(this);
                 if (input.is(':checked')) {
                     var userId = __WEBPACK_IMPORTED_MODULE_2_firebase__["auth"]().currentUser.uid;
                     var imageKey = input.prop('name');
                     __WEBPACK_IMPORTED_MODULE_2_firebase__["database"]().ref('usernames').child(userId).child('mylibrary').child(imageKey).remove();
-                    input.parent().parent().remove();
+                    input.parent().parent().parent().remove();
                 }
             });
-        }
+        };
     };
     return LibraryComponent;
 }());
@@ -141,9 +145,10 @@ LibraryComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/pages/library/library.component.html"),
         styles: [__webpack_require__("../../../../../src/app/pages/library/library.component.scss")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__global_ref__["a" /* GlobalRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__global_ref__["a" /* GlobalRef */]) === "function" && _a || Object])
 ], LibraryComponent);
 
+var _a;
 //# sourceMappingURL=library.component.js.map
 
 /***/ }),
