@@ -3,7 +3,7 @@ webpackJsonp([1],{
 /***/ "../../../../../src/app/pages/motion-editor/motion-editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <!--content-->\n  <div class=\"content\" id=\"content\">\n\n    <div class=\"webgl-content\">\n      <div id=\"gameContainer\" style=\"width: 850px; height: 600px\"></div>\n      <div align=\"center\">\n        <div class=\"webgl-logo\"></div>\n        <div class=\"fullscreen\" onclick=\"gameInstance.SetFullscreen(1)\"></div>\n\n        <br/>\n        <input id=\"anim_url\" autocomplete=\"on\" type=\"text\" placeholder=\"animation url\" value=\"http://35.197.25.101:8080/JSONAnimations/aim_pistol.json\">\n\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"content\">\n</div>\n"
+module.exports = "<div class=\"wrapper\">\n  <!--content-->\n  <div class=\"content\" id=\"content\">\n\n    <div class=\"webgl-content\">\n      <div id=\"gameContainer\" style=\"width: 850px; height: 600px\"></div>\n      <div align=\"center\">\n        <div class=\"webgl-logo\"></div>\n        <div class=\"fullscreen\" onclick=\"gameInstance.SetFullscreen(1)\"></div>\n\n        <br/>\n        <!--<input id=\"anim_url\" autocomplete=\"on\" type=\"text\" placeholder=\"animation url\" value=\"http://35.197.25.101:8080/JSONAnimations/aim_pistol.json\">-->\n\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"content\">\n</div>\n"
 
 /***/ }),
 
@@ -55,9 +55,7 @@ var MotionEditorComponent = (function () {
     }
     MotionEditorComponent.prototype.ngAfterViewInit = function () {
         var wnd = this.global.nativeGlobal;
-        var gameInstance = wnd.UnityLoader.instantiate("gameContainer", "/assets/other/Build 20 (Fixed).json", {
-            onProgress: wnd.UnityProgress
-        });
+        var gameInstance;
         function logout() {
             __WEBPACK_IMPORTED_MODULE_1_firebase__["auth"]().signOut().then(function () {
                 console.log('Signed Out');
@@ -70,54 +68,48 @@ var MotionEditorComponent = (function () {
             setTimeout(loadPage, 1500);
         });
         var animations_library = [];
-        function loadAnimFromUrl(url) {
-            console.log("Inside loadAnimFromUrl");
-            console.log(url);
-            __WEBPACK_IMPORTED_MODULE_2_jquery_dist_jquery___default()("#anim_url").attr("value", url);
-            document.getElementById('anim_url').value = url;
-            gameInstance.SendMessage('RTClipEditor', 'LoadAnimFromUrl', url);
-        }
         function loadPage() {
             if (__WEBPACK_IMPORTED_MODULE_1_firebase__["auth"]().currentUser) {
-                // document.write('<script src="TemplateData/UnityProgress.js">\x3C/script>');
-                // document.write('<script src="BuildPose/UnityLoader.js">\x3C/script>');
-                // let gameInstance = UnityLoader.instantiate("gameContainer", "BuildPose/Build 17 (Production Release).json", {
-                //     onProgress: UnityProgress
-                // });
-                console.log("Auth");
-                //$.blockUI();
-                var userId = __WEBPACK_IMPORTED_MODULE_1_firebase__["auth"]().currentUser.uid;
-                __WEBPACK_IMPORTED_MODULE_1_firebase__["database"]().ref("usernames").child(userId).child("mylibrary").once("value", function (ss) {
-                    var animations = ss.val();
-                    if (!animations) {
-                        alert("No items in library");
-                        //$.unblockUI();
-                    }
-                    animations && Object.keys(animations).forEach(function (animKey) {
-                        console.log(animations[animKey].name);
-                        animations_library.push(animations[animKey].name);
-                        __WEBPACK_IMPORTED_MODULE_1_firebase__["storage"]().ref("jsonFiles").child(animations[animKey].name + ".json").getDownloadURL().then(function (downloadUrl) {
-                            console.log(downloadUrl);
-                            //downloadUrls.push(downloadUrl);
-                            console.log(typeof (downloadUrl));
-                            __WEBPACK_IMPORTED_MODULE_2_jquery_dist_jquery___default()("#anim_url").attr("value", downloadUrl);
-                            //document.getElementById('anim_url').value = downloadUrl;
-                            console.log(downloadUrl);
-                            gameInstance.SendMessage('RTClipEditor', 'LoadAnimFromUrl', downloadUrl);
-                            //loadAnimFromUrl(downloadUrl);
-                        });
-                    });
-                    // $.unblockUI();
+                gameInstance = UnityLoader.instantiate('gameContainer', 'assets/other/Build22(With External Call to [LoadFinished]).json', {
+                    onProgress: UnityProgress
                 });
+                console.log('Auth');
             }
             else {
-                console.log("Not Auth");
+                console.log('Not Auth');
                 __WEBPACK_IMPORTED_MODULE_2_jquery_dist_jquery___default()('#myModal').modal({
-                    backdrop: "static",
+                    backdrop: 'static',
                     keyboard: false,
                     show: true
                 });
             }
+        }
+        wnd.LoadFinished = function () {
+            console.log('Unity Loading Finished');
+            var userId = __WEBPACK_IMPORTED_MODULE_1_firebase__["auth"]().currentUser.uid;
+            __WEBPACK_IMPORTED_MODULE_1_firebase__["database"]().ref('usernames').child(userId).child('mylibrary').once('value', function (ss) {
+                var animations = ss.val();
+                if (!animations) {
+                    alert('No items in library');
+                }
+                Object.keys(animations).forEach(function (animKey) {
+                    console.log(animations[animKey].name);
+                    animations_library.push(animations[animKey].name);
+                    __WEBPACK_IMPORTED_MODULE_1_firebase__["storage"]().ref('jsonFiles').child(animations[animKey].name + '.json').getDownloadURL().then(function (downloadUrl) {
+                        console.log(downloadUrl);
+                        console.log(typeof (downloadUrl));
+                        __WEBPACK_IMPORTED_MODULE_2_jquery_dist_jquery___default()('#anim_url').attr('value', downloadUrl);
+                        gameInstance.SendMessage('RTClipEditor', 'LoadAnimFromUrl', downloadUrl);
+                    });
+                });
+                // $.unblockUI();
+            });
+        };
+        function loadAnimFromUrl(url) {
+            console.log('Inside loadAnimFromUrl');
+            console.log(url);
+            __WEBPACK_IMPORTED_MODULE_2_jquery_dist_jquery___default()('#anim_url').attr('value', url);
+            gameInstance.SendMessage('RTClipEditor', 'LoadAnimFromUrl', url);
         }
     };
     return MotionEditorComponent;

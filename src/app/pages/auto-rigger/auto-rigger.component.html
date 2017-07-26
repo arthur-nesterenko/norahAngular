@@ -1,30 +1,28 @@
-<div class="container">
-  <div class="container-fluid page-wrapper pull-left">
+<div class="container-fluid page-wrapper pull-left">
 
-    <div class="row no-gutters">
-      <form ref='uploadForm' id='uploadForm' action='https://absentiaautorig.com:443/upload' method='post' encType="multipart/form-data">
-        <input class="btn btn-success" type="file" id="js-upload" name="foo" accept=".obj" />
+  <div class="row no-gutters">
+    <form ref='uploadForm' id='uploadForm' action='https://absentiaautorig.com:443/upload' method='post' encType="multipart/form-data">
+      <input class="btn btn-success" type="file" id="js-upload" name="foo" accept=".obj" />
 
-      </form>
-      <a href="#" id="js-upload-button" class="btn btn-success" style="visibility:hidden;">Please Wait...</a>
-    </div>
-
+    </form>
+    <a href="#" id="js-upload-button" class="btn btn-success" style="visibility:hidden;">Please Wait...</a>
   </div>
 
-  <div id="js-modal">
-    <div class="modal__overlay">
-      <div class="modal__inner">
-        <div class="modal__header">
-          AutoRigger
+</div>
+
+<div id="js-modal">
+  <div class="modal__overlay">
+    <div class="modal__inner">
+      <div class="modal__header">
+        AutoRigger
+      </div>
+      <div class="row no-gutters">
+        <div id="js-viewer" class="col-sm-7 col-md-8 col-xs-12 viewer">
+          <canvas id="js-canvas"></canvas>
         </div>
-        <div class="row no-gutters">
-          <div id="js-viewer" class="col-sm-7 col-md-8 col-xs-12 viewer">
-            <canvas id="js-canvas"></canvas>
-          </div>
-          <div class="col-sm-5 col-md-4 hidden-xs-down bg-faded sidebar">
-            <div id="js-controls">
-              <div style="position:absolute;width:100%;bottom:0;text-align:center;padding:10px;color:#fff;font-size:14px;"><span style="font:18px Lucida Grande,sans-serif;line-height:20px;">NOTE:</span> <br/><span style="font: 12px Lucida Grande,sans-serif;line-height:20px;">Model might not be upto scale please zoom in using scroll.<br/> Models uploaded needs to be in T-Pose.</span>
-              </div>
+        <div class="col-sm-5 col-md-4 hidden-xs-down bg-faded sidebar">
+          <div id="js-controls">
+            <div style="position:absolute;width:100%;bottom:0;text-align:center;padding:10px;color:#fff;font-size:14px;"><span style="font:18px Lucida Grande,sans-serif;line-height:20px;">NOTE:</span> <br/><span style="font: 12px Lucida Grande,sans-serif;line-height:20px;">Model might not be upto scale please zoom in using scroll.<br/> Models uploaded needs to be in T-Pose.</span>
             </div>
           </div>
         </div>

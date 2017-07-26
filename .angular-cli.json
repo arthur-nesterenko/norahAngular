@@ -33,6 +33,7 @@
         "assets/libs/dat.gui.min.js",
         "assets/libs/OBJLoader2.js",
         "assets/libs/WWOBJLoader2.js",
+        "assets/libs/FileSave.js",
         "assets/libs/UnityLoader.js",
         "assets/libs/UnityProgress.js",
         "assets/libs/toastr.js",

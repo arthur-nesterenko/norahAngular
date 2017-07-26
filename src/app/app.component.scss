@@ -57,7 +57,7 @@ nav.tm_navbar {
     :hover {
       >a {
         color:white;
-        background:$navbar-color !important;
+        background:$blue !important;
         transition: all 0.3s;
       }
       >span {
@@ -95,7 +95,7 @@ nav.tm_navbar {
     left: -2px;
     position: absolute;
     display: none;
-    width: 130px;
+    width: 170px;
     top: 68px;
     list-style: none !important;
     padding: 0;
@@ -115,25 +115,28 @@ nav.tm_navbar {
       padding: 10px 0;
       display: block;
       border-bottom: 1px solid $navbar-color;
+      height: 50px;
 
       &:hover {
-        background-color: $navbar-color!important;
+        background-color: $blue !important;
 
       }
       a     {
         display: block;
         background: transparent !important;
-        padding: 0 0 0 0px;
         margin: 0;
         font: $navbar-font;
         color: #ffffff;
         width: 100%;
-        text-align: center;
+        padding: 0 0 0 20px;
+        text-align: left;
         border: none;
         -webkit-transition: all 0.25s ease;
         -o-transition: all 0.25s ease;
         transition: all 0.25s ease;
         text-decoration: none;
+        height: 50px;
+        bottom: 18px;
       }
     }
     ul {

@@ -15,7 +15,7 @@ export class AuthComponent {
 
   user: User;
   authForm: FormGroup;
-  providers = ['Google', 'Facebook', 'Twitter'];
+  providers = ['Facebook', 'Twitter', 'Google'];
   state = 'login';
   @Input() showModal: Observable<boolean>;
   @ViewChild('authModal') public authModal: ModalDirective;
@@ -45,8 +45,8 @@ export class AuthComponent {
   get password(): string {
     return this.authForm.value.password;
   }
-  switchForm(): void {
-    this.state === 'login' ? this.state = 'registration' : this.state = 'login';
+  switchForm(state): void {
+    this.state = state;
   }
   signWithCredentials() {
     this.state === 'login' ?

@@ -1,4 +1,6 @@
 export interface MyGlobal {
+  handleClick: any;
+  saveAnim: any;
   THREE: {
     OBJLoader2: {
       WWOBJLoader2: any;
@@ -15,6 +17,9 @@ export interface MyGlobal {
   toastr: any;
   download: any;
   deleteSelected: any;
+  LoadFinished: any;
+  ApplyLeftAnim: any;
+  ApplyRightAnim: any;
 }
 
 export abstract class GlobalRef {
