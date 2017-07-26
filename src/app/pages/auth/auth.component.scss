@@ -69,6 +69,7 @@
   top: 85px;
   z-index: 9999;
   left: 55px;
+  width: 750px;
 
   .img-logo {
     width: 100%;
@@ -94,7 +95,7 @@
   h2 {
     position: absolute;
     top: 15px;
-    left: 30%;
+    left: 32%;
     color: white;
     font-weight: 300;
     font-size: 75px;
@@ -229,6 +230,10 @@
   margin-right: 0;
   width: 31% !important;
   float: left !important;
+  img {
+    //position: absolute;
+    //left: 10px;
+  }
 
   &-Google {
     background-color: #cc5b4d;

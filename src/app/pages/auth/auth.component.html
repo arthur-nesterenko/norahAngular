@@ -13,7 +13,6 @@
      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="reg">
-      <img height="5px" src="/assets/images/blank_modal.png" alt="logo" class="img-logo img responsive">
       <h2>NORAH</h2>
       <div class="sign"
            ngClass="{{state === 'login' ? 'active' : ''}}"
@@ -45,7 +44,7 @@
         <div *ngIf="state === 'login'" class="divider">OR</div>
         <div *ngIf="state === 'login'" id="firebaseui-auth-container">
           <button *ngFor="let provider of providers" (click)="loginWithProvider(provider)" class="SignBtn Button Button-{{provider}}">
-            <img width="20px" class="SocialIcon" src="https://www.gstatic.com/firebasejs/ui/0.5.0/images/auth/{{provider.toLowerCase()}}.svg">
+            <img width="13px" class="SocialIcon" src="https://www.gstatic.com/firebasejs/ui/0.5.0/images/auth/{{provider.toLowerCase()}}.svg">
             <span>{{provider}}</span>
           </button>
         </div>
