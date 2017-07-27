@@ -1,0 +1,176 @@
+<div class="main_wapper wrapper">
+<!--Lest Sidebar-->
+   <form #saveRange="ngForm" id="saveRanges" >
+         <div id="Sidebar">
+            <div id="integration-list">
+               <ul>
+                  <li>
+                     <div class="integration-slider">
+                        <div class="range-slider square">
+                          <nouislider [connect]="true" name="baseParams" [(ngModel)]="BaseParams" [config]="someKeyboardConfig" (change)="saveBaseParamRange('base',$event)"></nouislider>
+                        </div>
+
+                        <a class="expand">
+                           <div class="right-arrow">▼</div>
+                           <div>
+                              <h2>Base Parameters</h2>
+                           </div>
+                        </a>
+                        <div class="detail" style="display: none;">
+                           <div class="Parameters_Content">
+                              <ul>
+                                 <li>
+                                    <div class="Parameters_Content_Title">Height</div>
+                                   <nouislider [connect]="true" name="Height"  [(ngModel)]="Height" [config]="someKeyboardConfig" (change)="saveBaseParamRange('height',$event)"></nouislider>
+                                 </li>
+                                 <li>
+                                    <div class="Parameters_Content_Title">Weight</div>
+                                   <nouislider [connect]="true"  name="Weight" [(ngModel)]="Weight" [config]="someKeyboardConfig" (change)="saveBaseParamRange('weight',$event)"></nouislider>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="expand-box">
+                        <ul>
+                           <li></li>
+                           <li></li>
+                           <li></li>
+                        </ul>
+                     </div>
+                     <a class="expand">
+                        <div class="right-arrow">▼</div>
+                        <h2 class="t-white">Ethnicity</h2>
+                     </a>
+                     <div class="detail" style="display: none;">
+                        <div class="Parameters_Content text-blue m-cutom">
+                           <ul>
+                              <li>
+                                 <div class="Parameters_Content_Title m-custom">Asian</div>
+                                 <nouislider [connect]="true" name="Asian" [(ngModel)]="Asian" [config]="someKeyboardConfig" (change)="saveBaseParamRange('asian',$event)"></nouislider>
+                              </li>
+                              <li>
+                                 <div class="Parameters_Content_Title m-custom">African</div>
+                                <nouislider [connect]="true" name="African"  [(ngModel)]="African" [config]="someKeyboardConfig" (change)="saveBaseParamRange('african',$event)"></nouislider>
+                              </li>
+                              <li>
+                                 <div class="Parameters_Content_Title m-custom">Caucasian</div>
+                                 <nouislider [connect]="true" name="Caucasian"  [(ngModel)]="Caucasian" [config]="someKeyboardConfig" (change)="saveBaseParamRange('caucasian',$event)"></nouislider>
+                              </li>
+                              <li class="sex-r-slider">
+                                 <div class="integration-slider">
+                                    <a>
+                                       <h2>Sex</h2>
+                                       <nouislider [connect]="true" name="Sex" [(ngModel)]="Sex" [config]="someKeyboardConfig" (change)="saveBaseParamRange('sex',$event)"></nouislider>
+                                 </a>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="part-styler">
+               <ul>
+                  <li>
+                     <div class="integration-slider">
+                        <div class="move-arrow">
+                           <a href="#"><i class="fa fa-minus"></i></a>
+                           <a href="#"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <a class="expand">
+                           <div class="right-arrow">▼</div>
+                           <div>
+                              <h2>Part Styler</h2>
+                           </div>
+                        </a>
+                        <div class="detail b-none" style="display: none;">
+                           <div class="Parameters_object">
+                              <img src="assets/images/object-1.jpg" alt="">
+                              <div class="upload">
+                              <a href="#"><img src="assets/images/recycling.png" alt=""></a>
+                              <div style="display: none">
+                              <input type="file" [(ngModel)]="sanitizedInput" name="sanitizedInput" />{{sanitizedOutput}}
+                              <input type="file" [(ngModel)]="sanitizedOutput" name="sanitizedOutput" />
+                              </div>
+                               <input type="button" name="save" class="upload-btn" value="Upload" (click)="saveRanges()">
+                               </div>
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+        
+         </div>
+   </form>
+         <!--Lest Sidebar-->
+         <!--Container-->
+         <div id="content-wrapper">
+            <div class="object-container">
+               <div class="object-container-in">
+                  <div class="object-container-l">
+                     <div class="block"></div>
+                     <div class="block"></div>
+                     <div class="block"></div>
+                     <div class="block"></div>
+                  </div>
+                  <div class="object-img-container object-fix">
+                     <div class="block block-object">
+                        <span class="helper"></span>
+                        <img src="assets/images/object-2.png" alt="">
+                     </div>
+                  </div>
+                  <div class="object-container-l">
+                     <div class="block"></div>
+                     <div class="block"></div>
+                     <div class="block"></div>
+                     <div class="block"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Container-->         
+         <!--Right Sidebar-->
+         <div id="RSidebar">
+            <h1>Eyes</h1>
+            <div class="rsidebar-block">
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                 <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                 <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                 <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                  <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                   <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                    <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                    <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                    <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+            </div>
+         </div>
+         <!--Right Sidebar-->
+</div>

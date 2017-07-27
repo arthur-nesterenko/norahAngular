@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { AuthGuard } from './pages/auth/auth-guard.service';
-
+import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -14,6 +14,10 @@ const appRoutes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path:'char-maker',
+    component:CharMakerComponent
   },
   {
     path: 'contact-us',
