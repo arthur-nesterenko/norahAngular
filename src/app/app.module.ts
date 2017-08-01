@@ -16,12 +16,14 @@ import { RepositoryService } from './pages/repository/repository.service';
 import { RepositoryModule } from './pages/repository/repository.module';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { LogoComponent } from './pages/logo/logo.component';
+import { TerrainGenComponent } from './pages/terrain-gen/terrain-gen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
     CharMakerComponent,
+    TerrainGenComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,108 @@
+.main_wapper {
+  padding-top: 5px;
+}
+
+.terrain-sidebar {
+  padding: 0;
+  background-color: #253443;
+  > ul {
+    padding: 0;
+    margin: 0;
+  }
+  .expand {
+    padding-left: 35px;
+    border-bottom: 1px solid rgba(130, 108, 108, .2);
+    &:hover {
+      text-decoration: none;
+    }
+    h2 {
+      margin: 0;
+      font-size: 16px;
+      color: #0287f9;
+    }
+  }
+}
+
+.terrain-detail {
+  padding: 0;
+  list-style: none;
+  li {
+    padding: 12px 15px;
+    color: #fff;
+    border-bottom: 1px solid rgba(130, 108, 108, .2);
+    cursor: pointer;
+    &:hover {
+      background-color: lighten(#253443, 20%);
+    }
+  }
+  a {
+    padding-left: 55px;
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.terrain-content {
+  h3 {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    background-color: #253443;
+  }
+  .item {
+    position: relative;
+    height: 180px;
+    margin-bottom: 15px;
+    background: #1c252f;
+    .overlay {
+      opacity: 0;
+      transition: .5s ease;
+    }
+    .item-row:first-child {
+      display: flex;
+      justify-content: space-between;
+      padding:5px;
+      button {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        font-size: 20px;
+      }
+    }
+    .item-row:last-child {
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 2px;
+      button {
+        width: 49%;
+        padding: 5px;
+      }
+    }
+    button {
+      overflow: hidden;
+      color: #f2eef4;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 5px;
+      &:hover {
+        background: rgba(255, 255, 255, .2);
+      }
+    }
+    &:hover .overlay { opacity: 1; }
+  }
+  .full-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    width: 25px;
+    height: calc(100vh - 70px);
+    background-color: #1c252f;
+  }
+}

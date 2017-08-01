@@ -1,0 +1,53 @@
+<div class="main_wapper wrapper">
+  <div class="row">
+    <div class="col-md-2 terrain-sidebar">
+      <ul>
+        <li>
+          <a class="expand">
+            <div class="right-arrow">▼</div>
+            <h2>Terrain generator</h2>
+          </a>
+          <ul class="terrain-detail">
+            <li><a href="#">Mountains</a></li>
+            <li><a href="#">Hills</a></li>
+            <li><a href="#">Plains</a></li>
+            <li><a href="#">Islands</a></li>
+            <li><a href="#">Caves</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10 terrain-content">
+      <div class="row">
+        <div class="col-md-11">
+          <h3 class="text-center">Body Part Wise Blending</h3>
+          <section class="items">
+            <div class="col-md-3" *ngFor="let item of blending">
+              <div class="item">
+                <div class="overlay">
+                  <div class="item-row">
+                    <button>
+                      <i class="fa fa-search-plus" aria-hidden="true"></i>
+                    </button>
+                    <button>
+                      <i class="fa fa-play" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="item-row">
+                    <button>Add to library</button>
+                    <button>Add to game</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-md-1">
+          <div class="full-btn">
+            <a href="#"><i class="fa fa-play fa-rotate-180"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
