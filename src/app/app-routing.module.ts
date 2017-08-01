@@ -5,6 +5,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { AuthGuard } from './pages/auth/auth-guard.service';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
+import {TerrainGenComponent} from './pages/terrain-gen/terrain-gen.component';
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -16,8 +18,12 @@ const appRoutes: Routes = [
     component: AboutComponent
   },
   {
-    path:'char-maker',
-    component:CharMakerComponent
+    path: 'char-maker',
+    component: CharMakerComponent
+  },
+  {
+    path: 'terrain-gen',
+    component: TerrainGenComponent
   },
   {
     path: 'contact-us',
