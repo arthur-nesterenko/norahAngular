@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 declare var $: any;
 
 @Component({
@@ -8,7 +8,8 @@ declare var $: any;
 })
 export class TerrainGenComponent implements OnInit {
 
-  blending: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
+  blending: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  isGenerate = false;
 
   constructor() { }
 
@@ -23,6 +24,11 @@ export class TerrainGenComponent implements OnInit {
         $expand.text('▼');
       }
     });
+  }
+
+  nextTerGan() {
+    this.isGenerate = !this.isGenerate;
+    return false;
   }
 
 }

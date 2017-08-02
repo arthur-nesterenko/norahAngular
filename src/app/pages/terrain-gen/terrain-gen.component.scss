@@ -21,6 +21,24 @@
       color: #0287f9;
     }
   }
+  .hybrid-btn {
+    li {
+      padding: 0;
+      border-bottom: none;
+      button {
+        padding: 10px;
+        width: 100%;
+        background: #104a9b;
+        border: none;
+        &:hover {
+          background-color: lighten(#105a9b, 15%);
+        }
+      }
+    }
+  }
+  .open {
+    display: block;
+  }
 }
 
 .terrain-detail {
@@ -96,6 +114,16 @@
     }
     &:hover .overlay { opacity: 1; }
   }
+  .shuffle-gen {
+    width: 100%;
+    padding: 8px 0;
+    background-color: #105a9b;
+    border: none;
+    color: #fff;
+    &:hover {
+      background-color: lighten(#105a9b, 15%);
+    }
+  }
   .full-btn {
     display: flex;
     justify-content: center;
@@ -104,5 +132,19 @@
     width: 25px;
     height: calc(100vh - 70px);
     background-color: #1c252f;
+    cursor: pointer;
+    &:hover {
+      background-color: lighten(#1c252f, 10%);
+    }
+  }
+  .ter-gen2 {
+    .right-arrow {
+      width: auto;
+      padding: 0;
+    }
+    .items {
+      height: 390px;
+      overflow-y: scroll;
+    }
   }
 }
