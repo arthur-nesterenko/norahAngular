@@ -30,5 +30,19 @@ export class TerrainGenComponent implements OnInit {
     this.isGenerate = !this.isGenerate;
     return false;
   }
+  
+  openImage(src) {
+
+     $("#modalClose").click(function(e) {
+         $("#modalThree").css("display","none");
+	 //$( "#group" ).show();
+	 resetThree();
+     });
+     $("#modalThree").css("display","block");
+     //$( "#group" ).hide(); 
+     loader.load(src , function ( texture ) { init(texture);  }, function ( xhr ) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }, function ( xhr ) { console.log( 'An error happened' ); });
+
+
+  }
 
 }
