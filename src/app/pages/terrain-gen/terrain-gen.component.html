@@ -15,36 +15,80 @@
             <li><a href="#">Caves</a></li>
           </ul>
         </li>
+        <li *ngIf="isGenerate">
+          <a class="expand">
+            <div class="right-arrow">▼</div>
+            <h2>generate</h2>
+          </a>
+          <ul class="terrain-detail hybrid-btn">
+            <li><button>Click for hybrid</button></li>
+          </ul>
+        </li>
       </ul>
     </div>
     <div class="col-md-10 terrain-content">
       <div class="row">
-        <div class="col-md-11">
-          <h3 class="text-center">Body Part Wise Blending</h3>
-          <section class="items">
-            <div class="col-md-3" *ngFor="let item of blending">
-              <div class="item">
-                <div class="overlay">
-                  <div class="item-row">
-                    <button>
-                      <i class="fa fa-search-plus" aria-hidden="true"></i>
-                    </button>
-                    <button>
-                      <i class="fa fa-play" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <div class="item-row">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
+        <div class="ter-gen1" *ngIf="!isGenerate">
+          <div class="col-md-11">
+            <h3 class="text-center">Body Part Wise Blending</h3>
+            <section class="items clearfix">
+              <div class="col-md-3" *ngFor="let item of blending">
+                <div class="item">
+                  <div class="overlay">
+                    <div class="item-row">
+                      <button>
+                        <i class="fa fa-search-plus" aria-hidden="true"></i>
+                      </button>
+                      <button>
+                        <i class="fa fa-play" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="item-row">
+                      <button>Add to library</button>
+                      <button>Add to game</button>
+                    </div>
                   </div>
                 </div>
               </div>
+            </section>
+          </div>
+          <div class="col-md-1">
+            <div class="full-btn" (click)="nextTerGan()">
+              <a href="#"><i class="fa fa-play fa-rotate-180"></i></a>
             </div>
-          </section>
+          </div>
         </div>
-        <div class="col-md-1">
-          <div class="full-btn">
-            <a href="#"><i class="fa fa-play fa-rotate-180"></i></a>
+        <div class="ter-gen2" *ngIf="isGenerate">
+          <div class="col-md-1 right-arrow">
+            <div class="full-btn" (click)="nextTerGan()">
+              <a href="#"><i class="fa fa-play"></i></a>
+            </div>
+          </div>
+          <div class="col-md-11">
+            <div class="ter-gen2">
+              <h3 class="text-center">Generate</h3>
+              <section class="items clearfix">
+                <div class="col-md-3" *ngFor="let item of blending">
+                  <div class="item">
+                    <div class="overlay">
+                      <div class="item-row">
+                        <button>
+                          <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </button>
+                        <button>
+                          <i class="fa fa-play" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <div class="item-row">
+                        <button>Add to library</button>
+                        <button>Add to game</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <button class="shuffle-gen">Shuffle Generate</button>
+            </div>
           </div>
         </div>
       </div>
