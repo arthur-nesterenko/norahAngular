@@ -10,7 +10,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class RepositoryService {
 
-  public page$: BehaviorSubject<number> = new BehaviorSubject((50));
+  private page: BehaviorSubject<number> = new BehaviorSubject(1);
+  public page$: Observable<number> = this.page.asObservable();
   private firebaseApp;
   private selectedTags = new Subject<string>();
   private unselectedTags = new Subject<string>();
@@ -28,16 +29,13 @@ export class RepositoryService {
     return this.db.list('/animations', {
       query: {
         orderByChild: 'name',
-        limitToFirst: this.page$
+        limitToFirst: 400
       }
     });
   }
-  animationsFiles(name: string) {
-    return this.firebaseApp.storage().ref('animFiles').child(`${name}.anim`).getDownloadURL()
-      .then((animURL: string) => this.firebaseApp.storage().ref('mp4Files').child(`${name}.mp4`).getDownloadURL()
-        .then((mp4URL: string) => ({animURL: animURL, mp4URL: mp4URL})));
+  nextPage(page: number) {
+    this.page.next(page);
   }
-
   get tags(): FirebaseListObservable<any[]> {
     return this.db.list('/tags');
   }

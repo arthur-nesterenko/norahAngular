@@ -7,7 +7,7 @@ import { RepositoryService } from './repository.service';
 
 
 @Component({
-  selector: 'app-repository',
+  selector: 'bc-repository',
   templateUrl: './repository.component.html',
   styleUrls: ['./repository.component.scss']
 })
@@ -17,6 +17,8 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   tags: string[];
   selectedTags: string[];
   page = 1;
+  keyword = '';
+  animationsCount = 0;
 
 
   constructor(private repService: RepositoryService, private global: GlobalRef) {
@@ -30,19 +32,16 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     this.animations = arr;
     this.displayAnimations = arr;
     this.selectedTags = [];
-    this.repService.page$.next(500);
-
-    this.repService.animations.subscribe((result: Animation[]) => {
-      result.forEach((animation: Animation) => {
-        arr.push(animation);
-        this.repService.animationsFiles(animation.name)
-          .then((urls) => {
-            animation.animUrl = urls.animURL;
-            animation.mp4Url = urls.mp4URL;
-          });
+    this.repService.animations
+      .subscribe((result: Animation[]) => {
+      console.log(result);
+        this.animations = result;
+        this.filterAnimations();
       });
+    this.repService.page$.subscribe(page => {
+      this.page = page;
+      this.filterAnimations();
     });
-
     this.repService.tags.subscribe((tags: Tag[string]) => {
       this.tags = tags.map((tag: Tag) => {
         delete tag.$exists;
@@ -59,10 +58,11 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   }
 
   setPage(page) {
-    this.repService.page$.next(page * 8 || 8);
+    this.repService.nextPage(page);
   }
 
   addTag(tag) {
+    this.repService.nextPage(1);
     if (!this.selectedTags.includes(tag)) {
       this.selectedTags.push(tag);
       this.repService.addTag(tag);
@@ -71,12 +71,17 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   }
 
   removeTag(tag) {
+    this.repService.nextPage(1);
     this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
     this.filterAnimations();
   }
 
   filterAnimations() {
-    let selectedTags = this.selectedTags;
+    const selectedTags = this.selectedTags;
+    if (!selectedTags.length) {
+      this.animationsCount = this.animations.length;
+      this.displayAnimations = this.animations.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
+    }
     const arrayLength = selectedTags.length;
     const anim_final = [];
     if (arrayLength > 0 && !$.isEmptyObject(this.animations)) {
@@ -97,7 +102,8 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     } else {
       return;
     }
-    this.displayAnimations = anim_final;
+    this.animationsCount = anim_final.length;
+    this.displayAnimations = anim_final.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
   }
 
   checkTag(tag, array) {
@@ -119,8 +125,8 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
         const libraryItems = snap.val();
         let exists = false;
         console.log(libraryItems);
-        libraryItems && Object.keys(libraryItems).forEach(function (itemKey) {
-          exists = exists || (libraryItems[itemKey]['name'] === animName);
+        Object.keys(libraryItems).forEach(function (itemKey) {
+          exists = libraryItems[itemKey]['name'] === animName;
         });
         if (!exists) {
           const newObjRef = firebase.database().ref('usernames').child(userId).child('mylibrary/').push();
@@ -151,6 +157,65 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
         url: animDownloadUrl
       });
     });
+  }
+
+  matchTags() {
+    const arrayLength = this.selectedTags.length;
+    const anim_final = [];
+    if (arrayLength > 0 && !$.isEmptyObject(this.displayAnimations)) {
+      this.displayAnimations.forEach(function (anim) {
+        let count = 0;
+        for (const t in anim['tags']) {
+          for (let i = 0; i < arrayLength; i++) {
+            if (t === this.selectedTags[i]) {
+              count++;
+            }
+          }
+        }
+        if (count === arrayLength) {
+          anim_final.push(anim);
+        }
+      });
+    } else {
+      return this.displayAnimations;
+    }
+    return anim_final;
+  }
+
+  KeywordChanged(text) {
+    this.keyword = text.toLowerCase();
+  }
+
+  isEmpty() {
+    return this.keyword.length <= 0;
+  }
+
+  getKeyWord() {
+
+    return this.keyword;
+  }
+
+  searchKeywords(anims) {
+    if (this.keyword.length > 0) {
+      const filteredAnims = [];
+      anims.filter((anim) => {
+        const k = this.keyword.split(' ');
+        for (let i = 0; i < k.length; i++) {
+          if (anim.displayName.toLowerCase().indexOf(k[i]) >= 0) {
+            console.log('Key: ' + k + ' name ' + anim.displayName);
+            filteredAnims.push(anim);
+            return anim;
+
+          }
+        }
+
+        return false;
+
+      });
+      return filteredAnims;
+    } else {
+      return anims;
+    }
   }
 
   ngAfterViewInit() {
