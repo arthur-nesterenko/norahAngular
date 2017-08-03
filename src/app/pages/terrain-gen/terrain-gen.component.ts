@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-declare var $: any;
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-terrain-gen',
