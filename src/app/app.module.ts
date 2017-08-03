@@ -17,6 +17,11 @@ import { RepositoryModule } from './pages/repository/repository.module';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { LogoComponent } from './pages/logo/logo.component';
 import { TerrainGenComponent } from './pages/terrain-gen/terrain-gen.component';
+import { HillsComponent } from './pages/terrain-gen/hills/hills.component';
+import { PlainsComponent } from './pages/terrain-gen/plains/plains.component';
+import { IslandsComponent } from './pages/terrain-gen/islands/islands.component';
+import { CavesComponent } from './pages/terrain-gen/caves/caves.component';
+import { MountainsComponent } from './pages/terrain-gen/mountains/mountains.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,11 @@ import { TerrainGenComponent } from './pages/terrain-gen/terrain-gen.component';
     AboutComponent,
     CharMakerComponent,
     TerrainGenComponent,
+    HillsComponent,
+    PlainsComponent,
+    IslandsComponent,
+    CavesComponent,
+    MountainsComponent,
   ],
   imports: [
     BrowserModule,

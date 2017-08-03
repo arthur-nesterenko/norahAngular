@@ -1,4 +1,4 @@
-.main_wapper {
+.wrap {
   padding-top: 5px;
 }
 
@@ -21,23 +21,11 @@
       color: #0287f9;
     }
   }
-  .hybrid-btn {
-    li {
-      padding: 0;
-      border-bottom: none;
-      button {
-        padding: 10px;
-        width: 100%;
-        background: #104a9b;
-        border: none;
-        &:hover {
-          background-color: lighten(#105a9b, 15%);
-        }
-      }
-    }
-  }
   .open {
     display: block;
+  }
+  .active-gen {
+    background-color: #105a9b;
   }
 }
 
@@ -53,7 +41,7 @@
       background-color: lighten(#253443, 20%);
     }
   }
-  a {
+  span {
     padding-left: 55px;
     color: #fff;
     &:hover {
@@ -80,7 +68,7 @@
     }
     .item-row:first-child {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       padding:5px;
       button {
         width: 30px;
@@ -89,7 +77,7 @@
         font-size: 20px;
       }
     }
-    .item-row:last-child {
+    .action-btn {
       position: absolute;
       right: 0;
       left: 0;
@@ -115,7 +103,7 @@
     &:hover .overlay { opacity: 1; }
   }
   .shuffle-gen {
-    width: 100%;
+    width: 49%;
     padding: 8px 0;
     background-color: #105a9b;
     border: none;
@@ -126,6 +114,7 @@
   }
   .full-btn {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     float: right;
@@ -136,8 +125,17 @@
     &:hover {
       background-color: lighten(#1c252f, 10%);
     }
+    span {
+      margin: 35px;
+      font-size: 14px;
+      transform: rotate(-90deg);
+    }
+    a {
+      color: #fff;
+    }
   }
   .ter-gen2 {
+    padding-bottom: 20px;
     .right-arrow {
       width: auto;
       padding: 0;
@@ -145,6 +143,36 @@
     .items {
       height: 390px;
       overflow-y: scroll;
+    }
+    .new-gen-head {
+      span {
+        font-size: 16px;
+      }
+      i {
+        float: right;
+        padding-right: 20px;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.new-generations-accordion {
+  .panel-default {
+    background-color: transparent;
+    border: none;
+    .panel-heading {
+      background-color: #1c252f;
+      color: #fff;
+      .accordion-arrow {
+        float: right;
+        font-size: 18px;
+      }
+    }
+    .panel-collapse .panel-body {
+      max-height: 390px;
+      overflow-x: scroll;
+      border: none;
     }
   }
 }
