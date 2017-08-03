@@ -1,4 +1,4 @@
-<div class="main_wapper wrapper">
+<div class="main_wapper wrapper wrap">
   <div class="row">
     <div class="col-md-2 terrain-sidebar">
       <ul>
@@ -8,26 +8,35 @@
             <h2>Terrain generator</h2>
           </a>
           <ul class="terrain-detail">
-            <li><a href="#">Mountains</a></li>
-            <li><a href="#">Hills</a></li>
-            <li><a href="#">Plains</a></li>
-            <li><a href="#">Islands</a></li>
-            <li><a href="#">Caves</a></li>
-          </ul>
-        </li>
-        <li *ngIf="isGenerate">
-          <a class="expand">
-            <div class="right-arrow">▼</div>
-            <h2>generate</h2>
-          </a>
-          <ul class="terrain-detail hybrid-btn">
-            <li><button>Click for hybrid</button></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'mountains'}"
+              (click)="loadComponent('mountains')"><span>Mountains</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'hills'}"
+              (click)="loadComponent('hills')"><span>Hills</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'plains'}"
+              (click)="loadComponent('plains')"><span>Plains</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'islands'}"
+              (click)="loadComponent('islands')"><span>Islands</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'caves'}"
+              (click)="loadComponent('caves')"><span>Caves</span></li>
           </ul>
         </li>
       </ul>
     </div>
     <div class="col-md-10 terrain-content">
       <div class="row">
+
+        <div class="terrain-components" [ngSwitch]="currentComponent">
+          <app-mountains *ngSwitchCase="'mountains'"></app-mountains>
+          <app-hills *ngSwitchCase="'hills'"></app-hills>
+          <app-plains *ngSwitchCase="'plains'"></app-plains>
+          <app-islands *ngSwitchCase="'islands'"></app-islands>
+          <app-caves *ngSwitchCase="'caves'"></app-caves>
+
         <div class="ter-gen1" *ngIf="!isGenerate">
           <div class="col-md-11">
             <h3 class="text-center">Body Part Wise Blending</h3>
