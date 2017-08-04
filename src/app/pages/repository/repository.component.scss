@@ -40,13 +40,11 @@
 }
 .subMenuS {
   z-index: 9999;
-  float: right;
   position: absolute;
   overflow-y: scroll;
-  margin-left: 70%;
-  margin-top: -13%;
   width: 100%;
-  height: 0;
+  top: 0;
+  left: 100%;
   &.scroll::-webkit-scrollbar {
     width: 7px;
     height: 8px;
@@ -58,7 +56,7 @@
 
   & li {
     display: none;
-    width: 70%;
+    width: 100%;
     z-index: 9999;
     margin-top: -14%;
     background-color: $home-box-color!important;

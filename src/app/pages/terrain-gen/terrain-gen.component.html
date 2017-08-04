@@ -10,19 +10,19 @@
           <ul class="terrain-detail">
             <li
               [ngClass]="{'active-gen': activeLink === 'mountains'}"
-              (click)="loadComponent('mountains')"><span>Mountains</span></li>
+              (click)="selectTerrain('mountains')"><span>Mountains</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'hills'}"
-              (click)="loadComponent('hills')"><span>Hills</span></li>
+              (click)="selectTerrain('hills')"><span>Hills</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'plains'}"
-              (click)="loadComponent('plains')"><span>Plains</span></li>
+              (click)="selectTerrain('plains')"><span>Plains</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'islands'}"
-              (click)="loadComponent('islands')"><span>Islands</span></li>
+              (click)="selectTerrain('islands')"><span>Islands</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'caves'}"
-              (click)="loadComponent('caves')"><span>Caves</span></li>
+              (click)="selectTerrain('caves')"><span>Caves</span></li>
           </ul>
         </li>
       </ul>
@@ -39,4 +39,3 @@
       </div>
     </div>
   </div>
-</div>
