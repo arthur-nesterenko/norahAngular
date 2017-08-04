@@ -25,11 +25,6 @@ import {LogoComponent} from "./pages/logo/logo.component";
     AppComponent,
     AboutComponent,
     CharMakerComponent, 
-    HillsComponent, 
-    PlainsComponent, 
-    IslandsComponent, 
-    CavesComponent, 
-    MountainsComponent,
     DnaCodeComponent
   ],
   imports: [
