@@ -13,7 +13,7 @@ import { AuthModule } from './pages/auth/auth.module';
 import { DialogService } from './pages/auth/dialog/dialog.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { LogoComponent } from './pages/logo/logo.component';
-import { TerrainGenComponent } from './pages/terrain-gen/terrain-gen.component';
+
 import { HillsComponent } from './pages/terrain-gen/hills/hills.component';
 import { PlainsComponent } from './pages/terrain-gen/plains/plains.component';
 import { IslandsComponent } from './pages/terrain-gen/islands/islands.component';
@@ -29,8 +29,7 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
   declarations: [
     AppComponent,
     AboutComponent,
-    CharMakerComponent,
-    TerrainGenComponent, 
+    CharMakerComponent, 
     HillsComponent, 
     PlainsComponent, 
     IslandsComponent, 
