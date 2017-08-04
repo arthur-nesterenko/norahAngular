@@ -16,12 +16,14 @@ import { HomeModule } from './pages/home/home.module';
 import { RepositoryModule } from './pages/repository/repository.module';
 import { RepositoryService } from './pages/repository/repository.service';
 import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
+import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-    CharMakerComponent
+    CharMakerComponent,
+    DnaCodeComponent
   ],
   imports: [
     BrowserModule,
