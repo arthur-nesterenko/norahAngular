@@ -5,8 +5,7 @@ declare var $: any;
 
 @Component({
   selector: 'app-mountains',
-  templateUrl: './mountains.component.html',
-  styleUrls: ['./mountains.component.scss']
+  templateUrl: './mountains.component.html'
 })
 export class MountainsComponent implements OnInit {
 
@@ -30,6 +29,16 @@ export class MountainsComponent implements OnInit {
 
   isOpenAccord() {
     this.isOpen = !this.isOpen;
+  }
+
+  /* Add terrain to db */
+  addToLibrary(terrain: string) {
+    const terrainName = terrain.match(/%2F(.+)\?/)[1];
+    const terrainObj = {
+      type: this.generationType,
+      name: terrainName
+    };
+    this.tergenService.addTerrain(terrainObj);
   }
 
 }

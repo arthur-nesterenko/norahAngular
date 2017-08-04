@@ -11,13 +11,12 @@ import { TerrainGenService } from './terrain-gen.service';
 })
 export class TerrainGenComponent implements AfterViewInit {
 
-  activeLink = 'mountains';
-  terrains: string[] = [];
+  currentComponent: string = 'mountains';
+  activeLink: string = 'mountains';
   isGenerate = false;
   isOpen = true;
 
   constructor(private terrainService: TerrainGenService) {
-    this.selectTerrain('mountains');
   }
 
   ngAfterViewInit() {
@@ -33,13 +32,9 @@ export class TerrainGenComponent implements AfterViewInit {
     });
   }
 
-  selectTerrain(terrainsType: string = 'mountains') {
+  selectTerrain(terrainsType: string) {
     this.activeLink = terrainsType;
-    this.terrainService.getTerrains(terrainsType)
-      .then(terrains => this.terrains = terrains);
-  }
-  addToLibrary(terrain: string) {
-    this.terrainService.addTerrain(terrain);
+    this.currentComponent = terrainsType;
   }
 
   openImage(src) {
@@ -58,12 +53,6 @@ export class TerrainGenComponent implements AfterViewInit {
     }, function (xhr) {
       console.log('An error happened');
     });
-  }
-  nextTerGan() {
-    this.isGenerate = !this.isGenerate;
-  }
-  test() {
-    this.isOpen = !this.isOpen;
   }
 
 }

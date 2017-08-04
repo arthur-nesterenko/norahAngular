@@ -12,18 +12,12 @@ import { AuthGuard } from './pages/auth/auth-guard.service';
 import { AuthModule } from './pages/auth/auth.module';
 import { DialogService } from './pages/auth/dialog/dialog.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
-import { LogoComponent } from './pages/logo/logo.component';
-
-import { HillsComponent } from './pages/terrain-gen/hills/hills.component';
-import { PlainsComponent } from './pages/terrain-gen/plains/plains.component';
-import { IslandsComponent } from './pages/terrain-gen/islands/islands.component';
-import { CavesComponent } from './pages/terrain-gen/caves/caves.component';
-import { MountainsComponent } from './pages/terrain-gen/mountains/mountains.component';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { HomeModule } from './pages/home/home.module';
 import { RepositoryModule } from './pages/repository/repository.module';
 import { RepositoryService } from './pages/repository/repository.service';
 import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
+import {LogoComponent} from "./pages/logo/logo.component";
 
 @NgModule({
   declarations: [
