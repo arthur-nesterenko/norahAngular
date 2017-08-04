@@ -1,38 +1,37 @@
-import { Inject, Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
+import { FirebaseApp } from 'angularfire2/angularfire2';
 import * as firebase from 'firebase';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { FirebaseApp } from 'angularfire2';
-import { GlobalRef } from '../../global-ref';
 
 @Injectable()
 export class TerrainGenService {
-  private terrainFilesRange: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  private terrainsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+
+
+  getTerrains(type: string) {
+    const terrainsArr = [];
+    this.terrainsArr.forEach(item => {
+      terrainsArr.push(firebase
+        .storage(this.firebaseApp)
+        .ref(type)
+        .child(`${item}.png`)
+        .getDownloadURL()
+        .then(data => data)
+      );
+    });
+    return Promise.all(terrainsArr)
+      .then(data => data);
+  }
+
+
   private terrains: BehaviorSubject<string[]> = new BehaviorSubject([]);
   private terrainType: BehaviorSubject<string> = new BehaviorSubject<string>('');
   terrains$: Observable<string[]> = this.terrains.asObservable();
-
   constructor(@Inject(FirebaseApp) private firebaseApp, private global: GlobalRef) {
   }
 
   selectTerrain(terrainType) {
     this.terrainType.next(terrainType);
-  }
-
-  getTerrains(type) {
-    const terrains = [];
-    this.terrainFilesRange.forEach(value => {
-      terrains.push(firebase
-        .storage(this.firebaseApp)
-        .ref(type)
-        .child(`${value}.png`)
-        .getDownloadURL()
-        .then(terrain => {
-           return terrain;
-        })
-      );
-    });
-    return Promise.all(terrains).then(terrainsFinal => terrainsFinal);
   }
   addTerrain(terrain: string) {
     const wnd = this.global.nativeGlobal;
