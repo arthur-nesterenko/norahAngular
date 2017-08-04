@@ -32,4 +32,18 @@ export class MountainsComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
+  /* Add terrain to db */
+  addToLibrary(terrain: string) {
+    console.log(terrain.match('%(.*)\?'));
+    const pos = terrain.indexOf('F');
+    console.log(terrain.split('F')[1]);
+    console.log(terrain.substr(pos, ));
+    /*const terrainName = '';
+    const terrainObj = {
+      type: this.generationType,
+      name: terrainName
+    }
+    this.tergenService.addTerrain(terrainObj);*/
+  }
+
 }
