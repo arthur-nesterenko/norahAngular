@@ -1,6 +1,6 @@
-
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
 import * as $ from 'jquery';
+import { TerrainGenService } from './terrain-gen.service';
 
 
 @Component({
@@ -9,15 +9,18 @@ import * as $ from 'jquery';
   styleUrls: ['./terrain-gen.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TerrainGenComponent implements OnInit {
+export class TerrainGenComponent implements AfterViewInit {
 
   currentComponent: string = 'mountains';
   activeLink: string = 'mountains';
+  isGenerate = false;
+  isOpen = true;
 
-  constructor() { }
+  constructor(private terrainService: TerrainGenService) {
+  }
 
-  ngOnInit() {
-    $('.expand').on( 'click', function() {
+  ngAfterViewInit() {
+    $('.expand').on('click', function () {
       $(this).next().slideToggle(200);
       const $expand = $(this).find('>:first-child');
 
@@ -29,23 +32,27 @@ export class TerrainGenComponent implements OnInit {
     });
   }
 
-  loadComponent(componentName: string) {
-    this.currentComponent = componentName;
-    this.activeLink = componentName;
+  selectTerrain(terrainsType: string) {
+    this.activeLink = terrainsType;
+    this.currentComponent = terrainsType;
   }
-  
+
   openImage(src) {
 
-     $("#modalClose").click(function(e) {
-         $("#modalThree").css("display","none");
-	 //$( "#group" ).show();
-	 resetThree();
-     });
-     $("#modalThree").css("display","block");
-     //$( "#group" ).hide(); 
-     loader.load(src , function ( texture ) { init(texture);  }, function ( xhr ) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }, function ( xhr ) { console.log( 'An error happened' ); });
-
-
+    $('#modalClose').click(function (e) {
+      $('#modalThree').css('display', 'none');
+      //$( "#group" ).show();
+      resetThree();
+    });
+    $('#modalThree').css('display', 'block');
+    //$( "#group" ).hide();
+    loader.load(src, function (texture) {
+      init(texture);
+    }, function (xhr) {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    }, function (xhr) {
+      console.log('An error happened');
+    });
   }
 
 }

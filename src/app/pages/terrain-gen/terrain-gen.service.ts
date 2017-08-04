@@ -45,7 +45,11 @@ export class TerrainGenService {
           const value = snapshot.val();
           const exist = Object.keys(value).forEach(itemKey => value[itemKey]['name'] === terrainName);
           if (!exist) {
-            const newObjRef = firebase.database().ref('usernames').child(userId).child('mylibrary/').push();
+            const newObjRef = firebase.database()
+              .ref('usernames')
+              .child(userId)
+              .child('mylibrary/')
+              .push();
             newObjRef.set({
               type: terrainType,
               name: terrainName

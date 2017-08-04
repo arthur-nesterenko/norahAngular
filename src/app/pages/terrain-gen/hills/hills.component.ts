@@ -3,8 +3,7 @@ import {TerrainGenService} from '../terrain-gen.service';
 
 @Component({
   selector: 'app-hills',
-  templateUrl: './hills.component.html',
-  styleUrls: ['./hills.component.scss']
+  templateUrl: './hills.component.html'
 })
 export class HillsComponent implements OnInit {
 

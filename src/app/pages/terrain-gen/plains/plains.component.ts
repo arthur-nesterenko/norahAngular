@@ -3,8 +3,7 @@ import {TerrainGenService} from '../terrain-gen.service';
 
 @Component({
   selector: 'app-plains',
-  templateUrl: './plains.component.html',
-  styleUrls: ['./plains.component.scss']
+  templateUrl: './plains.component.html'
 })
 export class PlainsComponent implements OnInit {
 

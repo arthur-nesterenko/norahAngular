@@ -3,8 +3,7 @@ import {TerrainGenService} from '../terrain-gen.service';
 
 @Component({
   selector: 'app-islands',
-  templateUrl: './islands.component.html',
-  styleUrls: ['./islands.component.scss']
+  templateUrl: './islands.component.html'
 })
 export class IslandsComponent implements OnInit {
 

@@ -3,8 +3,7 @@ import {TerrainGenService} from '../terrain-gen.service';
 
 @Component({
   selector: 'app-caves',
-  templateUrl: './caves.component.html',
-  styleUrls: ['./caves.component.scss']
+  templateUrl: './caves.component.html'
 })
 export class CavesComponent implements OnInit {
 
