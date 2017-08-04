@@ -108,7 +108,7 @@ export class LibraryComponent implements AfterViewInit {
           }
         });
       } else {
-        $('#myModal').modal({
+        ($('#myModal') as any).modal({
           backdrop: 'static',
           keyboard: false,
           show: true

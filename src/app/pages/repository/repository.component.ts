@@ -163,7 +163,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     const arrayLength = this.selectedTags.length;
     const anim_final = [];
     if (arrayLength > 0 && !$.isEmptyObject(this.displayAnimations)) {
-      this.displayAnimations.forEach(function (anim) {
+      this.displayAnimations.forEach((anim) => {
         let count = 0;
         for (const t in anim['tags']) {
           for (let i = 0; i < arrayLength; i++) {
