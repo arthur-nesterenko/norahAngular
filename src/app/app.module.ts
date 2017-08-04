@@ -29,7 +29,13 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
   declarations: [
     AppComponent,
     AboutComponent,
-    CharMakerComponent
+    CharMakerComponent,
+    TerrainGenComponent, 
+    HillsComponent, 
+    PlainsComponent, 
+    IslandsComponent, 
+    CavesComponent, 
+    MountainsComponent
   ],
   imports: [
     BrowserModule,
