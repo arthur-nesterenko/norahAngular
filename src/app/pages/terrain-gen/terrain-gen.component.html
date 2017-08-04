@@ -10,19 +10,19 @@
           <ul class="terrain-detail">
             <li
               [ngClass]="{'active-gen': activeLink === 'mountains'}"
-              (click)="loadComponent('mountains')"><span>Mountains</span></li>
+              (click)="selectTerrain('mountains')"><span>Mountains</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'hills'}"
-              (click)="loadComponent('hills')"><span>Hills</span></li>
+              (click)="selectTerrain('hills')"><span>Hills</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'plains'}"
-              (click)="loadComponent('plains')"><span>Plains</span></li>
+              (click)="selectTerrain('plains')"><span>Plains</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'islands'}"
-              (click)="loadComponent('islands')"><span>Islands</span></li>
+              (click)="selectTerrain('islands')"><span>Islands</span></li>
             <li
               [ngClass]="{'active-gen': activeLink === 'caves'}"
-              (click)="loadComponent('caves')"><span>Caves</span></li>
+              (click)="selectTerrain('caves')"><span>Caves</span></li>
           </ul>
         </li>
       </ul>
@@ -30,79 +30,78 @@
     <div class="col-md-10 terrain-content">
       <div class="row">
 
-        <div class="terrain-components" [ngSwitch]="currentComponent">
-          <app-mountains *ngSwitchCase="'mountains'"></app-mountains>
-          <app-hills *ngSwitchCase="'hills'"></app-hills>
-          <app-plains *ngSwitchCase="'plains'"></app-plains>
-          <app-islands *ngSwitchCase="'islands'"></app-islands>
-          <app-caves *ngSwitchCase="'caves'"></app-caves>
-
-        <div class="ter-gen1" *ngIf="!isGenerate">
-          <div class="col-md-11">
-            <h3 class="text-center">Body Part Wise Blending</h3>
-            <section class="items clearfix">
-              <div class="col-md-3" *ngFor="let item of blending">
-                <div class="item"> 
-	          <img src ="/assets/images/input_img1.png" style="width:100%;height:100%">
-                  <div class="overlay">
-                    <div class="item-row">
-                      <button>
-                        <i class="fa fa-search-plus" aria-hidden="true"></i>
-                      </button>
-                      <button>
-                        <i class="fa fa-play" aria-hidden="true" (click)="openImage('/assets/images/input_img1.png')"></i>
-                      </button>
-                    </div>
-                    <div class="item-row">
-                      <button>Add to library</button>
-                      <button>Add to game</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-	      <div id="modalThree" class="modal"><div id="content" class="modal-content"><span id="modalClose" class="close">&times;</span><div id="container"></div></div></div>
-          <div class="col-md-1">
-            <div class="full-btn" (click)="nextTerGan()">
-              <a href="#"><i class="fa fa-play fa-rotate-180"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="ter-gen2" *ngIf="isGenerate">
-          <div class="col-md-1 right-arrow">
-            <div class="full-btn" (click)="nextTerGan()">
-              <a href="#"><i class="fa fa-play"></i></a>
-            </div>
-          </div>
-          <div class="col-md-11">
-            <div class="ter-gen2">
-              <h3 class="text-center">Generate</h3>
+        <div class="terrain-components">
+          <div class="ter-gen1">
+            <div class="col-md-11">
+              <h3 class="text-center">Body Part Wise Blending</h3>
               <section class="items clearfix">
-                <div class="col-md-3" *ngFor="let item of blending">
+                <div class="col-md-3" *ngFor="let item of terrains">
                   <div class="item">
+                    <img src="{{ item }}">
                     <div class="overlay">
                       <div class="item-row">
                         <button>
                           <i class="fa fa-search-plus" aria-hidden="true"></i>
                         </button>
                         <button>
-                          <i class="fa fa-play" aria-hidden="true"></i>
+                          <i class="fa fa-play" aria-hidden="true"
+                             (click)="openImage(item)"></i>
                         </button>
                       </div>
                       <div class="item-row">
-                        <button>Add to library</button>
+                        <button (click)="addToLibrary(item)">Add to library</button>
                         <button>Add to game</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </section>
-              <button class="shuffle-gen">Shuffle Generate</button>
+            </div>
+            <div id="modalThree" class="modal">
+              <div id="content" class="modal-content"><span id="modalClose" class="close">&times;</span>
+                <div id="container"></div>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="full-btn" (click)="nextTerGan()">
+                <a href="#"><i class="fa fa-play fa-rotate-180"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="ter-gen2" *ngIf="isGenerate">
+            <div class="col-md-1 right-arrow">
+              <div class="full-btn" (click)="nextTerGan()">
+                <a href="#"><i class="fa fa-play"></i></a>
+              </div>
+            </div>
+            <div class="col-md-11">
+              <div class="ter-gen2">
+                <h3 class="text-center">Generate</h3>
+                <section class="items clearfix">
+                  <div class="col-md-3" *ngFor="let item of terrains">
+                    <div class="item">
+                      <div class="overlay">
+                        <div class="item-row">
+                          <button>
+                            <i class="fa fa-search-plus" aria-hidden="true"></i>
+                          </button>
+                          <button>
+                            <i class="fa fa-play" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                        <div class="item-row">
+                          <button>Add to library</button>
+                          <button>Add to game</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <button class="shuffle-gen">Shuffle Generate</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>

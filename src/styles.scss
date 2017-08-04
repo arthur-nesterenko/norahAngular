@@ -67,15 +67,19 @@ html body {
     background: none !important;
 }
 
-.zodiacCont .box-video {
+.zodiacCont {
+  .box-video {
     width: 19%;
     margin-right: 7px;
-    padding: 0;
     background: $home-box-color;
     display: inline-block;
     position: relative;
     z-index: 1;
     overflow: hidden;
+    padding: 10px;
+  }
+  .box-image {
+  }
 }
 
 .zodiac_box {
@@ -102,7 +106,6 @@ html body {
 
 .zodiac_box .clust:hover>div {
     background-color: #1f2933;
-    ;
     transition: all 0.35s;
     opacity: 0.85;
 }

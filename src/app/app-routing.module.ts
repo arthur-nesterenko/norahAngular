@@ -23,7 +23,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'terrain-gen',
-    component: TerrainGenComponent
+    loadChildren: 'app/pages/terrain-gen/terrain-gen.module#TerrainGenModule'
   },
   {
     path: 'contact-us',
