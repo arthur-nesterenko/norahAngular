@@ -91,7 +91,7 @@ nav.tm_navbar {
     }
   }
   .sub-menu>ul {
-    background-color: $navbar-color;
+    background-color: #171d24;
     left: -2px;
     position: absolute;
     display: none;
@@ -102,19 +102,19 @@ nav.tm_navbar {
     margin: 0;
     overflow: visible;
     text-align: left;
-    border: 1px solid $navbar-color;
+    //border: 1px solid $navbar-color;
 
 
     li {
       position: relative;
-      background: none !important;
+      background: #171d24;
       border: none;
       width: auto;
       float: none;
       margin: 0;
       padding: 10px 0;
       display: block;
-      border-bottom: 1px solid $navbar-color;
+      //border-bottom: 1px solid $navbar-color;
       height: 50px;
 
       &:hover {

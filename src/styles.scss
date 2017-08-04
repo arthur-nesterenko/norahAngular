@@ -133,3 +133,25 @@ html body {
     right: 35px;
     float: right;
 }
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+.pagination {
+  .page-item {
+    .page-link {
+      background-color: $home-box-color !important;
+      border: 1px solid grey !important;
+      color: grey !important;
+    }
+
+    &.active {
+      .page-link {
+        background-color: $home-box-color !important;
+        border: 1px solid grey !important;
+        color: $blue !important;
+      }
+    }
+  }
+
+}

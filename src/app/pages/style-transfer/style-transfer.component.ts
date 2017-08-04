@@ -12,6 +12,7 @@ export class StyleTransferComponent implements AfterViewInit {
   root = 1;
 
   constructor(private global: GlobalRef) {
+  
   }
 
   ngAfterViewInit() {
@@ -28,6 +29,13 @@ export class StyleTransferComponent implements AfterViewInit {
     let current_right;
     wnd.yamllibrary = [];
     wnd.mp4library = [];
+    $('#animation_name').on('keypress', (event) => {
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      event.cancelBubble = true;
+      window.removeEventListener('keypress');
+    });
+    $(window).off('keypress');
     const yamlUrls = ['http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/aggressive+look.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/backflip.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/block.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/casual+conversation.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/chicken+dance.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/dancing.anim'];
     const yamlUrls_left = ['http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/big/chicken+dance.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/big/deep+breathing.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/big/fighting.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/big/playing+guitar.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/big/standing+idle1.anim'];
     const yamlUrls_right = ['http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/small/backflip.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/small/block.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/small/dancing.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/small/flying+kick.anim', 'http://s3-ap-southeast-1.amazonaws.com/norah.absentia/yaml/small/kick.anim'];
@@ -84,6 +92,7 @@ export class StyleTransferComponent implements AfterViewInit {
         firebase.storage().ref('mp4Files').child(right_array[0] + '.mp4').getDownloadURL().then(function (downloadUrl) {
           console.log(animDownloadUrl);
           console.log(downloadUrl);
+  
           gameInstance.SendMessage('ControllerHelper', 'ExecuteStartFromOutside', animDownloadUrl + '|' + animDownloadUrl);
 
           (document.getElementById('right_anim_name') as any).value = animDownloadUrl;
@@ -143,7 +152,7 @@ export class StyleTransferComponent implements AfterViewInit {
       const player: any = document.getElementById('left_animation_mp4');
       const mp4Vid: any = document.getElementById('left_animation_mp4_src');
       document.getElementById('left_anim_title').innerHTML = title;
-      document.getElementById('left_anim_duration').innerHTML = duration;
+      document.getElementById('left_anim_duration').innerHTML = 'Clip length: ' + duration + 's';
       player.pause();
       mp4Vid.src = url;
       player.load();
@@ -154,7 +163,7 @@ export class StyleTransferComponent implements AfterViewInit {
       const player: any = document.getElementById('right_animation_mp4');
       const mp4Vid: any = document.getElementById('right_animation_mp4_src');
       document.getElementById('right_anim_title').innerHTML = title;
-      document.getElementById('right_anim_duration').innerHTML = duration;
+      document.getElementById('right_anim_duration').innerHTML = 'Clip length: ' + duration + 's';
       player.pause();
       mp4Vid.src = url;
       player.load();
@@ -213,7 +222,7 @@ export class StyleTransferComponent implements AfterViewInit {
       //PlayAnimations();
       (document.getElementById('left_anim_name') as any).value = left_array[current_left];
       document.getElementById('left_anim_duration').innerHTML = left_duration_array[current_left];
-    }
+    };
 
     wnd.ApplyRightAnim = function (direction) {
       console.log(animationArray);
@@ -246,7 +255,7 @@ export class StyleTransferComponent implements AfterViewInit {
       //PlayAnimations();
       (document.getElementById('right_anim_name') as any).value = right_array[current_right];
       document.getElementById('right_anim_duration').innerHTML = right_duration_array[current_right];
-    }
+    };
 
     function saveToFirebase() {
       // Collect the values from form.
@@ -289,7 +298,7 @@ export class StyleTransferComponent implements AfterViewInit {
       const txt: any = document.getElementById('animation_name');
       const animName = txt.value;
       gameInstance.SendMessage('ControllerHelper', 'ExportFromOutside', animName);
-    }
+    };
 
     wnd.saveAnim = function () {
 
@@ -354,7 +363,7 @@ export class StyleTransferComponent implements AfterViewInit {
       }
 
 
-    }
+    };
 
 
     wnd.handleClick = function (cb) {
@@ -363,7 +372,7 @@ export class StyleTransferComponent implements AfterViewInit {
         gameInstance.SendMessage('ControllerHelper', 'SetLoop', cb.checked.toString());
       if (name === 'TimeStretch')
         gameInstance.SendMessage('ControllerHelper', 'SetTimeStretch', cb.checked.toString());
-    }
+    };
 
     const rangeSlider = function () {
       const slider = $('.range-slider'),
@@ -390,8 +399,11 @@ export class StyleTransferComponent implements AfterViewInit {
     $(document).ready(function () {
       current_left = 0;
       current_right = 0;
-
-      setTimeout(loadPage, 1500);
+      firebase.auth().onAuthStateChanged(state => {
+        if (state.uid) {
+          loadPage();
+        }
+      });
     });
 
     function loadPage() {
@@ -399,17 +411,22 @@ export class StyleTransferComponent implements AfterViewInit {
         console.log('Auth');
         const userId = firebase.auth().currentUser.uid;
         let ss = [];
-        firebase.database().ref('usernames').child(userId).child('mylibrary').orderByChild('duration').once('value').then(function (snapshot) {
-          ss = snapshot.val();
-          console.log('Number of children ' + snapshot.numChildren());
-          childrenCount = snapshot.numChildren();
-          semaphore = true;
-          if (childrenCount < 2) {
-            alert('Add atleast 2 animations from the Repository');
-          } else {
-            gameInstance = UnityLoader.instantiate('gameContainer', 'assets/other/WebBuild.json');
-          }
-        });
+        firebase.database().ref('usernames')
+          .child(userId)
+          .child('mylibrary')
+          .orderByChild('duration')
+          .once('value')
+          .then(function (snapshot) {
+            ss = snapshot.val();
+            console.log('Number of children ' + snapshot.numChildren());
+            childrenCount = snapshot.numChildren();
+            semaphore = true;
+            if (childrenCount < 2) {
+              alert('Add atleast 2 animations from the Repository');
+            } else {
+              gameInstance = UnityLoader.instantiate('gameContainer', 'assets/other/WebBuild.json');
+            }
+          });
       } else {
         console.log('Not logged in');
         $('#myModal').modal({
@@ -418,7 +435,6 @@ export class StyleTransferComponent implements AfterViewInit {
           show: true
         });
       }
-
     }
   }
 
