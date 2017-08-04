@@ -123,6 +123,7 @@
     &:hover .overlay { opacity: 1; }
   }
   .shuffle-gen {
+    margin: 25px;
     width: 49%;
     padding: 8px 0;
     background-color: #105a9b;
@@ -233,4 +234,7 @@
               text-decoration: none;
 	      cursor: pointer;
 	  }
+}
+.ter-gen2 {
+  text-align: center;
 }

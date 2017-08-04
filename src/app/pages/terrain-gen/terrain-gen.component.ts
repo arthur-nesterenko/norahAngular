@@ -13,6 +13,8 @@ export class TerrainGenComponent implements AfterViewInit {
 
   activeLink = 'mountains';
   terrains: string[] = [];
+  isGenerate = false;
+  isOpen = true;
 
   constructor(private terrainService: TerrainGenService) {
     this.selectTerrain('mountains');
@@ -56,8 +58,12 @@ export class TerrainGenComponent implements AfterViewInit {
     }, function (xhr) {
       console.log('An error happened');
     });
-
-
+  }
+  nextTerGan() {
+    this.isGenerate = !this.isGenerate;
+  }
+  test() {
+    this.isOpen = !this.isOpen;
   }
 
 }
