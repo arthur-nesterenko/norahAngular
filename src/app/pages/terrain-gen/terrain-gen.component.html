@@ -30,11 +30,11 @@
     <div class="col-md-10 terrain-content">
       <div class="row">
         <div class="terrain-components" [ngSwitch]="currentComponent">
-          <app-mountains *ngSwitchCase="'mountains'"></app-mountains>
-          <app-hills *ngSwitchCase="'hills'"></app-hills>
-          <app-plains *ngSwitchCase="'plains'"></app-plains>
-          <app-islands *ngSwitchCase="'islands'"></app-islands>
-          <app-caves *ngSwitchCase="'caves'"></app-caves>
+          <app-mountains [generationType]="currentComponent" *ngSwitchCase="'mountains'"></app-mountains>
+          <app-hills [generationType]="currentComponent" *ngSwitchCase="'hills'"></app-hills>
+          <app-plains [generationType]="currentComponent" *ngSwitchCase="'plains'"></app-plains>
+          <app-islands [generationType]="currentComponent" *ngSwitchCase="'islands'"></app-islands>
+          <app-caves [generationType]="currentComponent" *ngSwitchCase="'caves'"></app-caves>
         </div>
       </div>
     </div>

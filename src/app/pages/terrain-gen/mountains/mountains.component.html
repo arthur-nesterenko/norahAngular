@@ -2,8 +2,9 @@
   <div class="col-md-11">
     <h3 class="text-center">Body Part Wise Blending</h3>
     <section class="items clearfix">
-      <div class="col-md-3" *ngFor="let item of mountains">
+      <div class="col-md-3" *ngFor="let item of terrains">
         <div class="item">
+          <img [src] ="item" alt="">
           <div class="overlay">
             <div class="item-row">
               <button>
@@ -36,8 +37,9 @@
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
       <section class="items clearfix">
-        <div class="col-md-3" *ngFor="let item of mountains">
+        <div class="col-md-3" *ngFor="let item of terrains">
           <div class="item">
+            <img [src] ="item" alt="">
             <div class="overlay">
               <div class="item-row">
                 <button>
@@ -57,7 +59,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="test" (click)="test()">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" (click)="isOpenAccord()">
                   Generation 1</a>
                 <span class="accordion-arrow" *ngIf="isOpen">▼</span>
                 <span class="accordion-arrow" *ngIf="!isOpen">▲</span>

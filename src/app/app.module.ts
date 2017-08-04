@@ -22,6 +22,7 @@ import { PlainsComponent } from './pages/terrain-gen/plains/plains.component';
 import { IslandsComponent } from './pages/terrain-gen/islands/islands.component';
 import { CavesComponent } from './pages/terrain-gen/caves/caves.component';
 import { MountainsComponent } from './pages/terrain-gen/mountains/mountains.component';
+import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MountainsComponent } from './pages/terrain-gen/mountains/mountains.comp
     RepositoryModule
 
   ],
-  providers: [{ provide: GlobalRef, useClass: BrowserGlobalRef }, AuthGuard, DialogService, RepositoryService],
+  providers: [
+    { provide: GlobalRef, useClass: BrowserGlobalRef }, AuthGuard, DialogService, RepositoryService, TerrainGenService],
 
   bootstrap: [AppComponent]
 })

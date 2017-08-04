@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TerrainGenService} from '../terrain-gen.service';
 
 @Component({
   selector: 'app-hills',
@@ -7,16 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HillsComponent implements OnInit {
 
-  isGenerate = false;
+  terrains = [];
+  isGenerate: boolean = false;
+  isOpen: boolean = true;
+  @Input() generationType: string;
 
-  constructor() { }
+  constructor(private tergenService: TerrainGenService) { }
 
   ngOnInit() {
+    this.tergenService.getTerrains(this.generationType)
+      .then(data => this.terrains = data)
+      .catch(error => console.log(error));
   }
 
   nextTerGan() {
     this.isGenerate = !this.isGenerate;
     return false;
+  }
+
+  isOpenAccord() {
+    this.isOpen = !this.isOpen;
   }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import { FirebaseListObservable } from 'angularfire2/database';
+import { TerrainGenService } from '../terrain-gen.service';
 declare var $: any;
 
 @Component({
@@ -8,13 +10,17 @@ declare var $: any;
 })
 export class MountainsComponent implements OnInit {
 
-  mountains: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  terrains = [];
   isGenerate: boolean = false;
   isOpen: boolean = true;
+  @Input() generationType: string;
 
-  constructor() { }
+  constructor(private tergenService: TerrainGenService) { }
 
   ngOnInit() {
+    this.tergenService.getTerrains(this.generationType)
+      .then(data => this.terrains = data)
+      .catch(error => console.log(error));
   }
 
   nextTerGan() {
@@ -22,7 +28,7 @@ export class MountainsComponent implements OnInit {
     return false;
   }
 
-  test() {
+  isOpenAccord() {
     this.isOpen = !this.isOpen;
   }
 
