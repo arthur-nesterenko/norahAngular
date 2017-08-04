@@ -1,0 +1,189 @@
+<div class="main_wapper wrapper">
+<!--Lest Sidebar-->
+         <div id="Sidebar">
+            <div id="integration-list">
+               <ul>
+                  <li>
+                     <div class="integration-slider">
+                        <div class="range-slider square">
+                          <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+
+                        </div>
+                        <a class="expand">
+                           <div class="right-arrow">▼</div>
+                           <div>
+                              <h2>Base Parameters</h2>
+                           </div>
+                        </a>
+                        <div class="detail" style="display: none;">
+                           <div class="Parameters_Content">
+                              <ul>
+                                 <li>
+                                    <div class="Parameters_Content_Title">Height</div>
+                                   <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+                                 <li>
+                                    <div class="Parameters_Content_Title">Weight</div>
+                                   <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="expand-box">
+                        <ul>
+                           <li></li>
+                           <li></li>
+                           <li></li>
+                        </ul>
+                     </div>
+                     <a class="expand">
+                        <div class="right-arrow">▼</div>
+                        <h2 class="t-white">Ethnicity</h2>
+                     </a>
+                     <div class="detail" style="display: none;">
+                        <div class="Parameters_Content text-blue m-cutom">
+                           <ul>
+                              <li>
+                                 <div class="Parameters_Content_Title m-custom">Asian</div>
+                                 <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                              </li>
+                              <li>
+                                 <div class="Parameters_Content_Title m-custom">African</div>
+                                <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                              </li>
+                              <li>
+                                 <div class="Parameters_Content_Title m-custom">Caucasian</div>
+                                 <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                              </li>
+                              <li class="sex-r-slider">
+                                 <div class="integration-slider">
+                                    <a>
+                                       <h2>Sex</h2>
+                                       <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </a>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="part-styler">
+               <ul>
+                  <li>
+                     <div class="integration-slider">
+                        <div class="move-arrow">
+                           <a href="#"><i class="fa fa-minus"></i></a>
+                           <a href="#"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <a class="expand">
+                           <div class="right-arrow">▼</div>
+                           <div>
+                              <h2>Part Styler</h2>
+                           </div>
+                        </a>
+                        <div class="detail b-none" style="display: none;">
+                           <div class="Parameters_object">
+                              <img src="assets/images/object-1.jpg" alt="">
+                              <a href="#"><img src="assets/images/recycling.png" alt=""></a>
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <!--Lest Sidebar-->
+         <!--Container-->
+         <div id="content-wrapper">
+            <div class="object-container">
+               <div class="object-container-in">
+                  <div class="object-container-dna">
+                     <div class="dna-code-title">
+                        <h2>DNA CODE</h2>
+                     </div>
+                     <div class="dna-code-title2">
+                        <h2>“ An old man is wiser than it appears”</h2>
+                     </div>
+                     <div class="block block-object">
+                        <span class="helper"></span>
+                        <img src="assets/images/object-2.png" alt="">
+                        <div class="object-container-dna-btm">
+                           <div class="addgame">
+                              <a href="javascript:void(0)" class="addgame-btn">Add to game</a>
+                              <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="head-detail">
+                     <div class="head-title">
+                        <h3>Head</h3>
+                        <div class="dropdown pull-right">                       
+                         <div ngbDropdown class="d-inline-block">
+                           <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
+                              <li><a href="javascript:void(0)">Head</a></li>
+                              <li><a href="javascript:void(0)">Eyes</a></li>
+                              <li><a href="javascript:void(0)">Legs</a></li>
+                              <li><a href="javascript:void(0)">Hair</a></li>
+                              <li><a href="javascript:void(0)">Hand</a></li>
+                           </ul>
+                         </div>
+                       </div>                       
+                     </div>
+                     <div class="head-detail-block">
+                        <div class="block"></div>
+                        <div class="block"></div>
+                        <div class="full-btn">
+                           <a href="#"><i class="fa fa-caret-right"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="shuffle-btn">
+                     <a href="javascript:void(0)">Shuffle Generate</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Container-->         
+         <!--Right Sidebar-->
+         <div id="RSidebar">
+            <h1>Eyes</h1>
+            <div class="rsidebar-block">
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                   
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                  
+               </div>
+               <div class="rangeSlider_block">
+                  <div class="block"></div>
+                  
+               </div>
+            </div>
+         </div>
+
+         <!--Right Sidebar-->
+</div>
