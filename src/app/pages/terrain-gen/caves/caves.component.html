@@ -8,7 +8,7 @@
           <div class="overlay">
             <div class="item-row">
               <button>
-                <i class="fa fa-play" aria-hidden="true"></i>
+                <i class="fa fa-play" aria-hidden="true" (click)="openImage(item)"></i>
               </button>
             </div>
             <div class="item-row action-btn">
@@ -19,6 +19,12 @@
         </div>
       </div>
     </section>
+    <div id="modalThree" class="modal">
+      <div id="content" class="modal-content">
+          <span id="modalClose" class="close">&times;</span>
+          <div id="container"></div> 
+      </div>
+    </div>
   </div>
   <div class="col-md-1">
     <div class="full-btn" (click)="nextTerGan()">

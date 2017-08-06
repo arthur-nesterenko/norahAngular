@@ -59,4 +59,23 @@ export class MountainsComponent implements AfterViewInit {
     this.tergenService.addTerrain(terrainObj);
   }
 
+  openImage(src) {
+  console.log('SRC'+src);
+    $('#modalClose').click(function (e) {
+      $('#modalThree').css('display', 'none');
+      //$( "#group" ).show();
+      resetThree();
+    });
+    $('#modalThree').css('display', 'block');
+    //$( "#group" ).hide();
+    loader.load(src, function (texture) {
+      init(texture);
+    }, function (xhr) {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    }, function (xhr) {
+      console.log('An error happened');
+    });
+  }
+
+
 }
