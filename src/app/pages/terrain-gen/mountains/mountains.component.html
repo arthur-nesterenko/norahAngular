@@ -37,9 +37,9 @@
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
       <section class="items clearfix">
-        <div class="col-md-3" *ngFor="let terrain of terrains">
+        <div class="col-md-3" *ngFor="let terrain of userTerrains | async">
           <div class="item">
-            <img [src] ="terrain" alt="">
+            <img [src]="terrain" alt="">
             <div class="overlay">
               <div class="item-row">
                 <button>

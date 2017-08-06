@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="item-row action-btn">
-              <button>Add to library</button>
+              <button (click)="addToLibrary(item)">Add to library</button>
               <button>Add to game</button>
             </div>
           </div>
@@ -37,9 +37,9 @@
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
       <section class="items clearfix">
-        <div class="col-md-3" *ngFor="let item of terrains">
-          <div class="item">
-            <img [src] ="item" alt="">
+        <div class="col-md-3" *ngFor="let terrain of userTerrains | async">
+        <div class="item">
+            <img [src] ="terrain" alt="">
             <div class="overlay">
               <div class="item-row">
                 <button>
