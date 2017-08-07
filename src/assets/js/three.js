@@ -30429,7 +30429,8 @@
 			}
 
 			scope.manager.itemStart( url );
-
+                        image.crossOrigin = 'anonymous';
+console.log("aa");
 			image.src = url;
 
 			return image;

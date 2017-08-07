@@ -8,7 +8,7 @@
           <div class="overlay">
             <div class="item-row">
               <button>
-                <i class="fa fa-play" aria-hidden="true"></i>
+                <i class="fa fa-play" aria-hidden="true" (click)="openImage(item)"></i>
               </button>
             </div>
             <div class="item-row action-btn">
@@ -19,6 +19,12 @@
         </div>
       </div>
     </section>
+    <div id="modalThree" class="modal">
+      <div id="content" class="modal-content">
+          <span id="modalClose" class="close">&times;</span>
+          <div id="container"></div>
+      </div>
+    </div>
   </div>
   <div class="col-md-1">
     <div class="full-btn" (click)="nextTerGan()">
@@ -42,14 +48,25 @@
             <img [src] ="terrain" alt="">
             <div class="overlay">
               <div class="item-row">
-                <button>
-                  <i class="fa fa-play" aria-hidden="true"></i>
+                <button style="position: absolute;left: 0;">
+                  <input class="imageSelection" type="checkbox" value="">
                 </button>
+                <button>
+                  <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
+                </button>
+
               </div>
             </div>
           </div>
         </div>
       </section>
+      <div id="modalThree" class="modal">
+        <div id="content" class="modal-content">
+          <span id="modalClose" class="close">&times;</span>
+          <div id="container"></div>
+        </div>
+      </div>
+
       <h3 class="text-center new-gen-head">
         <span>New Generations</span>
         <i class="fa fa-sort fa-inverse" aria-hidden="true"></i>
@@ -86,6 +103,7 @@
       <div class="generate-btn text-center">
         <button class="shuffle-gen">Hybrid Generate</button>
         <button class="shuffle-gen">Shuffle Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages()">Upload</button>
       </div>
     </div>
   </div>
