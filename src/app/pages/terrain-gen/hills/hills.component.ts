@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import {TerrainGenService} from '../terrain-gen.service';
 import * as firebase from 'firebase';
+import { BrowserModule } from '@angular/platform-browser';
+import { Http,HttpModule,Headers,RequestOptions  } from '@angular/http';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class HillsComponent implements AfterViewInit {
   isOpen: boolean = true;
   @Input() generationType: string;
   
-  constructor(public tergenService: TerrainGenService) {
+  constructor(public tergenService: TerrainGenService,private http:Http) {
   }
   
   ngAfterViewInit() {
@@ -76,5 +78,35 @@ export class HillsComponent implements AfterViewInit {
     });
   }
 
+  uploadImages(){
+    console.log("Upload Images");
+    var images = document.getElementsByClassName('item');
+    var srcList = [];
+    var a;
+    for(var i = 0; i < images.length; i++) {
+      if( images[i].getElementsByTagName('input')[0].checked){
+        if(a){
+          a = a+ ',';
+        } else {
+          a = '';
+        }
+        a = a +  images[i].getElementsByTagName('img')[0].src;
+      }
+
+    }
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Access-Control-Allow-Origin' ,'*');
+    headers.append('Access-Control-Allow-Headers',' Origin, Content-Type, X-Auth-Token');
+    let options = new RequestOptions({ headers: headers });
+    var date_t =  Date.now();
+    var body = {image_src: a,imgUploader: '',date:date_t};
+    if(a){
+      this.http.post('http://130.211.148.177:2000/upload', body,options)
+                .subscribe(
+                    () => {alert("Success")}, //For Success Response
+                    err => {console.error(err)} //For Error Response
+                );
+    }
+  }
   
 }

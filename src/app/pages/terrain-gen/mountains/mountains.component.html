@@ -48,6 +48,9 @@
             <img [src]="terrain" alt="">
             <div class="overlay">
               <div class="item-row">
+                <button style="position: absolute;left: 0;">
+                  <input class="imageSelection" type="checkbox" value="">
+                </button>
                 <button>
                   <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
                 </button>
@@ -98,6 +101,7 @@
       <div class="generate-btn text-center">
         <button class="shuffle-gen">Hybrid Generate</button>
         <button class="shuffle-gen">Shuffle Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages()">Upload</button>
       </div>
     </div>
   </div>
