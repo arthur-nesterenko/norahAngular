@@ -10,12 +10,13 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
 
   currentUser: User;
-  currentState;
+  currentState: Observable<FirebaseAuthState>;
 
   constructor (private afAuth: AngularFireAuth, private router: Router) {
     this.currentState = afAuth.map((state: FirebaseAuthState) => {

@@ -31,6 +31,6 @@ import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   exports: [
     AuthComponent
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, AuthComponent]
 })
 export class AuthModule { }
