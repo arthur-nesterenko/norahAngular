@@ -1,0 +1,127 @@
+.gun-wrapper {
+  padding-top: 15px;
+}
+
+.gun-sidebar {
+  padding: 0;
+  background-color: #253443;
+  .open {
+    display: block;
+  }
+  .active-gen {
+    background-color: #105a9b;
+  }
+}
+
+.gun-options {
+  padding: 0;
+  margin: 0 0 15px 0;
+  list-style: none;
+  h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #0287f9;
+    font-weight: 500;
+  }
+  li {
+    padding: 12px 15px;
+    color: #fff;
+    border-bottom: 1px solid rgba(130, 108, 108, .2);
+    cursor: pointer;
+    &:hover {
+      background-color: lighten(#253443, 20%);
+    }
+  }
+  a {
+    padding-left: 20px;
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &--texture {
+    li {
+      border: none;
+      background-color: #212c39;
+    }
+    h4 {
+      color: white;
+      text-align: center;
+    }
+  }
+}
+
+.gun-content {
+  padding-right: 30px;
+  &__title {
+    padding: 10px 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #253443;
+    text-align: center;
+  }
+  &__inner {
+    padding-top: 15px;
+  }
+  &__item {
+    position: relative;
+    margin-bottom: 15px;
+    button {
+      overflow: hidden;
+      color: #555;
+      background: transparent;
+      border: 1px solid #555;
+      border-radius: 5px;
+      outline: none;
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+    &:hover {
+      .gun-content__item-overlay {
+        opacity: 1;
+      }
+    }
+  }
+  &__item-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+  }
+  &__item-img {
+    width: 100%;
+  }
+  &__item-play {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    button {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      font-size: 20px;
+    }
+  }
+  &__item-actions {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    button {
+      width: 49%;
+      padding: 5px;
+    }
+  }
+}
