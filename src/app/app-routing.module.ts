@@ -6,7 +6,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { AuthGuard } from './pages/auth/auth-guard.service';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import {TerrainGenComponent} from './pages/terrain-gen/terrain-gen.component';
-
+import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -22,8 +22,13 @@ const appRoutes: Routes = [
     component: CharMakerComponent
   },
   {
+    path: 'dna-code',
+    component: DnaCodeComponent
+  },
+  {
     path: 'terrain-gen',
-    loadChildren: 'app/pages/terrain-gen/terrain-gen.module#TerrainGenModule'
+    loadChildren: 'app/pages/terrain-gen/terrain-gen.module#TerrainGenModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'contact-us',
@@ -40,17 +45,17 @@ const appRoutes: Routes = [
   {
     path: 'my-library',
     loadChildren: 'app/pages/library/library.module#LibraryModule',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'style-transfer',
     loadChildren: 'app/pages/style-transfer/style-transfer.module#StyleTransferModule',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'motion-editor',
     loadChildren: 'app/pages/motion-editor/motion-editor.module#MotionEditorModule',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 
 ];

@@ -157,7 +157,6 @@ function rescaleImageData ( image_ , ratio_ ) {
 }
 
 function getImageData( image_ ) {
-
     var canvas = document.createElement( 'canvas' );
     canvas.width = image_.width;
     canvas.height = image_.height;
@@ -203,7 +202,6 @@ function updateGeometry(param0_, param1_){
 }
 
 function customPlane(texture_, width_, height_){
-    
     var data = rescaleImageData(texture_.image, scaleFactor );
     //var data = getImageData(texture_.image);
         

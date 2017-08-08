@@ -5,10 +5,13 @@ import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-dialog',
-  templateUrl: './dialog.component.html'
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent   {
+export class DialogComponent {
   authForm: FormGroup;
+  providers = ['Facebook', 'Twitter', 'Google'];
+  state = 'login';
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService
@@ -18,9 +21,6 @@ export class DialogComponent   {
       password: new FormControl('')
     });
   }
-  public title: string;
-  public message: string;
-  public state: string;
   get email(): string {
     return this.authForm.value.email;
   }

@@ -8,22 +8,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserGlobalRef, GlobalRef } from './global-ref';
 import { AboutComponent } from './pages/about/about.component';
-import { AuthGuard } from './pages/auth/auth-guard.service';
 import { AuthModule } from './pages/auth/auth.module';
 import { DialogService } from './pages/auth/dialog/dialog.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
-import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
+import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 import { HomeModule } from './pages/home/home.module';
 import { RepositoryModule } from './pages/repository/repository.module';
 import { RepositoryService } from './pages/repository/repository.service';
 import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
-import {LogoComponent} from "./pages/logo/logo.component";
+import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-    CharMakerComponent
+    CharMakerComponent,
+    DnaCodeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +38,7 @@ import {LogoComponent} from "./pages/logo/logo.component";
     TerrainGenModule
   ],
   providers: [
-    { provide: GlobalRef, useClass: BrowserGlobalRef }, AuthGuard, DialogService, RepositoryService, TerrainGenService],
+    { provide: GlobalRef, useClass: BrowserGlobalRef }, DialogService, RepositoryService, TerrainGenService],
 
   bootstrap: [AppComponent]
 })

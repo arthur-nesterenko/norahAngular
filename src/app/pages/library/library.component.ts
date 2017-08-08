@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import * as $ from 'jquery';
 import * as firebase from 'firebase';
 import { GlobalRef } from '../../global-ref';
@@ -8,13 +8,13 @@ import { GlobalRef } from '../../global-ref';
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss']
 })
-export class LibraryComponent implements AfterViewInit {
+export class LibraryComponent implements AfterViewChecked {
   animations: any;
 
   constructor(private glob: GlobalRef) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewChecked() {
     const wnd = this.glob.nativeGlobal;
     $(document).ready(function () {
       setTimeout(loadPage, 1500);
@@ -108,11 +108,11 @@ export class LibraryComponent implements AfterViewInit {
           }
         });
       } else {
-        ($('#myModal') as any).modal({
-          backdrop: 'static',
-          keyboard: false,
-          show: true
-        });
+        // ($('#myModal') as any).modal({
+        //   backdrop: 'static',
+        //   keyboard: false,
+        //   show: true
+        // });
         $('.zodiacCont').show();
         $('.temp_margin').hide();
       }

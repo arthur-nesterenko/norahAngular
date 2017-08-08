@@ -3,7 +3,7 @@ import { User } from 'firebase/app';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { NavigationStart, Router } from '@angular/router';
 
 @Component({
