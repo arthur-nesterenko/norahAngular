@@ -71,19 +71,22 @@
       </h3>
       <section class="new-generations-accordion">
         <div class="panel-group" id="accordion">
-          <div class="panel panel-default">
+
+          <div class="panel panel-default" *ngFor="let obj of receivedData; let i = index">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" (click)="isOpenAccord()">
-                  Generation 1</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}" (click)="isOpenAccord()">
+                  Generation {{ i + 1 }}</a>
                 <span class="accordion-arrow" *ngIf="isOpen">▼</span>
                 <span class="accordion-arrow" *ngIf="!isOpen">▲</span>
               </h4>
             </div>
-            <div id="collapse1" class="panel-collapse collapse">
+            <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
               <div class="panel-body clearfix">
-                <div class="col-md-3" *ngFor="let item of mountains">
+
+                <div class="col-md-3" *ngFor="let receivedImg of obj.receivedImages">
                   <div class="item">
+                    <img [src] ="receivedImg.imgPath" alt="">
                     <div class="overlay">
                       <div class="item-row">
                         <button>
@@ -93,9 +96,11 @@
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
+
         </div>
       </section>
       <div class="generate-btn text-center">

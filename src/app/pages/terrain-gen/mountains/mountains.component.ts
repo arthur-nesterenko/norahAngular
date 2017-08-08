@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import * as firebase from 'firebase';
 import { TerrainGenService } from '../terrain-gen.service';
-import { BrowserModule } from '@angular/platform-browser'; 
-import { Http,HttpModule,Headers,RequestOptions  } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { Http, HttpModule, Headers, RequestOptions, Response  } from '@angular/http';
+import {Observable} from "rxjs/Observable";
 
 declare var $: any;
 
@@ -13,7 +14,9 @@ declare var $: any;
 export class MountainsComponent implements AfterViewInit {
 
   terrains = [];
-  userTerrains : any;
+  userTerrains: any;
+  /* Received Data after clicking on button Upload */
+  receivedData: any[] = [];
   isGenerate: boolean = false;
   isOpen: boolean = true;
   @Input() generationType: string;
@@ -62,7 +65,7 @@ export class MountainsComponent implements AfterViewInit {
   }
 
   openImage(src) {
-  console.log('SRC'+src);
+    console.log('SRC'+src);
     $('#modalClose').click(function (e) {
       $('#modalThree').css('display', 'none');
       //$( "#group" ).show();
@@ -81,7 +84,7 @@ export class MountainsComponent implements AfterViewInit {
 
   uploadImages(){
     console.log("Upload Images");
-    var images = document.getElementsByClassName('item'); 
+    var images = document.getElementsByClassName('item');
     var srcList = [];
     var a;
     for(var i = 0; i < images.length; i++) {
@@ -93,22 +96,32 @@ export class MountainsComponent implements AfterViewInit {
         }
         a = a +  images[i].getElementsByTagName('img')[0].src;
       }
-    
+
     }
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin' ,'*');
-    headers.append('Access-Control-Allow-Headers',' Origin, Content-Type, X-Auth-Token');
+    headers.append('Access-Control-Allow-Headers','Origin, Content-Type, X-Auth-Token');
     let options = new RequestOptions({ headers: headers });
     var date_t =  Date.now();
-    var body = {image_src: a,imgUploader: '',date:date_t}; 
+    var body = {image_src: a,imgUploader: '',date:date_t};
     if(a){
-      this.http.post('http://130.211.148.177:2000/upload', body,options)
-                .subscribe(
-                    () => {alert("Success")}, //For Success Response
-                    err => {console.error(err)} //For Error Response
-                );      
+      this.http.post('http://130.211.148.177:2000/upload', body, options)
+        .map((resp: Response) => resp.json())
+        .subscribe(
+            (data) => {
+              /*
+                Create a custom object which allow us generate new tabs
+                Received data are saved in property which allow us display received images in the tabs
+              */
+              const customObj = {
+                receivedImages: [data]
+              };
+              this.receivedData.push(customObj);
+            }, //For Success Response
+            err => {console.error(err)} //For Error Response
+        );
     }
   }
-  
+
 
 }

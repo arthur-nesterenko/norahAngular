@@ -18,9 +18,11 @@ export class TerrainGenService {
     private global: GlobalRef) {
     this.getUser();
   }
+
   getUser() {
     this.auth.subscribe(user => user ? this.user = user.uid : '');
   }
+
   /* Get data from Firebase Storage */
   getTerrains(type: string) {
     const terrainsArr = [];
@@ -36,6 +38,7 @@ export class TerrainGenService {
     return Promise.all(terrainsArr)
       .then(data => data);
   }
+
   getTerrainsFromLibrary(type: string) {
     const terrainsArr = Observable.of([]);
     if (this.user) {
@@ -86,6 +89,7 @@ export class TerrainGenService {
         });
     }
   }
+
   pushNewTerrain(terrainType: string, terrainName: string) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
