@@ -105,7 +105,7 @@ export class MountainsComponent implements AfterViewInit {
     var date_t =  Date.now();
     var body = {image_src: a,imgUploader: '',date:date_t};
     if(a){
-      this.http.post('http://130.211.148.177:2000/upload', body, options)
+      this.http.post('https://absentiaterraingen.com/upload', body, options)
         .map((resp: Response) => resp.json())
         .subscribe(
             (data) => {
