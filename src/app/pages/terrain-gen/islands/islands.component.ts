@@ -3,7 +3,7 @@ import {TerrainGenService} from '../terrain-gen.service';
 import * as firebase from 'firebase';
 import { BrowserModule } from '@angular/platform-browser';
 import { Http,HttpModule,Headers,RequestOptions  } from '@angular/http';
-
+declare var $: any;
 
 
 
@@ -12,16 +12,16 @@ import { Http,HttpModule,Headers,RequestOptions  } from '@angular/http';
   templateUrl: './islands.component.html'
 })
 export class IslandsComponent implements AfterViewInit {
-  
+
   terrains = [];
   userTerrains: any;
   isGenerate: boolean = false;
   isOpen: boolean = true;
   @Input() generationType: string;
-  
+
   constructor(public tergenService: TerrainGenService,private http:Http) {
   }
-  
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.tergenService.getTerrains(this.generationType)
@@ -29,7 +29,7 @@ export class IslandsComponent implements AfterViewInit {
         .catch(error => console.log(error));
     }, 1500);
   }
-  
+
   nextTerGan() {
     this.tergenService.getTerrainsFromLibrary(this.generationType)
       .subscribe(items => {
@@ -46,11 +46,11 @@ export class IslandsComponent implements AfterViewInit {
       });
     this.isGenerate = !this.isGenerate;
   }
-  
+
   isOpenAccord() {
     this.isOpen = !this.isOpen;
   }
-  
+
   /* Add terrain to db */
   addToLibrary(terrain: string) {
     console.log(terrain);
