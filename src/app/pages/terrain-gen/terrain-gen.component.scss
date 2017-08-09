@@ -171,6 +171,23 @@
     .items {
       height: 390px;
       overflow-y: scroll;
+      .item {
+        label {
+          width: 100%;
+          height: 100%;
+          margin-bottom: 0;
+        }
+        .fa-check-circle-o {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          font-size: 40px;
+          transform: translate(-50%, -50%);
+        }
+        .imageSelection {
+          display: none;
+        }
+      }
     }
     .new-gen-head {
       span {

@@ -100,9 +100,9 @@ export class PlainsComponent implements AfterViewInit {
     headers.append('Access-Control-Allow-Headers',' Origin, Content-Type, X-Auth-Token');
     let options = new RequestOptions({ headers: headers });
     var date_t =  Date.now();
-    var body = {image_src: a,imgUploader: '',date:date_t};
+    var body = {image_src: a,imgUploader: '',date:date_t,pcross:'1',pop_size:'2',iter:'3',hmin:'0',hmax:'8',r:'1024',c:'1024',func_mut:'sin',func_cross:'plus',gaussian_c:'1.4'};
     if(a){
-      this.http.post('http://130.211.148.177:2000/upload', body,options)
+        this.http.post('https://absentiaterraingen.com/upload', body,options)
                 .subscribe(
                     () => {alert("Success")}, //For Success Response
                     err => {console.error(err)} //For Error Response
