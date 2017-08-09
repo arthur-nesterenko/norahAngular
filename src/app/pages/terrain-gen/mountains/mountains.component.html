@@ -1,6 +1,6 @@
 <div class="ter-gen1" *ngIf="!isGenerate">
   <div class="col-md-11">
-    <h3 class="text-center">Body Part Wise Blending</h3>
+    <h3 class="text-center">Terrain creator</h3>
     <section class="items clearfix">
       <div class="col-md-3" *ngFor="let terrain of terrains">
         <div class="item">
@@ -44,7 +44,9 @@
       <h3 class="text-center">Original Selections</h3>
       <section class="items clearfix">
         <div class="col-md-3" *ngFor="let terrain of userTerrains | async">
-          <div class="item">
+          <div class="item"
+               [ngClass]="{'active-img': selected}"
+               (click)="selectImg($event, terrain)">
             <img [src]="terrain" alt="">
             <div class="overlay">
               <div class="item-row">

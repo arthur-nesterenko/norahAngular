@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, Renderer } from '@angular/core';
 import * as firebase from 'firebase';
 import { TerrainGenService } from '../terrain-gen.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,8 +20,13 @@ export class MountainsComponent implements AfterViewInit {
   isGenerate: boolean = false;
   isOpen: boolean = true;
   @Input() generationType: string;
+  selectedImg: string[] = [];
+  selected: boolean = false;
 
-  constructor(public tergenService: TerrainGenService,private http:Http) {
+  constructor(
+    public tergenService: TerrainGenService,
+    private http: Http,
+    private renderer: Renderer) {
   }
 
   ngAfterViewInit() {
@@ -37,7 +42,7 @@ export class MountainsComponent implements AfterViewInit {
       .subscribe(items => {
       console.log(items);
       const anims =  items.filter(file => file.type === this.generationType).map(file => {
-        console.log(file.name);
+        //console.log(file.name);
         return firebase
           .storage()
           .ref(`${file.type}/`)
@@ -55,7 +60,7 @@ export class MountainsComponent implements AfterViewInit {
 
   /* Add terrain to db */
   addToLibrary(terrain: string) {
-    console.log(terrain);
+    //console.log(terrain);
     const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
       type: this.generationType,
@@ -106,7 +111,9 @@ export class MountainsComponent implements AfterViewInit {
     var body = {image_src: a,imgUploader: '',date:date_t};
     if(a){
       this.http.post('http://130.211.148.177:2000/upload', body, options)
-        .map((resp: Response) => resp.json())
+        .map((resp: Response) => {
+          console.log(resp);
+        })
         .subscribe(
             (data) => {
               /*
@@ -121,6 +128,16 @@ export class MountainsComponent implements AfterViewInit {
             err => {console.error(err)} //For Error Response
         );
     }
+  }
+
+  selectImg(event, value) {
+    /*console.log("Target - ", event.target);*/
+    /*this.renderer.setElementClass(event.target, "active-img", true);*/
+    this.selectedImg.push(value);
+    console.log(this.selectedImg);
+    this.selectedImg.forEach(img => {
+      this.selected = img === value ? true : false;
+    });
   }
 
 
