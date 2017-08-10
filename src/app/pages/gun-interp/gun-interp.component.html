@@ -29,9 +29,9 @@
                 </a>
         </li>
       </ul>
-      <ul class="gun-options gun-options--texture"> 
+      <ul class="gun-options gun-options--texture">
         <li>
-          <a href="#" class="expand">
+          <a class="expand" [ngClass]="{'is-active': isTexture}" (click)="openTexture()">
             <h4>
               Texture
             </h4>
@@ -39,9 +39,9 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10" [ngClass]="{'col-md-10': isGenerate, 'col-md-10': isGun, 'col-md-8': isTexture}">
       <div class="gun-content">
-        <div class="gun-content__title">
+        <div class="gun-content__title" *ngIf="isGun">
           Machine Pistol
         </div>
         <div class="gun-content__inner">
@@ -175,8 +175,37 @@
               </div>
             </div>
           </div>
+          <div class="row" *ngIf="isGenerate">
+            <div class="col-md-12">
+              <div class="gun-content__texture">
+                Generation
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="isTexture">
+            <div class="col-md-12">
+              <div class="gun-content__texture">
+                <div class="gun-content__gun-part">
+                  <div class="gun-content__title gun-content__title--gun-part">
+                    Gun Part
+                  </div>
+                  <div class="gun-content__gun-part-items">
+                    <div class="gun-content__gun-part-item"></div>
+                    <div class="gun-content__gun-part-item"></div>
+                    <div class="gun-content__gun-part-item"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+    <div [ngClass]="{'is-hidden': isGenerate, 'is-hidden': isGun, 'col-md-2': isTexture}">
+      Right Block
+    </div>
+    <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate}">
+      <a><i class="fa fa-play fa-rotate-180"></i></a>
     </div>
   </div>
 </div>

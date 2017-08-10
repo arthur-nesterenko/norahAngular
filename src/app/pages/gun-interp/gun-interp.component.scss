@@ -1,5 +1,8 @@
 .gun-wrapper {
   padding-top: 15px;
+  position: relative;
+  height: 100vh;
+  color: #fff;
 }
 
 .gun-sidebar {
@@ -26,7 +29,7 @@
   li {
     padding: 12px 15px;
     color: #fff;
-    border-bottom: 1px solid rgba(130, 108, 108, .2);
+    border-bottom: 1px solid #303d4c;
     cursor: pointer;
     &:hover {
       background-color: lighten(#253443, 20%);
@@ -59,9 +62,16 @@
     color: #fff;
     background-color: #253443;
     text-align: center;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    &--gun-part {
+      text-align: left;
+      border-bottom: 1px solid #303d4c;
+      margin-bottom: 0;
+    }
   }
   &__inner {
-    padding-top: 15px;
+    // padding-top: 15px;
   }
   &__item {
     position: relative;
@@ -124,4 +134,45 @@
       padding: 5px;
     }
   }
+  &__gun-part-items {
+    background: #253443;
+    padding: 15px 7px;
+    display: flex;
+  }
+  &__gun-part-item {
+    background: #1c252f;
+    display: block;
+    width: 110px;
+    height: 110px;
+    margin: 0 4px;
+  }
+}
+
+.full-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 100%;
+  background-color: #1c252f;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(#1c252f, 10%);
+  }
+  span {
+    margin: 35px;
+    font-size: 14px;
+    transform: rotate(-90deg);
+  }
+  a {
+    color: #fff;
+  }
+}
+
+.is-hidden {
+  display: none;
 }
