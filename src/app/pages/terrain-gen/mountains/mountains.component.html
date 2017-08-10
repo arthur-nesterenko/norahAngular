@@ -40,12 +40,11 @@
     </div>
   </div>
   <div class="col-md-11">
-    <div class="ter-gen2">
+    <div class="ter-gen2" >
       <h3 class="text-center">Original Selections</h3>
-      <section class="items clearfix">
+      <section class="items clearfix" id="gen2-images">
         <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
-          <div class="item"
-               (click)="selectImg($event)">
+          <div class="item" (click)="selectImg($event)">
             <label [for]="i">
               <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
               <img [src]="terrain" alt="">
@@ -90,11 +89,12 @@
 
                 <div class="col-md-3" *ngFor="let receivedImg of obj.receivedImages">
                   <div class="item">
-                    <img [src] ="receivedImg.imgPath" alt="">
+                    <div class="rotate">
+                    <img [src] ="receivedImg" alt="" (error)="errorImage($event)" (load)="imageLoaded($event)"></div>
                     <div class="overlay">
                       <div class="item-row">
                         <button>
-                          <i class="fa fa-play" aria-hidden="true"></i>
+                          <i class="fa fa-play" aria-hidden="true" (click)="openImage(receivedImg)"></i>
                         </button>
                       </div>
                     </div>
@@ -108,9 +108,8 @@
         </div>
       </section>
       <div class="generate-btn text-center">
-        <button class="shuffle-gen">Hybrid Generate</button>
-        <button class="shuffle-gen">Shuffle Generate</button>
-        <button class="shuffle-gen" (click)="uploadImages()">Upload</button>
+        <button class="shuffle-gen" (click)="uploadImages('1.0')">Hybrid Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages('0.0')">Shuffle Generate</button>
       </div>
     </div>
   </div>

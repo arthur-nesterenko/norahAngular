@@ -42,14 +42,16 @@
   <div class="col-md-11">
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
-      <section class="items clearfix">
-        <div class="col-md-3" *ngFor="let terrain of userTerrains | async">
-        <div class="item">
+      <section class="items clearfix" id="gen2-images">
+        <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
+        <div class="item" (click)="selectImg($event)">
+           <label [for]="i">
+              <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
             <img [src] ="terrain" alt="">
             <div class="overlay">
               <div class="item-row">
-                <button style="position: absolute;left: 0;">
-                  <input class="imageSelection" type="checkbox" value="">
+                <button style="position: absolute;left: 0;display:none">
+                  <input class="imageSelection" [id]="i" type="checkbox" value="">
                 </button>
                 <button>
                   <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
@@ -57,6 +59,7 @@
 
               </div>
             </div>
+           </label>
           </div>
         </div>
       </section>
@@ -73,23 +76,25 @@
       </h3>
       <section class="new-generations-accordion">
         <div class="panel-group" id="accordion">
-          <div class="panel panel-default">
+          <div class="panel panel-default"  *ngFor="let obj of receivedData; let i = index">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" (click)="isOpenAccord()">
-                  Generation 1</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}" (click)="isOpenAccord()">
+                  Generation {{ i + 1 }}</a>
                 <span class="accordion-arrow" *ngIf="isOpen">▼</span>
                 <span class="accordion-arrow" *ngIf="!isOpen">▲</span>
               </h4>
             </div>
-            <div id="collapse1" class="panel-collapse collapse">
+            <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
               <div class="panel-body clearfix">
-                <div class="col-md-3" *ngFor="let item of mountains">
+                <div class="col-md-3" *ngFor="let receivedImg of obj.receivedImages">
                   <div class="item">
+                   <div class="rotate">
+                    <img [src] ="receivedImg" alt="" (error)="errorImage($event)" (load)="imageLoaded($event)"></div>
                     <div class="overlay">
                       <div class="item-row">
                         <button>
-                          <i class="fa fa-play" aria-hidden="true"></i>
+                          <i class="fa fa-play" aria-hidden="true" (click)="openImage(receivedImg)"></i>
                         </button>
                       </div>
                     </div>
@@ -101,9 +106,8 @@
         </div>
       </section>
       <div class="generate-btn text-center">
-        <button class="shuffle-gen">Hybrid Generate</button>
-        <button class="shuffle-gen">Shuffle Generate</button>
-        <button class="shuffle-gen" (click)="uploadImages()">Upload</button>
+        <button class="shuffle-gen" (click)="uploadImages('1.0')">Hybrid Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages('0.0')">Shuffle Generate</button>
       </div>
     </div>
   </div>
