@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RepositoryComponent } from './repository.component';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { environment } from 'environments/environment';
-import { AngularFireModule } from 'angularfire2/angularfire2';
-import { RepositoryService } from './repository.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'environments/environment';
 import { initializeApp } from 'firebase/app';
+import { RepositoryComponent } from './repository.component';
+import { RepositoryService } from './repository.service';
 
 initializeApp(environment.firebase);
 
@@ -18,7 +17,6 @@ initializeApp(environment.firebase);
       path: '',
       component: RepositoryComponent
     }]),
-    AngularFireModule.initializeApp(environment.firebase)
 
   ],
   providers: [RepositoryService],

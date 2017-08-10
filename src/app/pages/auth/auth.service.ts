@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseAuthState } from 'angularfire2';
 import {
   AngularFireAuth,
-  AuthConfiguration,
-  AuthMethods,
-  AuthProviders,
-  EmailPasswordCredentials
 } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import { User } from 'firebase/app';
@@ -20,24 +15,24 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
 
   currentUser: User;
-  currentState: Observable<FirebaseAuthState>;
+  currentState: Observable<{}>;
 
   constructor (private afAuth: AngularFireAuth, private router: Router) {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
       this.currentUser = firebase.auth().currentUser;
-    });
-    this.currentState = afAuth.map((state: FirebaseAuthState) => {
+    // });
+    this.currentState = afAuth.map((state) => {
       this.currentUser = state !== null ? state.auth : null;
       return state;
     });
   }
 
   login(auth: {email: string, password: string}): void {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
       firebase.auth().signInWithEmailAndPassword(auth.email, auth.password).then(
         () => location.reload()
       );
-    });
+    // });
   }
   signWithCredentials(auth): void {
     firebase.auth().createUserWithEmailAndPassword(auth.email, auth.password);

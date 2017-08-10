@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { User } from 'firebase/app';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { User } from 'firebase/app';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs/Observable';
-import { NavigationStart, Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -28,8 +27,8 @@ export class AuthComponent {
       email: new FormControl(''),
       password: new FormControl('')
     });
-    this.authService.currentState.subscribe(state => {
-      this.user = state !== null ? state.auth : null;
+    this.authService.currentState.subscribe((state: User) => {
+      this.user = state !== null ? state : null;
     });
   }
   get email(): string {
