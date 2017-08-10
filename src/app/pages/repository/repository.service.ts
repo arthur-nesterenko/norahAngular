@@ -1,12 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { FirebaseApp } from 'angularfire2/angularfire2';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { Animation, Tag } from './repository.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-
+import { Animation } from './repository.component';
+import * as firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class RepositoryService {
 
@@ -20,15 +19,21 @@ export class RepositoryService {
   private tagStore: string[] = [];
 
   constructor(
-    @Inject(FirebaseApp) firebaseApp,
     private db: AngularFireDatabase
   ) {
-    this.firebaseApp = firebaseApp;
   }
   get animations(): Observable<Animation[]> {
+    firebase.database().ref('/tags')
+      .once('value', (data) => {
+      console.log(data.val());
+    });
+    firebase.database().ref('/animations').orderByChild('displayName')
+      .once('value', (data) => {
+      console.log(data.val());
+    });
     return this.db.list('/animations', {
       query: {
-        orderByChild: 'name',
+        orderByChild: 'displayName',
         limitToFirst: 400
       }
     });
@@ -36,7 +41,7 @@ export class RepositoryService {
   nextPage(page: number) {
     this.page.next(page);
   }
-  get tags(): FirebaseListObservable<any[]> {
+  get tags() {
     return this.db.list('/tags');
   }
 

@@ -126,3 +126,144 @@ tbody.collapse.show {
 	bottom: 100%;
 	margin-bottom: .125rem
 }
+
+.block_img{
+
+max-width: 100px;
+height:100px;
+}
+.head-detail-block{
+
+	height:120px;
+}
+
+
+.btn-panel_btn{
+
+    margin-right: 20px;
+
+}
+.btn-panel{
+
+    padding: 5px;
+    text-align:right;
+}
+
+.block.active{
+
+    border:1px solid white;
+
+}
+
+
+
+.full-btn.left{
+
+	float: left;
+	position:relative;
+	left:0px;
+	z-index: 10;
+	height: 110px
+}
+
+.full-btn.right{
+	position: relative;
+	z-index: 10;
+	height:100px
+}
+
+
+.head-detail-block-scroll-container{
+overflow:hidden;
+position: absolute; 
+}
+
+.scroller-content{
+	position:relative;
+	left:0;
+	top:-10px;
+	width:1000px;
+}
+
+#Sidebar{
+
+	width:20%;
+	z-index: 10;
+
+}
+#RSidebar{
+
+	width:20%;
+	z-index: 10;
+}
+#content-wrapper{
+
+	padding-left: 21%;
+	width:102%;
+	
+}
+
+
+.object-container-dna .block-object{
+
+	min-height:250px;
+}
+
+@media screen and (max-width: 720px) {
+ 
+.object-container-dna .block-object img{
+	padding:0px;
+width:25%;
+}
+
+}
+
+
+@media screen and (min-width: 721px) {
+ 
+.object-container-dna .block-object img{
+	padding:0px;
+width:25%;
+}
+
+}
+
+
+.head-detail-block .block{
+
+	width:110px;
+	height:110px;
+	min-height: 110px;
+}
+.rangeSlider_block .block{
+
+	min-height: 100px;
+}
+.rangeSlider_block{
+
+	margin:10px 0px 0px 10px;
+	width:110px;
+	height:110px;
+}
+
+
+.shuffle-btn a{
+    background: #008aff;
+    color: #fff;
+    width: 45%;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+}
+.shuffle-btn a:hover{
+    background: #008aff;
+    color: #fff;
+    float: left;
+    text-decoration: none;
+}
+
+#genButton{
+
+
+	margin-right: 10%
+}

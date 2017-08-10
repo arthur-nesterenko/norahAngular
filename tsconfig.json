@@ -16,6 +16,10 @@
     "lib": [
       "es2016",
       "dom"
+    ],
+    "exclude": [
+      "node_modules/firebase",
+      "node_modules/angularfire2"
     ]
   }
 }

@@ -1,8 +1,5 @@
-import { AfterViewInit, Component, Inject } from '@angular/core';
-import {WOW} from 'wowjs/dist/wow.min.js';
-import * as firebase from 'firebase';
-import { GlobalRef } from '../../global-ref';
-import { FirebaseApp } from 'angularfire2';
+import { AfterViewInit, Component } from '@angular/core';
+import { WOW } from 'wowjs/dist/wow.min.js';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +7,6 @@ import { FirebaseApp } from 'angularfire2';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit {
-  
-   constructor (@Inject(FirebaseApp) private firebaseApp, private global: GlobalRef) {
-     firebase.auth(firebaseApp).signOut();
-  
-   }
-  
   ngAfterViewInit() {
     new WOW().init();
   }

@@ -17,13 +17,15 @@ import { RepositoryModule } from './pages/repository/repository.module';
 import { RepositoryService } from './pages/repository/repository.service';
 import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
+import { SocketIoModule } from 'ng2-socket-io';
+import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
     CharMakerComponent,
-    DnaCodeComponent
+    DnaCodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,9 @@ import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
     AuthModule,
     HomeModule,
     RepositoryModule,
-    TerrainGenModule
+    TerrainGenModule,
+    SocketIoModule,
+    GunInterpModule
   ],
   providers: [
     { provide: GlobalRef, useClass: BrowserGlobalRef }, DialogService, RepositoryService, TerrainGenService],

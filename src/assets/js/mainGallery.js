@@ -28,9 +28,44 @@ FIXES
 
 [-] planned, [x] done, [!] please read comments
 
-polynomials
-shaders as displacement
+27.07.2017
 
+[x] In first person view, we must have character controller (collision) enabled. such that we have 
+    the camera game object walking on the ground and not flying through the terrain grounds.
+    
+    FirstPersonControls.js 
+    add collisionDetection() function true/false
+    
+[x] The rotation right now is click based. wherein you click to the right for camera to rotate 
+    to right and so on. we need it to be drag based. like it is in the reference exe. (in the reference exe 
+    it is simply mouse move based. we would need mouse press + move)
+    
+[x] We need you to make input heightmap resolution 225X225 instead of 1024X1024. Rather what would be easier 
+    is if we    have an input field where we can specify resolution. So that it is modifiable as per input image.
+    
+    init(texture, 225); second variable is for desired image size
+    
+[!] Also another issue we are facing is the generated terrain doesnt really create depths in regions which 
+    are dark. 
+
+    For example, this image. the dark regions were supposed to become depressions in the terrain, however those 
+    regions apply as color on top.
+    
+    Hari R: don't fret on point 4 then
+    Hari R: its looking similar in the unity build
+    
+03.08.2017
+
+meshWalk uses 3D space partitioning algorithm (Octatree) to find closest terrain
+vertices to calculate possible collisions. 
+
+By now it has search depth of 5 and min/max values of 64.
+Generated terrain has 50 625 vertices, that's a lot.
+Even with octatree partitioning is takes a plenty of time to process.
+Ideally, we should redice terrain generation to 128x128 (16 384 vertices)
+
+It will also reduce "falling underground" artefacts.
+    
 REFERENCES:
 https://github.com/mrdoob/three.js/blob/master/examples/canvas_camera_orthographic2.html
 
@@ -39,124 +74,118 @@ https://github.com/mrdoob/three.js/blob/master/examples/canvas_camera_orthograph
 
 */
 
-var cameraSettings = { orpho: {
+var parameters = { 
     
-                    position: new THREE.Vector3(-381.22820643915037, 177.80860702575183, 255.8699584081212),
-                    rotation: new THREE.Vector3(-0.7653081099207683, -0.7083138768227595, -0.5585462700094632),
-                    top: 2887.0400210827233,
-                    left: -7030.332591879822,
-                    bottom: -2887.0400210827233,
-                    right: 7030.332591879822,
+                   terrainMatrix: 128, //128x128
+                   minHeight: 16.0,
+                   maxHeight: 128.0,
+                   currentHeight: 0,
+                   terrainSize: 1024,
+                   octoreeDepth: 5,
+                   octotreeMin: -256,
+                   octotreeMax: 256,
+                   delta: 0.1
     
-                    target:  new THREE.Vector3(0.0, 0.0, 0.0)
-    
-                    },
-                    persp: {
+                 };
 
-                    }
-};
+parameters.currentHeight = ( parameters.maxHeight - parameters.minHeight ) / 2; 
 
-var scaleFactor = 2;
+var container, stats, geomertry, plane, colors = [];
+
+//MeshWalk Controls
+var camera, cameraMode, controls, scene, renderer, world, keyInputControl, tpsCameraControl, playerObjectHolder, playerController, min, max, partition, octree;
+
+cameraMode = true;
+
+var clock = new THREE.Clock();
+
+var loader = new THREE.TextureLoader();
 
 var gui;
 
 var Interface = function() {
     
-    this.heightDeltaRatio = 1.0;
-    this.mapLog = false;
-    this.updateIt = function() { updateGeometry(gui.__controllers[0], gui.__controllers[1]); };
-    
+    this.height = (parameters.maxHeight - parameters.minHeight) / 2;  
     
 };
  
 window.onload = function() {
     
     var ui = new Interface();
-    gui = new dat.GUI( { width: 360 } );
-    gui.add(ui, "heightDeltaRatio", 0.1, 2.0, 0.1);
-    gui.add(ui, "mapLog");
-    gui.add(ui, 'updateIt');
-    
-    $(gui.domElement).attr("hidden", true);
-    
+    gui = new dat.GUI( { autoPlace: false } );
+    gui.add(ui, "height", 16, 128, 1).onChange( function (value) { this.initialValue = value; setHeight(value); });
+        
 };
-
-var mapping = { min: 1E-3, max: 255.0 };
-
-var container, stats;
-
-var geomertry, colors = [];
-
-var camera, controls, scene, renderer;
-var clock = new THREE.Clock();
-
-var loader = new THREE.TextureLoader();
 
 $( document ).ready(function() {
     
     var gallerySize = 6;
 
-        //https://stackoverflow.com/questions/9684799/how-do-i-prevent-stop-or-kill-javascript-function
-        //$("#modalClose").click(function(e) { location.reload(); } );
-        //window.removeEventListener( 'vrdisplaypresentchange', onVRDisplayPresentChange ); 
-    
         for(var i = 1; i <= gallerySize; i++){
 
             $("#0" + i).click(function(e) { 
 
-            $("#modalClose").click(function(e) { $("#modalThree").css("display","none"); $( "#group" ).show(); resetThree(); });
+                $("#modalClose").click(function(e) { $("#modalThree").css("display","none"); $( "#group" ).show(); resetThree(); });
 
-                
                 $("#modalThree").css("display","block");
                 
                 $( "#group" ).hide();
         
-                                loader.load(
-                
-                                        $(this).attr("src") ,
-                
-                                        function ( texture ) {
-                         
-                                        init(texture);  
-                
-                                        },
-                                        function ( xhr ) {
-                                            console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-                                        },
-                
-                                        function ( xhr ) {
-                                            console.log( 'An error happened' );
-                                        }
-                                );
+                loader.load(
+
+                        $(this).attr("src") ,
+
+                        function ( texture ) {
+
+                        init(texture, parameters.terrainMatrix);  
+
+                        },
+                        function ( xhr ) {
+                            console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+                        },
+
+                        function ( xhr ) {
+                            console.log( 'An error happened' );
+                        }
+                );
                                 
-                } );    
+            });    
                 
         }
         
     });
     
 
+$(document).keypress(function(event_) {
+    
+    if(event_.which == 13) { cameraMode = cameraMode ? false : true; changeCameraMode(cameraMode);  }
+    
+});
+
 function resetThree(){
     
     $("#container").empty(); 
-    controls.dispose(); 
 
 }
 
-function rescaleImageData ( image_ , ratio_ ) {
+function rescaleImageData ( image_ , size_ ) {
     
     var canvas = document.createElement( 'canvas' );
-    canvas.width = image_.width / ratio_;
-    canvas.height = image_.height / ratio_;
+    
+    var ratio = image_.height / image_.width;
+    
+    canvas.width = size_;
+    canvas.height = Math.floor( size_ * ratio );
 
     var context = canvas.getContext( '2d' );
-    context.drawImage( image_, 0, 0, canvas.height, canvas.height );
+    context.drawImage( image_, 0, 0, canvas.width, canvas.height );
 
-    return context.getImageData( 0, 0, image_.width, canvas.height );
+    return context.getImageData( 0, 0, canvas.width, canvas.height );
     
 }
 
 function getImageData( image_ ) {
+
     var canvas = document.createElement( 'canvas' );
     canvas.width = image_.width;
     canvas.height = image_.height;
@@ -201,12 +230,13 @@ function updateGeometry(param0_, param1_){
     
 }
 
-function customPlane(texture_, width_, height_){
-    var data = rescaleImageData(texture_.image, scaleFactor );
+function customPlane(texture_, width_, height_, size_){
+    
+    var data = rescaleImageData(texture_.image, size_ );
     //var data = getImageData(texture_.image);
         
-    var widthSegments_ = texture_.image.width / scaleFactor;
-    var heightSegments_ = texture_.image.height / scaleFactor;
+    var widthSegments_ = size_;
+    var heightSegments_ = size_;
     
     geometry = new THREE.Geometry();
     
@@ -219,7 +249,7 @@ function customPlane(texture_, width_, height_){
            //var customY = - 2 * mapLog(RGBtoGrayscale(getPixel(data, z, x)) + 1E-3, 255.0, 1E-3, mapping.min, mapping.max);
             
            //linear mapping
-           var customY = -map(RGBtoGrayscale(getPixel(data, z, x)) + 1E-3, 255.0, 1E-3, mapping.min, mapping.max);
+           var customY = -map(RGBtoGrayscale(getPixel(data, z, x)) + 1E-3, 255.0, 1E-3, 1E-3, parameters.currentHeight);
            geometry.vertices.push(new THREE.Vector3(-width_ / 2 + x * step.x, customY, - height_ / 2 + z * step.z));
             
            var c = RGBtoGrayscale(getPixel(data, z, x));
@@ -258,56 +288,33 @@ function customPlane(texture_, width_, height_){
     
 }
 
-function init(texture_) {
+function setHeight(value_){
+    
+    var oldHeight = parameters.currentHeight;
+    var newHeight = value_;
+    
+    for(var i = 0, l = plane.geometry.vertices.length; i < l; i++){
+        
+        plane.geometry.vertices[i].y = map(plane.geometry.vertices[i].y, 1E-3, oldHeight, 1E-3, newHeight);
+        
+    }
+    
+    plane.geometry.verticesNeedUpdate = true;
+    parameters.currentHeight = newHeight;
+}
+
+function init(texture_, size_) {
 
     var divWidth = $("#content").width() * 1.92;
     var divHeight= $("#content").height() * 1.975;
-    
-    console.log(divWidth + " " + divHeight);
-    
+        
     container = document.getElementById( 'container' );
 
-    //( width, height, fov, near, far, orthoNear, orthoFar ) {
-    camera = new THREE.CombinedCamera( divWidth / 2, divHeight / 2, 60, 1, 10000, -10000, 10000 );
+    camera = new THREE.CombinedCamera( divWidth / 2, divHeight / 2, 60, 1, 1500, -1500, 1500 );
     camera.lookAt( new THREE.Vector3(0.0, 0.0, 0.0) );
     
     scene = new THREE.Scene();
-    controls = new THREE.FirstPersonControls( camera );
-    controls.movementSpeed = 1200;
-    controls.lookSpeed = 0.1;
-    
-    controls.lat = -22.571792000000166;
-    controls.lon = -151.3089374999999;
-    controls.phi = 1.9647484152702153;
-    controls.thera = -2.640839147069316;
-    
-    camera.lookAt(controls.target);
-    
-    //plane
-    var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors });
-    var geometry = customPlane(texture_, 5120, 5120);
 
-    //geometry.verticesNeedUpdate = true;
-    //geometry.normalsNeedUpdate = true;
-    
-    geometry.computeVertexNormals();
-    geometry.computeFaceNormals();
-    
-    var plane = new THREE.Mesh(geometry, material);
-    plane.receiveShadow = true;
-
-    scene.add(plane);
-    
-    
-    $( "#loading" ).hide();
-    console.log("Done");
-    
-    var geo = new THREE.SphereGeometry( 5, 32, 32 );
-    var mat = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-    var sphere = new THREE.Mesh( geo, mat );
-    sphere.position.add(geometry.vertices[0]);
-    scene.add( sphere );
-    
     camera.position.y = 250;
     
     renderer = new THREE.WebGLRenderer();
@@ -316,10 +323,86 @@ function init(texture_) {
     renderer.setSize( divWidth / 2 , divHeight / 2 );
     container.innerHTML = "";
     container.appendChild( renderer.domElement );
+    
+    //controls
+    world = new MW.World();
+    min = new THREE.Vector3( parameters.octotreeMin, parameters.octotreeMin, parameters.octotreeMin);
+    max = new THREE.Vector3( parameters.octotreeMax, parameters.octotreeMax, parameters.octotreeMax);
+    partition = parameters.octoreeDepth;
+    octree = new MW.Octree( min, max, partition );
+    world.add( octree );
+    
+    playerObjectHolder = new THREE.Object3D();
+    playerObjectHolder.position.set( 0, 30, 0 );
+    scene.add( playerObjectHolder );
 
+    sphere = new THREE.Mesh(
+    new THREE.SphereGeometry( 1, 4, 4 ),
+    new THREE.MeshBasicMaterial( { color: 0xff0000,  wireframe: true, transparent: true, opacity: 0.0} )
+    );
+    playerObjectHolder.add( sphere );
+
+    playerController = new MW.CharacterController( playerObjectHolder, 1 );
+    world.add( playerController );
+
+    keyInputControl = new MW.KeyInputControl();
+
+    tpsCameraControl = new MW.TPSCameraControl(
+    camera, 
+    playerObjectHolder, 
+    {
+    el: renderer.domElement,
+    offset: new THREE.Vector3( 0, 1.8, 0 ), 
+    rigidObjects: []
+    }
+    );
+
+    keyInputControl.addEventListener( 'movekeyon',    function () { playerController.isRunning = true; } );
+    keyInputControl.addEventListener( 'movekeyoff', function () { playerController.isRunning = false; } );
+    keyInputControl.addEventListener( 'jumpkeypress',   function () { playerController.jump(); } );
+
+    keyInputControl.addEventListener( 'movekeychange',  function () {
+
+    var cameraFrontAngle = tpsCameraControl.getFrontAngle();
+    var characterFrontAngle = keyInputControl.frontAngle;
+    playerController.direction = THREE.Math.degToRad( 360 ) - cameraFrontAngle + characterFrontAngle;
+
+    } );
+
+    tpsCameraControl.addEventListener( 'updated', function () {
+
+    var cameraFrontAngle = tpsCameraControl.getFrontAngle();
+    var characterFrontAngle = keyInputControl.frontAngle;
+    playerController.direction = THREE.Math.degToRad( 360 ) - cameraFrontAngle + characterFrontAngle;
+
+    } );
+
+    //plane
+    var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors, side: THREE.DoubleSide });
+    var geometry = customPlane(texture_, texture_.image.width, texture_.image.height, size_);
+
+    geometry.verticesNeedUpdate = true;
+    geometry.normalsNeedUpdate = true;
+    
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+    
+    plane = new THREE.Mesh(geometry, material);
+    //plane.receiveShadow = true;
+    
+    octree.importThreeMesh( plane );
+    tpsCameraControl.rigidObjects.push( plane );
+    scene.add(plane);
+
+    $( "#loading" ).hide();
+    console.log("Done");
+    
     //window.addEventListener( 'resize', onWindowResize, false );
     //window.removeEventListener( 'vrdisplaypresentchange', onVRDisplayPresentChange );
 
+    var HUD = document.getElementById( 'HUD' );
+    HUD.appendChild(gui.domElement);
+    
     animate();
     
 }
@@ -329,7 +412,7 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
-    controls.handleResize();
+
     
 }
 
@@ -341,27 +424,21 @@ function changeCameraMode(mode_){
     //false: first view, true: bird's eye
     console.log("mode: " + s);
     
-    if(mode_) { camera.toOrthographic(); 
+    if(mode_) { 
+        
+    camera.toOrthographic(); 
               
-    controls.lat = -16.62519350000002;  
-    controls.lon =  -36.71235175000004; 
-    controls.phi =  1.8609606921510569;
-    controls.theta =  -0.6407514141878028;
-               
-    camera.lookAt(controls.target);
-               
+    tpsCameraControl.lat = 24.843886672982435;
+    tpsCameraControl.lon = 233.18502406931893; 
+    tpsCameraControl.phi = 0.4336076214358833;
+    tpsCameraControl.theta = -4.069846436351841;
+
     } 
     
     else { 
  
     camera.toPerspective(); 
     
-    controls.lat = -22.571792000000166;
-    controls.lon = -151.3089374999999;
-    controls.phi = 1.9647484152702153;
-    controls.thera = -2.640839147069316;
-    
-    camera.lookAt(controls.target);
         
     }
 
@@ -375,8 +452,26 @@ function animate() {
 }
 
 function render() {
+
+    world.step( parameters.delta );
+    tpsCameraControl.update();
     
-    controls.update( clock.getDelta() );
+    if(playerObjectHolder.position.y < -100){
+     
+        playerObjectHolder.position.set( 0, 30, 0 );
+        playerController.center = playerObjectHolder.position.clone();
+        
+        playerController.isGrounded = false; 
+        playerController.isJumping = false; 
+        playerController.isOnSlope = false;  
+        playerController.direction  = 0; 
+        playerController.movementSpeed = 10;
+        playerController.velocity = new THREE.Vector3( 0, -10, 0 );
+        playerController.groundHeight = -Infinity;
+        playerController.groundNormal.set( 0, 1, 0 );
+        
+    }
+    
     renderer.render( scene, camera );
     
 }
