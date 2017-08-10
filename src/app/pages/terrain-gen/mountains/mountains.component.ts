@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import * as firebase from 'firebase';
 import { TerrainGenService } from '../terrain-gen.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
@@ -84,25 +84,33 @@ export class MountainsComponent implements AfterViewInit {
 
   uploadImages(){
     console.log("Upload Images");
-    var images = document.getElementsByClassName('item');
-    var srcList = [];
-    var a;
+    const images = document.getElementsByClassName('item');
+    /*var a;
     for(var i = 0; i < images.length; i++) {
       if( images[i].getElementsByTagName('input')[0].checked){
         if(a){
-          a = a+ ',';
+          a = a+ ', ';
         } else {
           a = '';
         }
         a = a +  images[i].getElementsByTagName('img')[0].src;
       }
-
+    }*/
+    let a: string = '';
+    for (let i = 0; i < images.length; i++) {
+      if ( images[i].getElementsByTagName('input')[0].checked){
+        if (a) {
+          a += ', ';
+        }
+        a += images[i].getElementsByTagName('img')[0].src;
+      }
     }
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin' ,'*');
     headers.append('Access-Control-Allow-Headers','Origin, Content-Type, X-Auth-Token');
     let options = new RequestOptions({ headers: headers });
     var date_t =  Date.now();
+    console.log('a - ', a);
     var body = {image_src: a,imgUploader: '',date:date_t,pcross:'1',pop_size:'2',iter:'3',hmin:'0',hmax:'8',r:'1024',c:'1024',func_mut:'sin',func_cross:'plus',gaussian_c:'1.4'};
     if(a){
       this.http.post('https://absentiaterraingen.com/upload', body, options)
@@ -117,6 +125,7 @@ export class MountainsComponent implements AfterViewInit {
                 receivedImages: data.split(',').map(imgPath => ({imgPath}))
               };
               this.receivedData.push(customObj);
+              this.resetCheckboxes();
             }, //For Success Response
             err => { console.error(err); } //For Error Response
         );
@@ -124,13 +133,23 @@ export class MountainsComponent implements AfterViewInit {
   }
 
   selectImg(event) {
-    const images = document.getElementsByClassName('item');
+    const images = document.querySelectorAll('.item');
     for (let i = 0; i < images.length; i++) {
-      if ( images[i].getElementsByTagName('input')[0].checked) {
-        const test = event.currentTarget.getElementsByClassName('fa-check-circle-o');
-        test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
+      if (images[i].getElementsByTagName('input')[0].checked) {
+        const checkCircle = event.currentTarget.getElementsByClassName('fa-check-circle-o');
+        checkCircle[0].style.display = checkCircle[0].style.display === 'none' ? '' : 'none';
         images[i].classList.toggle('active-img');
       }
+    }
+  }
+
+  resetCheckboxes() {
+    const images = document.querySelectorAll('.item');
+    for (let i = 0; i < images.length; i++) {
+      images[i].getElementsByTagName('input')[0].checked = false;
+      const uncheckCircle = images[i].getElementsByClassName('fa-check-circle-o');
+      (uncheckCircle[0] as HTMLElement).style.display = 'none';
+      images[i].classList.remove('active-img');
     }
   }
 
