@@ -1,4 +1,4 @@
-<div class="main_wapper wrapper wrap">
+<div class="main_wapper wrapper wrapper--gun wrap">
   <div class="row gun-wrapper">
     <div class="col-md-2 gun-sidebar">
       <ul class="gun-options">
@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-10" [ngClass]="{'col-md-10': isGenerate, 'col-md-10': isGun, 'col-md-8': isTexture}">
+    <div [ngClass]="{'col-md-10': !isTexture, 'col-md-8': isTexture}">
       <div class="gun-content">
         <div class="gun-content__title" *ngIf="isGun">
           Machine Pistol
@@ -196,15 +196,78 @@
                   </div>
                 </div>
               </div>
+              <div class="gun-content__auto-texturing">
+                <div class="gun-content__auto-texturing-inner">
+                  <img src="/assets/images/gun.png" alt="Gun">
+                </div>
+                <div class="gun-content__auto-texturing-button-section">
+                  <a href="#" class="gun-content__auto-texturing-button">Auto Texturing</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div [ngClass]="{'is-hidden': isGenerate, 'is-hidden': isGun, 'col-md-2': isTexture}">
-      Right Block
+    <div class="gun-uper-receiver-wrapper col-md-2" [ngClass]="{'is-hidden': !isTexture}">
+      <div class="gun-uper-receiver">
+        <div class="gun-uper-receiver__title">
+          Upper Receiver
+        </div>
+        
+        <div class="gun-uper-receiver__row">
+          <div class="gun-uper-receiver__col">
+            <div class="gun-uper-receiver__item">
+              <div class="gun-uper-receiver__item-inner">
+                <div class="gun-uper-receiver__item-content">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gun-uper-receiver__col">
+            <div class="gun-uper-receiver__item">
+              <div class="gun-uper-receiver__item-inner">
+                <div class="gun-uper-receiver__item-content">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gun-uper-receiver__col">
+            <div class="gun-uper-receiver__item">
+              <div class="gun-uper-receiver__item-inner">
+                <div class="gun-uper-receiver__item-content">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gun-uper-receiver__col">
+            <div class="gun-uper-receiver__item">
+              <div class="gun-uper-receiver__item-inner">
+                <div class="gun-uper-receiver__item-content">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="new-gun-texture">
+        <div class="new-gun-texture__title">
+          New texture
+        </div>
+        <div class="new-gun-texture__inner">
+          <div class="new-gun-texture__item"></div>
+        </div>
+        <div class="new-gun-texture__button-section">
+          <a href="#" class="new-gun-texture__button">Generate New Texture</a>
+        </div>
+      </div>
+        
     </div>
-    <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate}">
+    <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate, 'is-hidden': isTexture}">
       <a><i class="fa fa-play fa-rotate-180"></i></a>
     </div>
   </div>
