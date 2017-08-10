@@ -1,3 +1,6 @@
+.wrapper--gun {
+  padding: 0 15px;
+}
 .gun-wrapper {
   padding-top: 15px;
   position: relative;
@@ -8,6 +11,7 @@
 .gun-sidebar {
   padding: 0;
   background-color: #253443;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
   .open {
     display: block;
   }
@@ -20,6 +24,7 @@
   padding: 0;
   margin: 0 0 15px 0;
   list-style: none;
+  
   h4 {
     margin: 0;
     font-size: 16px;
@@ -55,7 +60,6 @@
 }
 
 .gun-content {
-  padding-right: 30px;
   &__title {
     padding: 10px 10px;
     font-size: 16px;
@@ -64,6 +68,7 @@
     text-align: center;
     margin-bottom: 15px;
     box-sizing: border-box;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
     &--gun-part {
       text-align: left;
       border-bottom: 1px solid #303d4c;
@@ -145,6 +150,94 @@
     width: 110px;
     height: 110px;
     margin: 0 4px;
+  }
+  &__auto-texturing-inner {
+    background: #1c252f;
+    text-align: center;
+    padding: 30px 60px;
+    margin-bottom: 5px;
+    img {
+      max-width: 100%;
+    }
+  }
+  &__auto-texturing-button {
+    background: #216c99;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    display: block;
+  }
+}
+
+.gun-uper-receiver-wrapper {
+  padding: 0;
+}
+.gun-uper-receiver {
+  background: #253443;
+  overflow: hidden;
+  border-bottom: 1px solid #303d4c;
+  &__row {
+    width: 100%;
+  }
+  &__col {
+    width: 50%;
+    float: left;
+  }
+  &__title {
+    padding: 15px;
+    box-sizing: border-box;
+    line-height: 1;
+    border-bottom: 1px solid #303d4c;
+  }
+  &__item {
+    padding-top: 100%;
+    position: relative;
+  }
+  &__item-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 8px;
+    top: 0;
+    left: 0;
+  }
+  &__item-content {
+    background-color: #1c252f;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.new-gun-texture {
+  background: #253443;
+  &__title {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #303d4c;
+    background-color: #212c39;
+    margin-bottom: 15px;
+  }
+  &__inner {
+    text-align: center;
+    border-bottom: 1px solid #303d4c;
+    padding-bottom: 15px;
+  }
+  &__item {
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+    background-color: #1c252f;
+  }
+  &__button-section {
+    padding: 15px;
+  }
+  &__button {
+    display: block;
+    text-align: center;
+    border: 2px solid  rgb(33, 174, 254);
+    border-radius: 1000px;
+    color: #fff;
+    padding: 10px;
   }
 }
 
