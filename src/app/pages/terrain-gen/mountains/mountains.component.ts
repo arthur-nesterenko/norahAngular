@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, Input,Directive, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import * as firebase from 'firebase';
+import { HeightMapSocketService } from '../HeightMapSocketService';
 import { TerrainGenService } from '../terrain-gen.service';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import {HeightMapSocketService} from '../HeightMapSocketService';
 
 declare var $: any;
 
@@ -35,13 +35,13 @@ export class MountainsComponent implements AfterViewInit {
     }, 1500);
     
    this.socket.on('file-created', (msg)=>{
-      var item; 
+      var item;
       var imgs = document.getElementById("accordion").getElementsByTagName('img');
       var imgList = [];
       for(var i = 0; i < imgs.length; i++){
         if(imgs[i].src==msg.path){
           item = imgs[i];
-          break;  
+          break;
        }
       }
       if(item){
@@ -114,10 +114,10 @@ export class MountainsComponent implements AfterViewInit {
     var a;
     for(var i = 0; i < images.length; i++) {
       if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
-           images[i].getElementsByTagName('input')[0].checked = false;       
+           images[i].getElementsByTagName('input')[0].checked = false;
            let test = images[i].getElementsByClassName('fa-check-circle-o')as HTMLCollectionOf<HTMLElement>;
            test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
-           images[i].classList.toggle('active-img'); 
+           images[i].classList.toggle('active-img');
       }
 
     }
@@ -127,7 +127,7 @@ export class MountainsComponent implements AfterViewInit {
   uploadImages(p_cross){
     var images = document.getElementById("gen2-images").getElementsByClassName('item');
     var srcList = [];
-    var a;
+    let a: string = '';
     for(var i = 0; i < images.length; i++) {
       if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
         console.log("Select"+images[i].getElementsByTagName('img')[0].src);
@@ -139,7 +139,7 @@ export class MountainsComponent implements AfterViewInit {
         a = a +  images[i].getElementsByTagName('img')[0].src;
       }
     }
-    let a: string = '';
+    a = '';
     for (let i = 0; i < images.length; i++) {
       if ( images[i].getElementsByTagName('input')[0].checked){
         if (a) {
