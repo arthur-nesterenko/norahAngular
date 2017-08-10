@@ -6,6 +6,9 @@ import { environment } from 'environments/environment';
 import { AngularFireModule } from 'angularfire2/angularfire2';
 import { RepositoryService } from './repository.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { initializeApp } from 'firebase/app';
+
+initializeApp(environment.firebase);
 
 @NgModule({
   imports: [
@@ -18,7 +21,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFireModule.initializeApp(environment.firebase)
 
   ],
-  providers: [],
+  providers: [RepositoryService],
   declarations: [RepositoryComponent],
 })
 export class RepositoryModule { }

@@ -23,14 +23,7 @@ export class AuthComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        let path = event.url;
-
-      }
-    });
     this.authForm = this.formBuilder.group({
       email: new FormControl(''),
       password: new FormControl('')
