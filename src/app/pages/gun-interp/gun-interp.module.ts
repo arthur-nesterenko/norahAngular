@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
-
+import { GunInterpService } from './gun-interp.service';
 import { GunInterpComponent } from './gun-interp.component';
 
 const routes: Routes = [
@@ -18,6 +18,6 @@ const routes: Routes = [
     HttpModule, 
     RouterModule.forChild(routes),
   ],
-  providers: []
+  providers: [GunInterpService]
 })
 export class GunInterpModule { }
