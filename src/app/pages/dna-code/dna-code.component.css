@@ -194,7 +194,7 @@ position: absolute;
 #RSidebar{
 
 	width:20%;
-	z-index: 1000;
+	z-index: 10;
 }
 #content-wrapper{
 
