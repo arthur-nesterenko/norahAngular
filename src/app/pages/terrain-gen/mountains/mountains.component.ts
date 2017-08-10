@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import * as firebase from 'firebase';
 import { TerrainGenService } from '../terrain-gen.service';
-import { BrowserModule } from '@angular/platform-browser';
-import { Http, HttpModule, Headers, RequestOptions, Response  } from '@angular/http';
-import {Observable} from "rxjs/Observable";
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 declare var $: any;
 
@@ -21,7 +19,9 @@ export class MountainsComponent implements AfterViewInit {
   isOpen: boolean = true;
   @Input() generationType: string;
 
-  constructor(public tergenService: TerrainGenService,private http:Http) {
+  constructor(
+    public tergenService: TerrainGenService,
+    private http: Http) {
   }
 
   ngAfterViewInit() {
@@ -35,7 +35,7 @@ export class MountainsComponent implements AfterViewInit {
   nextTerGan() {
     this.tergenService.getTerrainsFromLibrary(this.generationType)
       .subscribe(items => {
-      console.log(items);
+      //console.log(items);
       const anims =  items.filter(file => file.type === this.generationType).map(file => {
         console.log(file.name);
         return firebase
@@ -65,7 +65,7 @@ export class MountainsComponent implements AfterViewInit {
   }
 
   openImage(src) {
-    console.log('SRC'+src);
+    //console.log('SRC'+src);
     $('#modalClose').click(function (e) {
       $('#modalThree').css('display', 'none');
       //$( "#group" ).show();
@@ -103,25 +103,35 @@ export class MountainsComponent implements AfterViewInit {
     headers.append('Access-Control-Allow-Headers','Origin, Content-Type, X-Auth-Token');
     let options = new RequestOptions({ headers: headers });
     var date_t =  Date.now();
-    var body = {image_src: a,imgUploader: '',date:date_t};
+    var body = {image_src: a,imgUploader: '',date:date_t,pcross:'1',pop_size:'2',iter:'3',hmin:'0',hmax:'8',r:'1024',c:'1024',func_mut:'sin',func_cross:'plus',gaussian_c:'1.4'};
     if(a){
       this.http.post('https://absentiaterraingen.com/upload', body, options)
-        .map((resp: Response) => resp.json())
+        .map((resp: Response) => resp['_body'])
         .subscribe(
-            (data) => {
+            (data: string) => {
               /*
                 Create a custom object which allow us generate new tabs
                 Received data are saved in property which allow us display received images in the tabs
               */
               const customObj = {
-                receivedImages: [data]
+                receivedImages: data.split(',').map(imgPath => ({imgPath}))
               };
               this.receivedData.push(customObj);
             }, //For Success Response
-            err => {console.error(err)} //For Error Response
+            err => { console.error(err); } //For Error Response
         );
     }
   }
 
+  selectImg(event) {
+    const images = document.getElementsByClassName('item');
+    for (let i = 0; i < images.length; i++) {
+      if ( images[i].getElementsByTagName('input')[0].checked) {
+        const test = event.currentTarget.getElementsByClassName('fa-check-circle-o');
+        test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
+        images[i].classList.toggle('active-img');
+      }
+    }
+  }
 
 }

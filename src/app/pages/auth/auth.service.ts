@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseAuthState } from 'angularfire2';
 import {
-  AngularFireAuth, AuthConfiguration, AuthMethods, AuthProviders,
-  EmailPasswordCredentials
+  AngularFireAuth,
 } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 import { User } from 'firebase/app';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
@@ -16,50 +15,41 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
 
   currentUser: User;
-  currentState: Observable<FirebaseAuthState>;
+  currentState: Observable<{}>;
 
   constructor (private afAuth: AngularFireAuth, private router: Router) {
-    this.currentState = afAuth.map((state: FirebaseAuthState) => {
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
+      this.currentUser = firebase.auth().currentUser;
+    // });
+    this.currentState = afAuth.map((state) => {
       this.currentUser = state !== null ? state.auth : null;
       return state;
     });
   }
 
-  login(auth: EmailPasswordCredentials): void {
-    const loginConfig: AuthConfiguration = {
-      method: AuthMethods.Password,
-      provider: AuthProviders.Password
-    };
-    this.afAuth.login({email: auth.email, password: auth.password}, loginConfig).then(
-      () => location.reload()
-    );
+  login(auth: {email: string, password: string}): void {
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
+      firebase.auth().signInWithEmailAndPassword(auth.email, auth.password).then(
+        () => location.reload()
+      );
+    // });
   }
   signWithCredentials(auth): void {
-    this.afAuth.createUser({email: auth.email, password: auth.password});
+    firebase.auth().createUserWithEmailAndPassword(auth.email, auth.password);
   }
   loginWithGoogle(): void {
-    this.afAuth.login({
-      method: AuthMethods.Redirect,
-      provider: AuthProviders.Google
-    });
+    firebase.auth().signInWithRedirect({providerId: 'Google'});
   }
   loginWithFacebook(): void {
-    this.afAuth.login({
-      method: AuthMethods.Redirect,
-      provider: AuthProviders.Facebook
-    });
+    firebase.auth().signInWithRedirect({ providerId: 'Facebook' });
   }
   loginWithTwitter(): void {
-    this.afAuth.login({
-      method: AuthMethods.Redirect,
-      provider: AuthProviders.Twitter
-    });
+    firebase.auth().signInWithRedirect({ providerId: 'Twitter' });
   }
   logout() {
-    this.afAuth.logout().then(() => {
-      this.router.navigate(['/']);
-      location.reload();
-    });
+    firebase.auth().signOut().then(
+      () => location.reload()
+    );
   }
   get authenticated(): boolean {
     return this.currentUser !== null;
