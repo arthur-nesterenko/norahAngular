@@ -108,9 +108,7 @@ export class MountainsComponent implements AfterViewInit {
     });
   }
 
-
   clearCheckImages(){
-
     var images = document.getElementsByClassName('item');
     var srcList = [];
     var a;
@@ -134,13 +132,21 @@ export class MountainsComponent implements AfterViewInit {
       if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
         console.log("Select"+images[i].getElementsByTagName('img')[0].src);
         if(a){
-          a = a+ ',';
+          a = a+ ', ';
         } else {
           a = '';
         }
         a = a +  images[i].getElementsByTagName('img')[0].src;
       }
-
+    }
+    let a: string = '';
+    for (let i = 0; i < images.length; i++) {
+      if ( images[i].getElementsByTagName('input')[0].checked){
+        if (a) {
+          a += ', ';
+        }
+        a += images[i].getElementsByTagName('img')[0].src;
+      }
     }
     this.clearCheckImages();
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -163,6 +169,7 @@ export class MountainsComponent implements AfterViewInit {
                 receivedImages: data.split(',').map(function(imgPath){return "https://absentiaterraingen.com/"+ imgPath })
               };
               this.receivedData.push(customObj);
+              this.resetCheckboxes();
             }, //For Success Response
             err => { console.error(err); } //For Error Response
         );
@@ -181,6 +188,16 @@ export class MountainsComponent implements AfterViewInit {
         event.currentTarget.classList.toggle('active-img');
       }
     //}
+  }
+
+  resetCheckboxes() {
+    const images = document.querySelectorAll('.item');
+    for (let i = 0; i < images.length; i++) {
+      images[i].getElementsByTagName('input')[0].checked = false;
+      const uncheckCircle = images[i].getElementsByClassName('fa-check-circle-o');
+      (uncheckCircle[0] as HTMLElement).style.display = 'none';
+      images[i].classList.remove('active-img');
+    }
   }
 
 }
