@@ -17,6 +17,7 @@ import { RepositoryModule } from './pages/repository/repository.module';
 import { RepositoryService } from './pages/repository/repository.service';
 import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
+import { SocketIoModule } from 'ng2-socket-io';
 import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
     HomeModule,
     RepositoryModule,
     TerrainGenModule,
+    SocketIoModule,
     GunInterpModule
   ],
   providers: [
