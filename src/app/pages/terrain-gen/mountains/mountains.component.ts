@@ -1,13 +1,15 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input,Directive, ElementRef } from '@angular/core';
 import * as firebase from 'firebase';
 import { TerrainGenService } from '../terrain-gen.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {HeightMapSocketService} from '../HeightMapSocketService';
 
 declare var $: any;
 
 @Component({
   selector: 'app-mountains',
-  templateUrl: './mountains.component.html'
+  templateUrl: './mountains.component.html',
+  providers:[HeightMapSocketService]
 })
 export class MountainsComponent implements AfterViewInit {
 
@@ -21,7 +23,8 @@ export class MountainsComponent implements AfterViewInit {
 
   constructor(
     public tergenService: TerrainGenService,
-    private http: Http) {
+    private http: Http,
+    private socket:HeightMapSocketService) {
   }
 
   ngAfterViewInit() {
@@ -30,6 +33,29 @@ export class MountainsComponent implements AfterViewInit {
         .then(data => this.terrains = data)
         .catch(error => console.log(error));
     }, 1500);
+    
+   this.socket.on('file-created', (msg)=>{
+      var item; 
+      var imgs = document.getElementById("accordion").getElementsByTagName('img');
+      var imgList = [];
+      for(var i = 0; i < imgs.length; i++){
+        if(imgs[i].src==msg.path){
+          item = imgs[i];
+          break;  
+       }
+      }
+      if(item){
+        item.src=msg.path;
+      }
+    });
+  }
+
+  imageLoaded(event){
+      event.target.style.visibility='visible';
+  }
+  errorImage(event){
+     event.target.style.visibility='hidden';
+     this.socket.emit("watch",{path:event.target.src});
   }
 
   nextTerGan() {
@@ -82,13 +108,31 @@ export class MountainsComponent implements AfterViewInit {
     });
   }
 
-  uploadImages(){
-    console.log("Upload Images");
+
+  clearCheckImages(){
+
     var images = document.getElementsByClassName('item');
     var srcList = [];
     var a;
     for(var i = 0; i < images.length; i++) {
-      if( images[i].getElementsByTagName('input')[0].checked){
+      if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
+           images[i].getElementsByTagName('input')[0].checked = false;       
+           let test = images[i].getElementsByClassName('fa-check-circle-o')as HTMLCollectionOf<HTMLElement>;
+           test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
+           images[i].classList.toggle('active-img'); 
+      }
+
+    }
+
+  }
+
+  uploadImages(p_cross){
+    var images = document.getElementById("gen2-images").getElementsByClassName('item');
+    var srcList = [];
+    var a;
+    for(var i = 0; i < images.length; i++) {
+      if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
+        console.log("Select"+images[i].getElementsByTagName('img')[0].src);
         if(a){
           a = a+ ',';
         } else {
@@ -98,12 +142,13 @@ export class MountainsComponent implements AfterViewInit {
       }
 
     }
+    this.clearCheckImages();
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin' ,'*');
     headers.append('Access-Control-Allow-Headers','Origin, Content-Type, X-Auth-Token');
     let options = new RequestOptions({ headers: headers });
     var date_t =  Date.now();
-    var body = {image_src: a,imgUploader: '',date:date_t,pcross:'1',pop_size:'2',iter:'3',hmin:'0',hmax:'8',r:'1024',c:'1024',func_mut:'sin',func_cross:'plus',gaussian_c:'1.4'};
+    var body = {image_src: a,imgUploader: '',date:date_t,pcross:p_cross,pop_size:'2',iter:'3',hmin:'0',hmax:'8',r:'1024',c:'1024',func_mut:'sin',func_cross:'plus',gaussian_c:'1.4'};
     if(a){
       this.http.post('https://absentiaterraingen.com/upload', body, options)
         .map((resp: Response) => resp['_body'])
@@ -113,8 +158,9 @@ export class MountainsComponent implements AfterViewInit {
                 Create a custom object which allow us generate new tabs
                 Received data are saved in property which allow us display received images in the tabs
               */
+              var values=[];
               const customObj = {
-                receivedImages: data.split(',').map(imgPath => ({imgPath}))
+                receivedImages: data.split(',').map(function(imgPath){return "https://absentiaterraingen.com/"+ imgPath })
               };
               this.receivedData.push(customObj);
             }, //For Success Response
@@ -125,13 +171,16 @@ export class MountainsComponent implements AfterViewInit {
 
   selectImg(event) {
     const images = document.getElementsByClassName('item');
-    for (let i = 0; i < images.length; i++) {
-      if ( images[i].getElementsByTagName('input')[0].checked) {
+    //for (let i = 0; i < images.length; i++) {
+      //if ( images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].checked) {
+      if ( event.currentTarget.getElementsByTagName('input')[0] && event.currentTarget.getElementsByTagName('input')[0].checked) {
         const test = event.currentTarget.getElementsByClassName('fa-check-circle-o');
         test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
-        images[i].classList.toggle('active-img');
+        event.currentTarget.getElementsByTagName('input')[0].checked = true;
+        //images[i].classList.toggle('active-img');
+        event.currentTarget.classList.toggle('active-img');
       }
-    }
+    //}
   }
 
 }
