@@ -2,8 +2,9 @@ import {Inject, Injectable} from '@angular/core';
 import { FirebaseApp } from 'angularfire2/angularfire2';
 import * as firebase from 'firebase';
 import { GlobalRef } from '../../global-ref';
-import { AngularFireAuth, AngularFireDatabase } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class TerrainGenService {
@@ -68,7 +69,6 @@ export class TerrainGenService {
               .child('terrainGenLibrary')
               .once('value', data => {
                 const value = data.val();
-                console.log(value)
                 if (value) {
                   const exist = Object.keys(value).filter(key => {
                     return value[key].name === terrainName && value[key].type === terrainType;
