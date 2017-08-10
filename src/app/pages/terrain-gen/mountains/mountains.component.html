@@ -1,6 +1,6 @@
 <div class="ter-gen1" *ngIf="!isGenerate">
   <div class="col-md-11">
-    <h3 class="text-center">Body Part Wise Blending</h3>
+    <h3 class="text-center">Terrain creator</h3>
     <section class="items clearfix">
       <div class="col-md-3" *ngFor="let terrain of terrains">
         <div class="item">
@@ -43,19 +43,23 @@
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
       <section class="items clearfix">
-        <div class="col-md-3" *ngFor="let terrain of userTerrains | async">
-          <div class="item">
-            <img [src]="terrain" alt="">
-            <div class="overlay">
-              <div class="item-row">
-                <button style="position: absolute;left: 0;">
-                  <input class="imageSelection" type="checkbox" value="">
-                </button>
-                <button>
-                  <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
-                </button>
+        <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
+          <div class="item"
+               (click)="selectImg($event)">
+            <label [for]="i">
+              <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
+              <img [src]="terrain" alt="">
+              <div class="overlay">
+                <div class="item-row">
+                  <button style="position: absolute; left: 0; display: none;">
+                    <input class="imageSelection" [id]="i" type="checkbox" value="">
+                  </button>
+                  <button>
+                    <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
+                  </button>
+                </div>
               </div>
-            </div>
+            </label>
           </div>
         </div>
       </section>
