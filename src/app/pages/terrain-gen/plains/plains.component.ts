@@ -24,11 +24,9 @@ export class PlainsComponent implements AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.tergenService.getTerrains(this.generationType)
-        .then(data => { this.terrains = data; })
+        .then(data => this.terrains = data)
         .catch(error => console.log(error));
     }, 1500);
-
-    
   }
 
   nextTerGan() {
