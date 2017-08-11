@@ -106,6 +106,7 @@ export class DnaCodeComponent implements OnInit,OnChanges {
     stepped: true
   }
 };
+serverReady:boolean=false;
   constructor(
     private _http: Http,
     private sanitizer: DomSanitizer,
@@ -150,11 +151,11 @@ export class DnaCodeComponent implements OnInit,OnChanges {
         if(this.processedFiles){
        //this.changeHistory.push(this.processedFiles);
        this.processedFiles=new GeneratedImages(data.id,"part:"+this.bodyParts.part,"",data.files);
-       this.selectedImage=data.files[7];
+       this.selectedImage=data.files[0];
         }else{
 
            this.processedFiles=new GeneratedImages(data.id,"generation 1","",data.files);
-          this.selectedImage=data.files[7];
+          this.selectedImage=data.files[0];
         
        }
 
@@ -194,13 +195,35 @@ export class DnaCodeComponent implements OnInit,OnChanges {
 
       });
 
-      this.socket.emit("bodyPart",{part:"head"});
+         this.socket.emit("bodyPart",{part:"head"});
+        //export fbx
+         this.socket.on("exportModel",(data)=>{
 
+          console.log("model received");
+          console.log(data);
+          if(data)
+            {
+              var link = document.createElement("a");
+              link.download = "a";
+              link.href = data.files[0];
+              document.body.appendChild(link);
+              link.click();
+              
+            }
+        });
 
-  }
+        this.socket.on("serverReady",(data)=>{
+          setTimeout(()=>{this.serverReady=true;
+          this.showMessag("Server is ready now");
+          },10000);    
+          
+        });
+
+  } 
 
   switchImage(id:string){
 
+  
     console.log("Switching image to:"+id);
     console.log(this.processedFiles);
       this.changeHistory=this.changeHistory.map((gen)=>{
@@ -256,11 +279,22 @@ console.log(this.processedFiles);
   merge(){
 
     //input.json from selected Image
+    if(!this.serverReady)
+      {
+        this.showMessag("Server is not ready.Please wait for few seconds");
+        return;
+      }
+
+      if(! this.selectedImage && !this.selectedBodyPart ){
+        this.showMessag("Please select an Image template and body part to merge");
+        return;
+      }
     
     let inputVal= Object.assign({},this.selectedImage);
 
     for(var attr in this.selectedBodyPart){
-
+      if(inputVal[attr]){}
+      else
       inputVal[attr]=0;
     }
 
@@ -275,7 +309,7 @@ console.log(this.processedFiles);
     console.log(inputVal);
     console.log(outputVal);
     const inputjson = JSON.stringify(inputVal);
-  const outputjson = JSON.stringify(outputVal);
+    const outputjson = JSON.stringify(outputVal);
   
  //send via socket
 
@@ -358,7 +392,7 @@ if(slider=="african"){
 
   let val:any=[this.Caucasian[0]-(dx1/2.0),this.Caucasian[1]-(dx2/2.0)];
   this.Caucasian=val;
-let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
+  let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
   this.Asian=val;
 
 
@@ -385,7 +419,11 @@ let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
   }
 
   saveRanges(saveRange:NgForm){
-
+        if(!this.serverReady)
+      {
+        this.showMessag("Server is not ready.Please wait for few seconds");
+        return;
+      }
     this.inputRes = 
         { 
         "macrodetails/Age": this.Age[0]/10,
@@ -515,6 +553,38 @@ else
     console.log('Value changed to', value);
   }
 
+  exportFbx(){
+      //input.json from selected Image
+      if(!this.serverReady)
+      {
+        this.showMessag("Server is not ready.Please wait for few seconds");
+        return;
+      }
+    if(! this.selectedImage){
+      this.showMessag("Please select a image to export");
+      return;
+
+    }
+    let inputVal= Object.assign({},this.selectedImage);
+
+    for(var attr in this.selectedBodyPart){
+
+      inputVal[attr]=0;
+    }
+
+
+    
+    
+
+    delete inputVal.file;
+    
+    console.log(inputVal);
+//    const inputjson = JSON.stringify(inputVal);
+    
+ //send via socket
+
+    this.socket.emit("exportModel",{inputValues:inputVal});
+  }
 
 
 
