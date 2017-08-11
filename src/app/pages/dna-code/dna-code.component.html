@@ -167,7 +167,7 @@
                         <div class="object-container-dna-btm">
                            <div class="addgame">
                               <a href="javascript:void(0)" class="addgame-btn">Add to game</a>
-                              <a href="javascript:void(0)" class="addgame-btn" style="margin-left:10px" >Export fbx</a>
+                              <a style="cursor: not-allowed" class="addgame-btn" style="margin-left:10px" (click)="exportFbx()" >Export fbx</a>
                               
                               <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a>
                            </div>
@@ -210,8 +210,8 @@
                      </div>
                   </div>
                   <div class="shuffle-btn">
-                          <a href="javascript:void(0)" id="genButton" (click)="saveRanges()" >Generate</a>
-                          <a href="javascript:void(0)" (click)="generateImage()" >Merge</a>
+                          <a   id="genButton" (click)="saveRanges()" >Generate</a>
+                          <a  (click)="generateImage()" >Merge</a>
                   </div>
                </div>
             </div>
