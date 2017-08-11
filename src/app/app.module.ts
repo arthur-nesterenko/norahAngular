@@ -19,6 +19,7 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SocketIoModule } from 'ng2-socket-io';
 import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
+import { GunInterpService } from './pages/gun-interp/gun-interp.service';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,10 @@ import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
     RepositoryModule,
     TerrainGenModule,
     SocketIoModule,
-    GunInterpModule
+    GunInterpModule,
   ],
   providers: [
-    { provide: GlobalRef, useClass: BrowserGlobalRef }, DialogService, RepositoryService, TerrainGenService],
+    { provide: GlobalRef, useClass: BrowserGlobalRef }, DialogService, RepositoryService, TerrainGenService, GunInterpService],
 
   bootstrap: [AppComponent]
 })

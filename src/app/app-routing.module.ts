@@ -59,8 +59,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'gun-interp',
-    loadChildren: 'app/pages/gun-interp/gun-interp.module#GunInterpModule'
-    // canActivate: [AuthGuard]
+    loadChildren: 'app/pages/gun-interp/gun-interp.module#GunInterpModule',
+    canActivate: [AuthGuard]
   },
 
 ];
