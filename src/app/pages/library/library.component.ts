@@ -34,7 +34,7 @@ export class LibraryComponent implements AfterViewChecked {
             animationsArray = Object.keys(items)
               .filter(key => !items[key].terrain)
               .map(function (key) {
-              console.log(items)
+              // console.log(items)
               const item = items[key];
               item.firebaseKey = key;
 
