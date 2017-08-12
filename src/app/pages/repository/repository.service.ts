@@ -27,13 +27,13 @@ export class RepositoryService {
       .once('value', (data) => {
       console.log(data.val());
     });
-    firebase.database().ref('/animations').orderByChild('name')
+    firebase.database().ref('/animations').orderByChild('displayName')
       .once('value', (data) => {
       console.log(data.val());
     });
     return this.db.list('/animations', {
       query: {
-        orderByChild: 'name',
+        orderByChild: 'displayName',
         limitToFirst: 400
       }
     });
