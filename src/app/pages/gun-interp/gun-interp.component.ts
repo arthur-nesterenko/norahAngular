@@ -20,7 +20,7 @@ export class GunInterpComponent implements AfterViewInit {
   isGun: boolean = true;
   isGenerate: boolean = false;
   isTexture: boolean = false;
-  generationType = 'mountains';
+  generationType = 'gun/Sniper';
   constructor(
     public gunInterpService: GunInterpService,
     private http: Http
