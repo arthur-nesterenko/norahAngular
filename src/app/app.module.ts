@@ -19,7 +19,7 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SocketIoModule } from 'ng2-socket-io';
 import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
-
+import {ImageZoomModule} from 'angular2-image-zoom';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +39,8 @@ import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
     RepositoryModule,
     TerrainGenModule,
     SocketIoModule,
-    GunInterpModule
+    GunInterpModule,
+    ImageZoomModule
   ],
   providers: [
     { provide: GlobalRef, useClass: BrowserGlobalRef }, DialogService, RepositoryService, TerrainGenService],
