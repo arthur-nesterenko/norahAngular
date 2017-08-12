@@ -66,7 +66,24 @@
           <div class="row" *ngIf="isGenerate">
             <div class="col-md-12">
               <div class="gun-content__texture">
-                Generation
+                <div class="row">
+                  <div class="col-md-3" *ngFor="let item of libraryGuns">
+                    <div class="gun-content__item">
+                      <img [src]="item" alt="Gun" class="gun-content__item-img">
+                      <div class="gun-content__item-overlay">
+                        <div class="gun-content__item-play">
+                          <button (click)="openImage(item)">
+                              <i aria-hidden="true" class="fa fa-play"></i>
+                          </button>
+                        </div>
+                        <div class="gun-content__item-actions">
+                          <button (click)="addToLibrary(item)">Add to library</button>
+                          <button>Add to game</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

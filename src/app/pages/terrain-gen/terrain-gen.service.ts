@@ -43,7 +43,9 @@ export class TerrainGenService {
   getTerrainsFromLibrary(type: string) {
     const terrainsArr = Observable.of([]);
     if (this.user) {
-      return this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+      let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+      console.log(terrainLibraryList);
+      return terrainLibraryList;
     } else {
       console.log('SHIT HAPPENED');
       return Observable.of([]);
