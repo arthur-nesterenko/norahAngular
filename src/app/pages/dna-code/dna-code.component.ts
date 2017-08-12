@@ -1,5 +1,5 @@
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Component, OnInit,OnChanges,SimpleChange,SimpleChanges } from '@angular/core';
+import { Component, OnInit,OnChanges,SimpleChange,SimpleChanges,AfterViewInit } from '@angular/core';
 import {NgForm, FormBuilder,ReactiveFormsModule,FormGroup} from '@angular/forms';
 import { Http,Headers} from '@angular/http';
 import {Observable,Subscription} from 'rxjs/Rx';
@@ -11,13 +11,15 @@ import {SocketService} from './SocketService';
 import {GeneratedImages} from './data-model';
 
 declare var $:any;
+declare var jQuery: any;
+
 @Component({
   selector: 'app-dna-code',
   templateUrl: './dna-code.component.html',
   styleUrls: ['./dna-code.component.css'],
   providers:[SocketService]
 })
-export class DnaCodeComponent implements OnInit,OnChanges {
+export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
  
   public hideFooter=false;
   public inputRes:any;
@@ -42,7 +44,7 @@ export class DnaCodeComponent implements OnInit,OnChanges {
   public OutputUrl = "assets/data/output.json";
   private FileUploadId:any;
   private processedFiles:GeneratedImages;
-  private selectedImage:any={file:"assets/images/object2-png"};
+  private selectedImage:any={file:"assets/images/object-2.png"};
   private bodyParts:any=[];
   private selectedBodyPart:any;
   private changeHistory:Array<GeneratedImages>=[];
@@ -138,7 +140,7 @@ serverReady:boolean=false;
            });
       });
 
-
+    
          
       this.socket.on('files',(data)=>{
 
@@ -431,7 +433,7 @@ let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
         "macrodetails/Gender": this.Sex[0]/10,
         "macrodetails-universal/Weight": this.Weight[0]/10,
         "macrodetails-proportions/BodyProportions":this.Proportion[0]/10,
-        "macrodetails-universal/Muscle ":this.Muscle[0]/10,
+        "macrodetails-universal/Muscle":this.Muscle[0]/10,
         "macrodetails/Asian": this.Asian[0]/10,
         "macrodetails/African": this.African[0]/10,
         "macrodetails/Caucasian": this.Caucasian[0]/10
@@ -445,12 +447,14 @@ this.outputRes = {
         "macrodetails/Gender": this.Sex[1]/10,
         "macrodetails-universal/Weight": this.Weight[1]/10,
         "macrodetails-proportions/BodyProportions":this.Proportion[1]/10,
-        "macrodetails-universal/Muscle ":this.Muscle[1]/10,
+        "macrodetails-universal/Muscle":this.Muscle[1]/10,
         "macrodetails/Asian": this.Asian[1]/10,
         "macrodetails/African": this.African[1]/10,
         "macrodetails/Caucasian": this.Caucasian[1]/10
       }
     
+      console.log(this.inputRes);
+      console.log(this.outputRes);
     this.sendValues(this.inputRes,this.outputRes);
 
   const inputjson = JSON.stringify(this.inputRes);
@@ -587,7 +591,33 @@ else
   }
 
 
+ngAfterViewInit(){
+/*
+    try{
+      console.log(jQuery("#dnaCode_main_img"));
+        let div=jQuery("#zoom_div")[0];
+        let img=jQuery("#zoom_div img")[0];
+      jQuery("#dnaCode_main_img").hover(
+        (event)=>{
+          console.log()
+        div.style.display="block";
+        console.log("left before"+img.style.left);
+        console.log("calc:"+(-8*event.offsetX)+"px");
+          console.log("hover on");
+          img.style.left=(-8*event.offsetX)+"px"
+          console.log(event.offsetX);
+          console.log("left after"+img.style.left);
+      },
+        (event)=>{
+          div.style.display="none";
+          console.log("hover off");
+        })
 
+      //jQuery("#dnaCode_main_img").elevateZoom();
+     }catch(e){
+      console.log(e);
+   }*/
+}
 
 }
  

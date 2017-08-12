@@ -26,11 +26,11 @@
                                  
                                  <li>
                                     <div class="Parameters_Content_Title">Height</div>
-                                   <nouislider  [(ngModel)]="Weight" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                   <nouislider  [(ngModel)]="Height" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
                                  </li>
                                  <li>
                                     <div class="Parameters_Content_Title">Weight</div>
-                                   <nouislider [(ngModel)]="Height" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                   <nouislider [(ngModel)]="Weight" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
                                  </li>
 
                                  <li>
@@ -163,7 +163,10 @@
                      </div>
                      <div class="block block-object">
                         <span class="helper"></span>
-                        <img src={{selectedImage.file}} alt="">
+                        <img id="dnaCode_main_img" src={{selectedImage.file}} appZooom >
+                       <div id="zoom_div" style="position:fixed;right:0px;top:-20px;display:none"> 
+                         <img id="dnaCode_main_img2"   src={{selectedImage.file}} appZooom >
+                       </div>
                         <div class="object-container-dna-btm">
                            <div class="addgame">
                               <a href="javascript:void(0)" class="addgame-btn">Add to game</a>
