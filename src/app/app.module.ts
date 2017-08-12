@@ -42,7 +42,6 @@ import { GunInterpService } from './pages/gun-interp/gun-interp.service';
     TerrainGenModule,
     SocketIoModule,
     GunInterpModule,
-    dna-code,
     ImageZoomModule
   ],
   providers: [
