@@ -71,6 +71,7 @@ export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
   public Caucasian: number[] = [1, 5];
   public Sex: number[] = [0, 10];
   public Age: number[] = [0, 10];
+  private ethnicity:number[]=[4,6];
   public someMin = 1;
   public someLimit = 50;
   someValue= [ 2, 10 ];
@@ -108,7 +109,28 @@ export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
     stepped: true
   }
 };
+
+ethinicityConfig: any = {
+  behaviour: 'drag',
+  connect: [true,true,true],
+  start:[4,6,],
+  margin: 1,
+  keyboard: true,  // same as [keyboard]="true"
+  step: 0.1,
+  pageSteps: 10,
+  range: {
+    min: 0,
+    max: 10
+	  },
+	  pips: {
+    mode: 'count',
+    density: 1,
+    values: 1,
+    stepped: true
+	  }
+	};
 serverReady:boolean=false;
+private generationCount=0;
   constructor(
     private _http: Http,
     private sanitizer: DomSanitizer,
@@ -152,11 +174,11 @@ serverReady:boolean=false;
 
         if(this.processedFiles){
        //this.changeHistory.push(this.processedFiles);
-       this.processedFiles=new GeneratedImages(data.id,"part:"+this.bodyParts.part,"",data.files);
+       this.processedFiles=new GeneratedImages(data.id,data.generationName,"",data.files);
        this.selectedImage=data.files[0];
         }else{
 
-           this.processedFiles=new GeneratedImages(data.id,"generation 1","",data.files);
+           this.processedFiles=new GeneratedImages(data.id,data.generationName,"",data.files);
           this.selectedImage=data.files[0];
         
        }
@@ -233,7 +255,7 @@ serverReady:boolean=false;
         if(gen.id==id){
           gen.setActive();
           this.processedFiles=gen;
-          this.selectedImage=gen.files[7];
+          this.selectedImage=gen.files[0];
         }else{
             gen.setActive(false);
 
@@ -315,7 +337,7 @@ console.log(this.processedFiles);
   
  //send via socket
 
- this.sendValues(inputVal,outputVal);
+ this.sendValues(inputVal,outputVal,"Generation: "+this.bodyParts.part);
     
 
   }
@@ -426,6 +448,8 @@ let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
         this.showMessag("Server is not ready.Please wait for few seconds");
         return;
       }
+      this.generationCount++;
+    /*  
     this.inputRes = 
         { 
         "macrodetails/Age": this.Age[0]/10,
@@ -451,11 +475,38 @@ this.outputRes = {
         "macrodetails/Asian": this.Asian[1]/10,
         "macrodetails/African": this.African[1]/10,
         "macrodetails/Caucasian": this.Caucasian[1]/10
+      }*/
+    
+       
+    this.inputRes = 
+        { 
+        "macrodetails/Age": this.Age[0]/10,
+        "macrodetails-height/Height": this.Height[0]/10,
+        "macrodetails/Gender": this.Sex[0]/10,
+        "macrodetails-universal/Weight": this.Weight[0]/10,
+        "macrodetails-proportions/BodyProportions":this.Proportion[0]/10,
+        "macrodetails-universal/Muscle":this.Muscle[0]/10,
+        "macrodetails/Asian": this.ethnicity[0]/10,
+        "macrodetails/African": (this.ethnicity[1]-this.ethnicity[0])/10,
+        "macrodetails/Caucasian": (10-this.ethnicity[1])/10
       }
     
+
+this.outputRes = {
+         
+        "macrodetails/Age": this.Age[1]/10,
+        "macrodetails-height/Height": this.Height[1]/10,
+        "macrodetails/Gender": this.Sex[1]/10,
+        "macrodetails-universal/Weight": this.Weight[1]/10,
+        "macrodetails-proportions/BodyProportions":this.Proportion[1]/10,
+        "macrodetails-universal/Muscle":this.Muscle[1]/10,
+        "macrodetails/Asian": this.ethnicity[0]/10,
+        "macrodetails/African": (this.ethnicity[1]-this.ethnicity[0])/10,
+        "macrodetails/Caucasian": (10-this.ethnicity[1])/10
+      }
       console.log(this.inputRes);
       console.log(this.outputRes);
-    this.sendValues(this.inputRes,this.outputRes);
+    this.sendValues(this.inputRes,this.outputRes,"Generation "+this.generationCount);
 
   const inputjson = JSON.stringify(this.inputRes);
   const outputjson = JSON.stringify(this.outputRes);
@@ -501,12 +552,9 @@ this.outputRes = {
 
   }
 
-  sendValues(inputValues,outputValues){
+  sendValues(inputValues,outputValues,genrationName){
 
-  this.socket.emit("upload",{inputValues:inputValues,outputValues:outputValues},(err)=>{
-
-
-
+  this.socket.emit("upload",{inputValues:inputValues,outputValues:outputValues,generationName:genrationName},(err)=>{
     console.log("upload request sent");
     console.log(err);
   });

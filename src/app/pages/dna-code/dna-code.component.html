@@ -41,50 +41,37 @@
                                     <div class="Parameters_Content_Title">Proportions</div>
                                    <nouislider [(ngModel)]="Proportion" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
                                  </li>
+                                  <li class="sex-r-sliderm">
+                                    
+                                      <div class="Parameters_Content_Title">Sex</div>
+                                       <nouislider [connect]="true" name="Sex" [(ngModel)]="Sex" [config]="someKeyboardConfig" (change)="saveBaseParamRange('sex',$event)"></nouislider>
+                                 </li>
+                                       <li>
+                            
+                                <div class="expand-box">
+                        <ul>
+                           <li style="background-color:#66afea">Asian</li>
+                           <li style="background-color:#0287f9">Caucasian</li>
+                           <li style="background-color:#072136">African</li>
+                        </ul>
+                     </div>
+                     
+                                <div class ="Parameters_Content_Title">Ethnicity</div>
+                                 <nouislider  class="eSlider" name="ethnicity" [(ngModel)]="ethnicity" [config]="ethinicityConfig"  (change)="saveBaseParamRange('allasian',$event,asianSlider)"></nouislider>
+                              
+                                
+                              
+                  
+                        
+                     
+                  </li>
                               </ul>
                            </div>
                         </div>
                      </div>
                   </li>
-                  <li>
-                     <div class="expand-box">
-                        <ul>
-                           <li></li>
-                           <li></li>
-                           <li></li>
-                        </ul>
-                     </div>
-                     <a class="expand">
-                        <div class="right-arrow">▼</div>
-                        <h2 class="t-white">Ethnicity</h2>
-                     </a>
-                     <div class="detail" style="display: none;">
-                        <div class="Parameters_Content text-blue m-cutom">
-                            <ul>
-                              <li>
-                                 <div class="Parameters_Content_Title m-custom">Asian</div>
-                                 <nouislider [connect]="true" name="Asian" [(ngModel)]="Asian" [config]="someKeyboardConfig" #asianSlider (change)="saveBaseParamRange('asian',$event,asianSlider)"></nouislider>
-                              </li>
-                              <li>
-                                 <div class="Parameters_Content_Title m-custom">African</div>
-                                <nouislider [connect]="true" name="African"   [(ngModel)]="African" [config]="someKeyboardConfig" (change)="saveBaseParamRange('african',$event)"></nouislider>
-                              </li>
-                              <li>
-                                 <div class="Parameters_Content_Title m-custom">Caucasian</div>
-                                 <nouislider [connect]="true" name="Caucasian"  [(ngModel)]="Caucasian" [config]="someKeyboardConfig" (change)="saveBaseParamRange('caucasian',$event)"></nouislider>
-                              </li>
-                              <li class="sex-r-slider">
-                                 <div class="integration-slider">
-                                    <a>
-                                       <h2>Sex</h2>
-                                       <nouislider [connect]="true" name="Sex" [(ngModel)]="Sex" [config]="someKeyboardConfig" (change)="saveBaseParamRange('sex',$event)"></nouislider>
-                                 </a>
-                                 </div>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </li>
+                  
+                 
                </ul>
             </div>
             <div class="part-styler">
@@ -157,20 +144,6 @@
                      <div class="dna-code-title2" *ngIf="false" >
                         <h2>“ An old man is wiser than it appears”</h2>
                      </div>
-                        <div class="head-title">
-                        <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
-                        <div class="dropdown pull-right">                       
-                         <div ngbDropdown class="d-inline-block">
-                           <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
-                           <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
-                             <li *ngFor="let gen of changeHistory;let i=index" >
-                               <a (click)="switchImage(gen.id)">{{gen.title}} </a>
-                              </li>
-                              
-                           </ul>
-                         </div>
-                       </div>                       
-                     </div>
                    
                      <div class="block block-object">
                         <span class="helper"></span>
@@ -186,7 +159,7 @@
                      </div>
                   </div>
                   <div class="head-detail">
-                     <div class="head-title">
+                    <div class="head-title">
                         <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
                         <div class="dropdown pull-right">                       
                          <div ngbDropdown class="d-inline-block">
@@ -200,9 +173,10 @@
                          </div>
                        </div>                       
                      </div>
-                     <div class="head-detail-block">
-
-                      
+                     
+                    <div class="head-detail-block">
+                          
+                        
                         <div class="full-btn left">
                            <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
                         </div>
