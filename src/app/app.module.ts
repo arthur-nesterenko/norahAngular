@@ -21,6 +21,7 @@ import { SocketIoModule } from 'ng2-socket-io';
 import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
 import {ImageZoomModule} from 'angular2-image-zoom';
 import { GunInterpService } from './pages/gun-interp/gun-interp.service';
+import { LibraryService } from './pages/library/library.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,12 @@ import { GunInterpService } from './pages/gun-interp/gun-interp.service';
     ImageZoomModule
   ],
   providers: [
-    { provide: GlobalRef, useClass: BrowserGlobalRef }, DialogService, RepositoryService, TerrainGenService, GunInterpService],
+    { provide: GlobalRef, useClass: BrowserGlobalRef },
+    DialogService,
+    LibraryService,
+    RepositoryService,
+    TerrainGenService,
+    GunInterpService],
 
   bootstrap: [AppComponent]
 })

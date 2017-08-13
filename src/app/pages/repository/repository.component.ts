@@ -18,13 +18,13 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   page = 1;
   keyword = '';
   animationsCount = 0;
-  
+
   constructor(private repService: RepositoryService, private global: GlobalRef) {
     repService.unselectedTags$.subscribe(tag => {
       this.removeTag(tag);
     });
   }
-  
+
   ngOnInit() {
     const arr = [];
     this.animations = arr;
@@ -46,7 +46,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     this.repService.tags.subscribe((tags: Tag[string]) => {
       this.tags = tags.map((tag: Tag) => {
         delete tag.$exists;
-        
+
         const store = [];
         for ( const i in tag ) {
           if ( i !== '$key' ) {
@@ -57,11 +57,11 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
       });
     });
   }
-  
+
   setPage(page) {
     this.repService.nextPage(page);
   }
-  
+
   addTag(tag) {
     this.repService.nextPage(1);
     if ( !this.selectedTags.includes(tag) ) {
@@ -70,13 +70,13 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     }
     this.filterAnimations();
   }
-  
+
   removeTag(tag) {
     this.repService.nextPage(1);
     this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
     this.filterAnimations();
   }
-  
+
   filterAnimations() {
     const selectedTags = this.selectedTags;
     if ( !selectedTags.length ) {
@@ -87,7 +87,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     const anim_final = [];
     if ( arrayLength > 0 && !$.isEmptyObject(this.animations) ) {
       this.animations.forEach(function (anim) {
-        
+
         let count = 0;
         for ( const t in anim['tags'] ) {
           for ( let i = 0; i < arrayLength; i++ ) {
@@ -106,12 +106,12 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     this.animationsCount = anim_final.length;
     this.displayAnimations = anim_final.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
   }
-  
+
   checkTag(tag, array) {
     const a = array.filter((item) => item.tags[tag]);
     return a.length === array.length;
   }
-  
+
   addVideo(animation) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
@@ -131,15 +131,15 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
         });
         if ( !exists ) {
           const newObjRef = firebase.database().ref('usernames').child(userId).child('mylibrary/').push();
-          
+
           const storageBucket = (firebase.app().options as any).storageBucket;
           const animMp4Name = 'mp4Files/' + animName + '.mp4';
           const mp4Url = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/${encodeURIComponent(animMp4Name)}?alt=media`;
-          
+
           const animFileName = 'animFiles/' + animName + '.anim';
           const animFileUrl = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/
             ${encodeURIComponent(animFileName)}?alt=media`;
-          
+
           newObjRef.set({
             displayName: displayName,
             name: animName,
@@ -159,7 +159,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
       });
     });
   }
-  
+
   matchTags() {
     const arrayLength = this.selectedTags.length;
     const anim_final = [];
@@ -182,20 +182,20 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     }
     return anim_final;
   }
-  
+
   KeywordChanged(text) {
     this.keyword = text.toLowerCase();
   }
-  
+
   isEmpty() {
     return this.keyword.length <= 0;
   }
-  
+
   getKeyWord() {
-    
+
     return this.keyword;
   }
-  
+
   searchKeywords(anims) {
     if ( this.keyword.length > 0 ) {
       const filteredAnims = [];
@@ -206,21 +206,21 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
             console.log('Key: ' + k + ' name ' + anim.displayName);
             filteredAnims.push(anim);
             return anim;
-            
+
           }
         }
-        
+
         return false;
-        
+
       });
       return filteredAnims;
     } else {
       return anims;
     }
   }
-  
+
   ngAfterViewInit() {
-  
+
   }
 }
 
@@ -240,6 +240,6 @@ export interface Animation {
 export interface Tag {
   $exist?: Function;
   $key?: string;
-  
+
   [key: string]: any;
 }

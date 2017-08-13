@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GlobalRef } from './global-ref';
 import { AuthService } from './pages/auth/auth.service';
 import { RepositoryService } from './pages/repository/repository.service';
+import { LibraryService } from './pages/library/library.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   userAuthorized: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private router: Router, private authService: AuthService,
-              private repService: RepositoryService) {
+              private repService: RepositoryService, private libService: LibraryService) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -49,7 +50,9 @@ export class AppComponent implements OnInit {
     this.tags.splice(this.tags.indexOf(tag), 1);
     this.repService.removeTagFromPanel(tag);
   }
-
+  deleteSelected($event) {
+    this.libService.removeAnimationEvent($event);
+  }
   ngOnInit() {
 
   }

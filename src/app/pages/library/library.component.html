@@ -4,24 +4,38 @@
 
     </div>
 
-    <div class="col-sm-9 col-xs-8 zodiacCont library">
-      <!--<div *ngFor="let animation of animations.slice((page - 1) * 15 , (page - 1) * 15 + 15)" class="box fadeInUp clust">-->
+    <div class="col-sm-9 col-xs-8 zodiacCont library" *ngIf="animationsCount">
+        <div *ngFor="let animation of displayAnimations" class="box-video fadeInUp clust">
+          <a *ngIf='animation.selected'
+             class="selected-anim">
+            <i class="fa fa-check fa-2x"></i>
+          </a>
+          <div style="z-index: 111;">
+            <a [href]="animation.animUrl" (click)="download(animation.animUrl)" class="download-anim"><i class="fa fa-download fa-2x"
+                                                                     aria-hidden="true"></i></a>
+            <a *ngIf='!animation.selected'
+               (click)="selectAnimation(animation)"
+               class="selected-anim">
+              <i class="fa fa-trash fa-2x"></i>
+            </a>
+            <a *ngIf='animation.selected'
+               (click)="selectAnimation(animation)"
+               class="selected-anim">
+              <i class="fa fa-check fa-2x"></i>
+            </a>
+            <div class="animation-name">{{animation.name}}</div>
+          </div>
+          <video autoplay loop muted src="{{animation.mp4Url}}">
 
-      <!--&lt;!&ndash;<div style="z-index: 111;">&ndash;&gt;-->
-      <!--&lt;!&ndash;<a class="newwwww" href=""><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>&ndash;&gt;-->
-      <!--&lt;!&ndash;<a href=""></a>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;<video autoplay loop muted src="{{animation.mp4Url}}">&ndash;&gt;-->
-
-      <!--&lt;!&ndash;</video>&ndash;&gt;-->
-      <!--</div>-->
+          </video>
+        </div>
     </div>
 
 
   </div>
-  <div class="row" *ngIf="animations?.length">
+  <div class="row" *ngIf="animationsCount">
     <div class="col-lg-5 col-lg-offset-5">
-      <ngb-pagination [collectionSize]="animations?.length" [(page)]="page" (pageChange)="setPage($event)"
+      <ngb-pagination [collectionSize]="animationsCount" [(page)]="page" (pageChange)="setPage($event)" [pageSize]="15"
                       [maxSize]="15" [rotate]="true" [boundaryLinks]="true">
 
       </ngb-pagination>
