@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { TerrainGenService } from '../terrain-gen.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import {HeightMapSocketService} from '../HeightMapSocketService';
+import {GlobalRef} from "../../../global-ref";
 
 declare var $: any;
 
@@ -19,12 +20,14 @@ export class MountainsComponent implements AfterViewInit {
   receivedData: any[] = [];
   isGenerate: boolean = false;
   isOpen: boolean = true;
+  showDeleteSelected = false;
   @Input() generationType: string;
 
   constructor(
     public tergenService: TerrainGenService,
     private http: Http,
-    private socket:HeightMapSocketService) {
+    private socket:HeightMapSocketService,
+    private global: GlobalRef) {
   }
 
   ngAfterViewInit() {
@@ -32,6 +35,10 @@ export class MountainsComponent implements AfterViewInit {
       this.tergenService.getTerrains(this.generationType)
         .then(data => this.terrains = data)
         .catch(error => console.log(error));
+      let reciveData = this.tergenService.getReceivedData();
+      if(reciveData){
+        this.receivedData = reciveData;
+      }
     }, 1500);
 
    this.socket.on('file-created', (msg)=>{
@@ -91,12 +98,22 @@ export class MountainsComponent implements AfterViewInit {
       });
   }
 
+  addToLibraryFromGeneration(receivedImg){
+    let recived = receivedImg.split('/');
+    console.log(receivedImg,recived[recived.length - 1])
+    const terrainObj = {
+      type: 'mountains',
+      name: recived[recived.length - 1]
+    };
+    this.tergenService.addTerrain(terrainObj);
+  }
+
   /* Add terrain to db */
   addToLibrary(terrain: string) {
     console.log(terrain);
     const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
-      type: 'all',
+      type: 'mountains',
       name: terrainName
     };
     this.tergenService.addTerrain(terrainObj);
@@ -138,10 +155,11 @@ export class MountainsComponent implements AfterViewInit {
 
   }
 
-  uploadImages(p_cross){
+  uploadImages(p_cross, minCount){
     var images = document.getElementById("gen2-images").getElementsByClassName('item');
     var srcList = [];
     var a;
+    let selectedCount = 0;
     for(var i = 0; i < images.length; i++) {
       if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
         console.log("Select"+images[i].getElementsByTagName('img')[0].src);
@@ -151,9 +169,21 @@ export class MountainsComponent implements AfterViewInit {
           a = '';
         }
         a = a +  images[i].getElementsByTagName('img')[0].src;
+        selectedCount++;
       }
 
     }
+
+    if(selectedCount < minCount){
+      const wnd = this.global.nativeGlobal;
+      const toastr = wnd.toastr;
+      if(minCount === 1)
+        toastr.error('Select atleast 1 heightmap for shuffle generate');
+      else
+        toastr.error('Select atleast 2 heightmaps for hybrid generate');
+      return;
+    }
+
     this.clearCheckImages();
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin' ,'*');
@@ -174,7 +204,10 @@ export class MountainsComponent implements AfterViewInit {
               const customObj = {
                 receivedImages: data.split(',').map(function(imgPath){return "https://absentiaterraingen.com/"+ imgPath })
               };
+
+
               this.receivedData.push(customObj);
+              this.tergenService.setReceivedData(this.receivedData);
               for(let i = 1; i <= this.receivedData.length; i++){
                 $('#collapse' + i).collapse("hide");
               }
@@ -187,8 +220,8 @@ export class MountainsComponent implements AfterViewInit {
         );
     }
   }
-
-  selectImg(event) {
+  selectedImgs = [];
+  selectImg(event, tera) {
     const images = document.getElementsByClassName('item');
     //for (let i = 0; i < images.length; i++) {
       //if ( images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].checked) {
@@ -199,7 +232,31 @@ export class MountainsComponent implements AfterViewInit {
         //images[i].classList.toggle('active-img');
         event.currentTarget.classList.toggle('active-img');
       }
-    //}
+
+    var images2 = document.getElementById("gen2-images").getElementsByClassName('item');
+    let selectedCount = 0;
+    this.showDeleteSelected = false;
+    for(var i = 0; i < images2.length; i++) {
+      if(images2[i].getElementsByTagName('input')[0] && images2[i].getElementsByTagName('input')[0].type == 'checkbox' && images2[i].getElementsByTagName('input')[0].checked){
+        this.showDeleteSelected = true;
+        this.selectedImgs.push(tera);
+      }
+    }
+
+  }
+
+  deleteSelected() {
+    this.tergenService.getTerrainsFromLibrary('mountains')
+      .subscribe(items => {
+        for(const item of items){
+          for(const selected of this.selectedImgs){
+            if((item as any ).type === 'mountains' && (item as any).name === selected.match(/%2F(.+)\?/)[1]){
+              this.tergenService.removeTerrainsFromLibray((item as any).$key);
+            }
+          }
+        }
+        this.selectedImgs = [];
+      });
   }
 
 }

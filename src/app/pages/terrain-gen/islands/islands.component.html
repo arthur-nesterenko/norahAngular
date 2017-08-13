@@ -42,9 +42,10 @@
   <div class="col-md-11">
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
+      <div class="delete-selected" type="button" *ngIf="showDeleteSelected" (click)="deleteSelected()">Delete Selected</div>
       <section class="items clearfix" id="gen2-images">
         <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
-        <div class="item" (click)="selectImg($event)">
+        <div class="item" (click)="selectImg($event, terrain)">
            <label [for]="i">
               <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
             <img [src] ="terrain" alt="">
@@ -80,12 +81,14 @@
       <section class="new-generations-accordion">
         <div class="panel-group" id="accordion">
           <div class="panel panel-default"  *ngFor="let obj of receivedData?.reverse(); let i = index">
+            <a (click)="isOpenAccord()"  data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}">
+
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}" (click)="isOpenAccord()">
+                <a>
                   Generation {{receivedData.length - i}}</a>
-                <span class="accordion-arrow" *ngIf="isOpen">▼</span>
-                <span class="accordion-arrow" *ngIf="!isOpen">▲</span>
+                <div class="accordion-arrow" [hidden]="!isOpen">▼</div>
+                <div class="accordion-arrow" [hidden]="isOpen">▲</div>
               </h4>
             </div>
             <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
@@ -105,12 +108,13 @@
                 </div>
               </div>
             </div>
+            </a>
           </div>
         </div>
       </section>
       <div class="generate-btn text-center">
-        <button class="shuffle-gen" (click)="uploadImages('1.0')">Hybrid Generate</button>
-        <button class="shuffle-gen" (click)="uploadImages('0.0')">Shuffle Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages('1.0', 2)">Hybrid Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages('0.0', 1)">Shuffle Generate</button>
       </div>
     </div>
   </div>
