@@ -179,8 +179,6 @@ export class MountainsComponent implements AfterViewInit {
       return;
     }
 
-    console.log(selectedCount,999999);
-
     this.clearCheckImages();
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin' ,'*');

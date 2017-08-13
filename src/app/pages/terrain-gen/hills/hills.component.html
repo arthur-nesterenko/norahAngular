@@ -80,12 +80,14 @@
       <section class="new-generations-accordion">
         <div class="panel-group" id="accordion">
           <div class="panel panel-default" *ngFor="let obj of receivedData?.reverse(); let i = index">
+            <a (click)="isOpenAccord()"  data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}">
+
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}" (click)="isOpenAccord()">
                   Generation {{receivedData.length - i}}</a>
-                <span class="accordion-arrow" *ngIf="isOpen">▼</span>
-                <span class="accordion-arrow" *ngIf="!isOpen">▲</span>
+                <div class="accordion-arrow" [hidden]="!isOpen">▼</div>
+                <div class="accordion-arrow" [hidden]="isOpen">▲</div>
               </h4>
             </div>
             <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
@@ -105,12 +107,13 @@
                 </div>
               </div>
             </div>
+            </a>
           </div>
         </div>
       </section>
       <div class="generate-btn text-center">
-        <button class="shuffle-gen" (click)="uploadImages('1.0')">Hybrid Generate</button>
-        <button class="shuffle-gen" (click)="uploadImages('0.0')">Shuffle Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages('1.0', 2)">Hybrid Generate</button>
+        <button class="shuffle-gen" (click)="uploadImages('0.0', 1)">Shuffle Generate</button>
       </div>
     </div>
   </div>

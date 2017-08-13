@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { BrowserModule } from '@angular/platform-browser';
 import { Http,HttpModule,Headers,RequestOptions,Response   } from '@angular/http';
 import {HeightMapSocketService} from '../HeightMapSocketService';
+import {GlobalRef} from "../../../global-ref";
 declare var $: any;
 
 @Component({
@@ -21,7 +22,7 @@ export class HillsComponent implements AfterViewInit {
   @Input() generationType: string;
 
   constructor(public tergenService: TerrainGenService,private http:Http,
-    private socket:HeightMapSocketService) {
+    private socket:HeightMapSocketService, private global: GlobalRef) {
   }
 
   ngAfterViewInit() {
@@ -133,10 +134,12 @@ export class HillsComponent implements AfterViewInit {
 
   }
 
-  uploadImages(p_cross){
+  uploadImages(p_cross, minCount){
     var images = document.getElementById("gen2-images").getElementsByClassName('item');
     var srcList = [];
     var a;
+    let selectedCount = 0;
+
     for(var i = 0; i < images.length; i++) {
       if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
         console.log("Select"+images[i].getElementsByTagName('img')[0].src);
@@ -146,9 +149,22 @@ export class HillsComponent implements AfterViewInit {
           a = '';
         }
         a = a +  images[i].getElementsByTagName('img')[0].src;
+        selectedCount++;
+
       }
 
     }
+
+    if(selectedCount < minCount){
+      const wnd = this.global.nativeGlobal;
+      const toastr = wnd.toastr;
+      if(minCount === 1)
+        toastr.error('Select atleast 1 heightmap for shuffle generate');
+      else
+        toastr.error('Select atleast 2 heightmaps for hybrid generate');
+      return;
+    }
+
     this.clearCheckImages();
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin' ,'*');
