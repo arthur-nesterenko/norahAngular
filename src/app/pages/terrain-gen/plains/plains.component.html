@@ -42,9 +42,11 @@
   <div class="col-md-11">
     <div class="ter-gen2">
       <h3 class="text-center">Original Selections</h3>
+      <div class="delete-selected" type="button" *ngIf="showDeleteSelected" (click)="deleteSelected()">Delete Selected</div>
+
       <section class="items clearfix" id="gen2-images">
         <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
-          <div class="item" (click)="selectImg($event)">
+          <div class="item" (click)="selectImg($event, terrain)">
            <label [for]="i">
               <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
             <img [src] ="terrain" alt="">

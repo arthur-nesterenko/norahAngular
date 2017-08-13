@@ -20,6 +20,8 @@ export class PlainsComponent implements AfterViewInit {
   receivedData: any[] = [];
   isGenerate: boolean = false;
   isOpen: boolean = true;
+  showDeleteSelected = false;
+  selectedImgs = [];
   @Input() generationType: string;
 
   constructor(public tergenService: TerrainGenService,private http:Http,
@@ -198,7 +200,7 @@ export class PlainsComponent implements AfterViewInit {
     }
   }
 
-  selectImg(event) {
+  selectImg(event, tera) {
     const images = document.getElementsByClassName('item');
     //for (let i = 0; i < images.length; i++) {
       //if ( images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].checked) {
@@ -209,7 +211,30 @@ export class PlainsComponent implements AfterViewInit {
         //images[i].classList.toggle('active-img');
         event.currentTarget.classList.toggle('active-img');
       }
+
+    var images2 = document.getElementById("gen2-images").getElementsByClassName('item');
+    let selectedCount = 0;
+    this.showDeleteSelected = false;
+    for(var i = 0; i < images2.length; i++) {
+      if(images2[i].getElementsByTagName('input')[0] && images2[i].getElementsByTagName('input')[0].type == 'checkbox' && images2[i].getElementsByTagName('input')[0].checked){
+        this.showDeleteSelected = true;
+        this.selectedImgs.push(tera);
+      }
+    }
     //}
   }
 
+  deleteSelected() {
+    this.tergenService.getTerrainsFromLibrary('mountains')
+      .subscribe(items => {
+        for(const item of items){
+          for(const selected of this.selectedImgs){
+            if((item as any ).type === 'mountains' && (item as any).name === selected.match(/%2F(.+)\?/)[1]){
+              this.tergenService.removeTerrainsFromLibray((item as any).$key);
+            }
+          }
+        }
+        this.selectedImgs = [];
+      });
+  }
 }
