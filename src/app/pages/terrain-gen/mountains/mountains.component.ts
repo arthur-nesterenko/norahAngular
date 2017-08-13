@@ -77,6 +77,18 @@ export class MountainsComponent implements AfterViewInit {
 
   isOpenAccord() {
     this.isOpen = !this.isOpen;
+
+  }
+
+  deleteFromLibrary(terrain: string){
+    this.tergenService.getTerrainsFromLibrary('mountains')
+      .subscribe(items => {
+        for(const item of items){
+          if((item as any ).type === 'mountains' && (item as any).name === terrain.match(/%2F(.+)\?/)[1]){
+            this.tergenService.removeTerrainsFromLibray((item as any).$key);
+          }
+        }
+      });
   }
 
   /* Add terrain to db */

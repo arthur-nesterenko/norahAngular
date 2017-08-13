@@ -58,6 +58,9 @@
                 </button>
 
               </div>
+              <div class="item-row action-btn">
+                <button (click)="deleteFromLibrary(terrain)">Delete</button>
+              </div>
             </div>
            </label>
           </div>
@@ -76,7 +79,7 @@
       </h3>
       <section class="new-generations-accordion">
         <div class="panel-group" id="accordion">
-          <div class="panel panel-default" *ngFor="let obj of receivedData; let i = index">
+          <div class="panel panel-default" *ngFor="let obj of receivedData?.reverse(); let i = index">
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}" (click)="isOpenAccord()">
