@@ -22,6 +22,7 @@ import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
 import {ImageZoomModule} from 'angular2-image-zoom';
 import { GunInterpService } from './pages/gun-interp/gun-interp.service';
 import { LibraryService } from './pages/library/library.service';
+import { SeoService } from './seo.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,9 @@ import { LibraryService } from './pages/library/library.service';
     LibraryService,
     RepositoryService,
     TerrainGenService,
-    GunInterpService],
+    GunInterpService,
+    SeoService
+  ],
 
   bootstrap: [AppComponent]
 })

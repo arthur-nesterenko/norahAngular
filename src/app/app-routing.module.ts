@@ -5,7 +5,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { AuthGuard } from './pages/auth/auth-guard.service';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
-import {TerrainGenComponent} from './pages/terrain-gen/terrain-gen.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 const appRoutes: Routes = [
   {
