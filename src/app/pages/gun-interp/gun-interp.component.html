@@ -1,7 +1,7 @@
 <div class="main_wapper wrapper wrapper--gun wrap">
   <div class="row gun-wrapper">
     <div class="col-md-2 gun-sidebar">
-      <ul class="gun-options">
+      <ul class="gun-options" [ngSwitch]="currentComponent">
         <li>
           <a class="expand">
             <h4>Gun</h4>
@@ -9,22 +9,22 @@
 
         </li>
         <li>
-          <a href="#">
+          <a (click)='setGunsType("mountain")'>
                     Sniper
                 </a>
         </li>
         <li>
-          <a href="#">
+          <a (click)='setGunsType("mountain")'>
                     Shot Gun
                 </a>
         </li>
         <li>
-          <a href="#">
+          <a (click)='setGunsType("mountain")'>
                     Rifle
                 </a>
         </li>
         <li>
-          <a href="#">
+          <a (click)='setGunsType("mountain")'>
                     Handgun
                 </a>
         </li>
@@ -41,134 +41,25 @@
     </div>
     <div [ngClass]="{'col-md-10': !isTexture, 'col-md-8': isTexture}">
       <div class="gun-content">
-        <div class="gun-content__title" *ngIf="isGun">
-          Machine Pistol
-        </div>
+
         <div class="gun-content__inner">
           <div class="row" *ngIf="isGun">
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
+            <div class="col-md-12">
+              <div class="gun-content__title">
+                Machine Pistol
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" *ngFor="let item of guns">
               <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
+                <img [src]="item" alt="Gun" class="gun-content__item-img">
                 <div class="gun-content__item-overlay">
                   <div class="gun-content__item-play">
-                    <button>
+                    <button (click)="openImage(item)">
                         <i aria-hidden="true" class="fa fa-play"></i>
                     </button>
                   </div>
                   <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
-                    <button>Add to game</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="gun-content__item">
-                <img src="http://assets.academy.com/mgen/27/10818727.jpg?is=500,500" alt="Gun" class="gun-content__item-img">
-                <div class="gun-content__item-overlay">
-                  <div class="gun-content__item-play">
-                    <button>
-                        <i aria-hidden="true" class="fa fa-play"></i>
-                    </button>
-                  </div>
-                  <div class="gun-content__item-actions">
-                    <button>Add to library</button>
+                    <button (click)="addToLibrary(item)">Add to library</button>
                     <button>Add to game</button>
                   </div>
                 </div>
@@ -177,8 +68,35 @@
           </div>
           <div class="row" *ngIf="isGenerate">
             <div class="col-md-12">
+              <div class="gun-content__title">
+                Original Selections
+              </div>
               <div class="gun-content__texture">
-                Generation
+                <div class="row">
+                  <div class="col-md-3" *ngFor="let item of libraryGuns">
+                    <div class="gun-content__item">
+                      <img [src]="item" alt="Gun" class="gun-content__item-img">
+                      <div class="gun-content__item-overlay">
+                        <div class="gun-content__item-play">
+                          <button (click)="openImage(item)">
+                              <i aria-hidden="true" class="fa fa-play"></i>
+                          </button>
+                        </div>
+                        <div class="gun-content__item-actions">
+                          <button (click)="addToLibrary(item)">Add to library</button>
+                          <button>Add to game</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="gun-content__title">
+                New Generations
+              </div>
+              <div class="generate-btn text-center">
+                <button class="shuffle-gen" (click)="uploadImages('1.0', 2)">Hybrid Generate</button>
+                <button class="shuffle-gen" (click)="uploadImages('0.0', 1)">Shuffle Generate</button>
               </div>
             </div>
           </div>
@@ -206,6 +124,9 @@
               </div>
             </div>
           </div>
+          <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate, 'is-hidden': isTexture}">
+            <a><i class="fa fa-play fa-rotate-180"></i></a>
+          </div>
         </div>
       </div>
     </div>
@@ -214,7 +135,7 @@
         <div class="gun-uper-receiver__title">
           Upper Receiver
         </div>
-        
+
         <div class="gun-uper-receiver__row">
           <div class="gun-uper-receiver__col">
             <div class="gun-uper-receiver__item">
@@ -229,7 +150,7 @@
             <div class="gun-uper-receiver__item">
               <div class="gun-uper-receiver__item-inner">
                 <div class="gun-uper-receiver__item-content">
-                  
+
                 </div>
               </div>
             </div>
@@ -238,7 +159,7 @@
             <div class="gun-uper-receiver__item">
               <div class="gun-uper-receiver__item-inner">
                 <div class="gun-uper-receiver__item-content">
-                  
+
                 </div>
               </div>
             </div>
@@ -247,7 +168,7 @@
             <div class="gun-uper-receiver__item">
               <div class="gun-uper-receiver__item-inner">
                 <div class="gun-uper-receiver__item-content">
-                  
+
                 </div>
               </div>
             </div>
@@ -265,10 +186,8 @@
           <a href="#" class="new-gun-texture__button">Generate New Texture</a>
         </div>
       </div>
-        
+
     </div>
-    <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate, 'is-hidden': isTexture}">
-      <a><i class="fa fa-play fa-rotate-180"></i></a>
-    </div>
+
   </div>
 </div>

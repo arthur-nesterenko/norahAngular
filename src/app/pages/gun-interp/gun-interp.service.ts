@@ -1,18 +1,28 @@
-import {Inject, Injectable} from '@angular/core';
-import { FirebaseApp } from 'angularfire2/angularfire2';
+import {
+  Inject,
+  Injectable
+} from '@angular/core';
+import {
+  FirebaseApp
+} from 'angularfire2/angularfire2';
 import * as firebase from 'firebase';
-import { GlobalRef } from '../../global-ref';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {
+  GlobalRef
+} from '../../global-ref';
+import {
+  Observable
+} from 'rxjs/Observable';
+import {
+  AngularFireDatabase
+} from 'angularfire2/database';
+import {
+  AngularFireAuth
+} from 'angularfire2/auth';
 
 @Injectable()
-export class TerrainGenService {
-
-  private terrainsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+export class GunInterpService {
+  private gunsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   user: any;
-  private receivedData = [];
-
   constructor(
     @Inject(FirebaseApp) private firebaseApp: any,
     private db: AngularFireDatabase,
@@ -21,22 +31,13 @@ export class TerrainGenService {
     this.getUser();
   }
 
-  setReceivedData(receivedData) {
-    this.receivedData = receivedData;
-  }
-  getReceivedData() {
-    return this.receivedData;
-  }
-
   getUser() {
     this.auth.subscribe(user => user ? this.user = user.uid : '');
   }
-
-  /* Get data from Firebase Storage */
-  getTerrains(type: string) {
-    const terrainsArr = [];
-    this.terrainsArr.forEach(item => {
-      terrainsArr.push(firebase
+  getGuns(type: string) {
+    const gunsArr = [];
+    this.gunsArr.forEach(item => {
+      gunsArr.push(firebase
         .storage(this.firebaseApp)
         .ref(type)
         .child(`${item}.png`)
@@ -44,48 +45,43 @@ export class TerrainGenService {
         .then(data => data)
       );
     });
-    return Promise.all(terrainsArr)
+    return Promise.all(gunsArr)
       .then(data => data);
   }
-
-  getTerrainsFromLibrary(type: string) {
-    const terrainsArr = Observable.of([]);
+  getGunsFromLibrary(type: string) {
+    const gunArr = Observable.of([]);
     if (this.user) {
-      let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
-      console.log(terrainLibraryList);
-      return terrainLibraryList;
+      return this.db.list(`/usernames/${this.user}/gunLibrary`);
     } else {
       console.log('SHIT HAPPENED');
       return Observable.of([]);
     }
   }
-
-  /* Add data to Firebase db */
-  addTerrain(terrain) {
+  addGun(gun) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
     if (firebase.auth().currentUser) {
-      const terrainType = terrain.type;
-      const terrainName = terrain.name;
+      const gunType = gun.type;
+      const gunName = gun.name;
       firebase.database()
         .ref('usernames')
         .child(this.user)
-        .child('terrainGenLibrary')
+        .child('gunLibrary')
         .once('value', (snapshot) => {
           if (snapshot.val()) {
             firebase.database()
               .ref('usernames')
               .child(this.user)
-              .child('terrainGenLibrary')
+              .child('gunLibrary')
               .once('value', data => {
                 const value = data.val();
                 if (value) {
                   const exist = Object.keys(value).filter(key => {
-                    return value[key].name === terrainName && value[key].type === terrainType;
+                    return value[key].name === gunName && value[key].type === gunType;
                   });
                   console.log(exist);
                   if (!exist.length) {
-                    this.pushNewTerrain(terrainType, terrainName);
+                    this.pushNewGun(gunType, gunName);
                   } else {
                     toastr.error('Already in your library');
                   }
@@ -94,29 +90,25 @@ export class TerrainGenService {
                 }
               });
           } else {
-            this.pushNewTerrain(terrainType, terrainName);
+            this.pushNewGun(gunType, gunName);
           }
         });
     }
   }
-
-  removeTerrainsFromLibray(key){
-    let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
-    terrainLibraryList.remove(key);
-  }
-
-  pushNewTerrain(terrainType: string, terrainName: string) {
+  pushNewGun(gunType: string, gunName: string) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
     const newObjRef = firebase.database()
       .ref('usernames')
       .child(this.user)
-      .child('terrainGenLibrary')
+      .child('gunLibrary')
       .push();
     newObjRef.set({
-      type: terrainType,
-      name: terrainName
+      type: gunType,
+      name: gunName
     });
     toastr.info('Added to your library');
   }
 }
+
+

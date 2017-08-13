@@ -16,10 +16,10 @@
 header {
   position: relative;
   width: 100%;
-  margin: 0;
   padding: 0 20px 0 0;
   background: $navbar-color;
   box-shadow: 0 4px 4px 0 #1b2836;
+  margin: 0;
 }
 
 nav.tm_navbar {
@@ -248,3 +248,5 @@ ul.list-unstyled {
     box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25);
   }
 }
+
+
