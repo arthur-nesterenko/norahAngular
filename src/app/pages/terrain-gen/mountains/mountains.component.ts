@@ -35,6 +35,10 @@ export class MountainsComponent implements AfterViewInit {
       this.tergenService.getTerrains(this.generationType)
         .then(data => this.terrains = data)
         .catch(error => console.log(error));
+      let reciveData = this.tergenService.getReceivedData();
+      if(reciveData){
+        this.receivedData = reciveData;
+      }
     }, 1500);
 
    this.socket.on('file-created', (msg)=>{
@@ -203,6 +207,7 @@ export class MountainsComponent implements AfterViewInit {
 
 
               this.receivedData.push(customObj);
+              this.tergenService.setReceivedData(this.receivedData);
               for(let i = 1; i <= this.receivedData.length; i++){
                 $('#collapse' + i).collapse("hide");
               }

@@ -11,6 +11,7 @@ export class TerrainGenService {
 
   private terrainsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   user: any;
+  private receivedData = [];
 
   constructor(
     @Inject(FirebaseApp) private firebaseApp: any,
@@ -18,6 +19,13 @@ export class TerrainGenService {
     private auth: AngularFireAuth,
     private global: GlobalRef) {
     this.getUser();
+  }
+
+  setReceivedData(receivedData) {
+    this.receivedData = receivedData;
+  }
+  getReceivedData() {
+    return this.receivedData;
   }
 
   getUser() {
