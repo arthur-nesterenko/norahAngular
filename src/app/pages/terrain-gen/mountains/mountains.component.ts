@@ -20,6 +20,7 @@ export class MountainsComponent implements AfterViewInit {
   receivedData: any[] = [];
   isGenerate: boolean = false;
   isOpen: boolean = true;
+  showDeleteSelected = false;
   @Input() generationType: string;
 
   constructor(
@@ -97,7 +98,7 @@ export class MountainsComponent implements AfterViewInit {
     let recived = receivedImg.split('/');
     console.log(receivedImg,recived[recived.length - 1])
     const terrainObj = {
-      type: 'all',
+      type: 'mountains',
       name: recived[recived.length - 1]
     };
     this.tergenService.addTerrain(terrainObj);
@@ -108,7 +109,7 @@ export class MountainsComponent implements AfterViewInit {
     console.log(terrain);
     const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
-      type: 'all',
+      type: 'mountains',
       name: terrainName
     };
     this.tergenService.addTerrain(terrainObj);
@@ -214,8 +215,8 @@ export class MountainsComponent implements AfterViewInit {
         );
     }
   }
-
-  selectImg(event) {
+  selectedImgs = [];
+  selectImg(event, tera) {
     const images = document.getElementsByClassName('item');
     //for (let i = 0; i < images.length; i++) {
       //if ( images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].checked) {
@@ -226,7 +227,31 @@ export class MountainsComponent implements AfterViewInit {
         //images[i].classList.toggle('active-img');
         event.currentTarget.classList.toggle('active-img');
       }
-    //}
+
+    var images2 = document.getElementById("gen2-images").getElementsByClassName('item');
+    let selectedCount = 0;
+    this.showDeleteSelected = false;
+    for(var i = 0; i < images2.length; i++) {
+      if(images2[i].getElementsByTagName('input')[0] && images2[i].getElementsByTagName('input')[0].type == 'checkbox' && images2[i].getElementsByTagName('input')[0].checked){
+        this.showDeleteSelected = true;
+        this.selectedImgs.push(tera);
+      }
+    }
+
+  }
+
+  deleteSelected() {
+    this.tergenService.getTerrainsFromLibrary('mountains')
+      .subscribe(items => {
+        for(const item of items){
+          for(const selected of this.selectedImgs){
+            if((item as any ).type === 'mountains' && (item as any).name === selected.match(/%2F(.+)\?/)[1]){
+              this.tergenService.removeTerrainsFromLibray((item as any).$key);
+            }
+          }
+        }
+        this.selectedImgs = [];
+      });
   }
 
 }
