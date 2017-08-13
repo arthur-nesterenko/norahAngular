@@ -273,6 +273,18 @@
   }
 }
 
+.shuffle-gen {
+  margin: 25px;
+  width: 30%;
+  padding: 8px 0;
+  background-color: #105a9b;
+  border: none;
+  color: #fff;
+  &:hover {
+    background-color: lighten(#105a9b, 15%);
+  }
+}
+
 .is-hidden {
   display: none;
 }
