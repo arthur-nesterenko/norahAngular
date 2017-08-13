@@ -57,10 +57,10 @@ export class IslandsComponent implements AfterViewInit {
   }
 
   nextTerGan() {
-    this.tergenService.getTerrainsFromLibrary(this.generationType)
+    this.tergenService.getTerrainsFromLibrary('mountains')
       .subscribe(items => {
         console.log(items);
-        const anims = items.filter(file => file.type === this.generationType).map(file => {
+        const anims = items.filter(file => file.type === 'mountains').map(file => {
           console.log(file.name);
           return firebase
             .storage()
@@ -82,7 +82,7 @@ export class IslandsComponent implements AfterViewInit {
     console.log(terrain);
     const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
-      type: this.generationType,
+      type: 'mountains',
       name: terrainName
     };
     this.tergenService.addTerrain(terrainObj);
@@ -160,6 +160,12 @@ export class IslandsComponent implements AfterViewInit {
                 receivedImages: data.split(',').map(function(imgPath){return "https://absentiaterraingen.com/"+ imgPath })
               };
               this.receivedData.push(customObj);
+              for(let i = 1; i <= this.receivedData.length; i++){
+                $('#collapse' + i).collapse("hide");
+              }
+              setTimeout(() => {
+                $('#collapse1').collapse("show");
+              }, 500);
             }, //For Success Response
             err => { console.error(err); } //For Error Response
         );
@@ -180,7 +186,7 @@ export class IslandsComponent implements AfterViewInit {
     //}
   }
 
-      
+
 
 
 }

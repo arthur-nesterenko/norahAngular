@@ -33,15 +33,15 @@ export class MountainsComponent implements AfterViewInit {
         .then(data => this.terrains = data)
         .catch(error => console.log(error));
     }, 1500);
-    
+
    this.socket.on('file-created', (msg)=>{
-      var item; 
+      var item;
       var imgs = document.getElementById("accordion").getElementsByTagName('img');
       var imgList = [];
       for(var i = 0; i < imgs.length; i++){
         if(imgs[i].src==msg.path){
           item = imgs[i];
-          break;  
+          break;
        }
       }
       if(item){
@@ -59,10 +59,10 @@ export class MountainsComponent implements AfterViewInit {
   }
 
   nextTerGan() {
-    this.tergenService.getTerrainsFromLibrary(this.generationType)
+    this.tergenService.getTerrainsFromLibrary('mountains')
       .subscribe(items => {
       //console.log(items);
-      const anims =  items.filter(file => file.type === this.generationType).map(file => {
+      const anims =  items.filter(file => file.type === 'mountains').map(file => {
         console.log(file.name);
         return firebase
           .storage()
@@ -84,7 +84,7 @@ export class MountainsComponent implements AfterViewInit {
     console.log(terrain);
     const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
-      type: this.generationType,
+      type: 'all',
       name: terrainName
     };
     this.tergenService.addTerrain(terrainObj);
@@ -116,10 +116,10 @@ export class MountainsComponent implements AfterViewInit {
     var a;
     for(var i = 0; i < images.length; i++) {
       if(images[i].getElementsByTagName('input')[0] && images[i].getElementsByTagName('input')[0].type == 'checkbox' && images[i].getElementsByTagName('input')[0].checked){
-           images[i].getElementsByTagName('input')[0].checked = false;       
+           images[i].getElementsByTagName('input')[0].checked = false;
            let test = images[i].getElementsByClassName('fa-check-circle-o')as HTMLCollectionOf<HTMLElement>;
            test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
-           images[i].classList.toggle('active-img'); 
+           images[i].classList.toggle('active-img');
       }
 
     }
@@ -163,6 +163,13 @@ export class MountainsComponent implements AfterViewInit {
                 receivedImages: data.split(',').map(function(imgPath){return "https://absentiaterraingen.com/"+ imgPath })
               };
               this.receivedData.push(customObj);
+              for(let i = 1; i <= this.receivedData.length; i++){
+                $('#collapse' + i).collapse("hide");
+              }
+              setTimeout(() => {
+
+                $('#collapse1').collapse("show");
+              }, 500);
             }, //For Success Response
             err => { console.error(err); } //For Error Response
         );

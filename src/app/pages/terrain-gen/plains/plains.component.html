@@ -79,7 +79,7 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}" (click)="isOpenAccord()">
-                  Generation {{ i + 1 }}</a>
+                  Generation {{receivedData.length - i}}</a>
                 <span class="accordion-arrow" *ngIf="isOpen">▼</span>
                 <span class="accordion-arrow" *ngIf="!isOpen">▲</span>
               </h4>
