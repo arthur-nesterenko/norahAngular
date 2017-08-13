@@ -639,19 +639,19 @@ height: 4px !important;
 .list-btn i {
     padding: 0 7px 0 0;
 }
-.head-detail ul.dropdown-menu {
+.head-title ul.dropdown-menu {
     background: #131a23;
     position: absolute;
     top: 0;
     left: -45px;
     width: 126px;
 }
-.head-detail ul.dropdown-menu li a {
+.head-title ul.dropdown-menu li a {
     padding: 8px 16px;
     color: #fff;
     font-size: 14px;
 }
-.head-detail ul.dropdown-menu li a:hover {
+.head-title ul.dropdown-menu li a:hover {
     background: #008aff;
 }
 .head-detail-block {

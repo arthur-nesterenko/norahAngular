@@ -48,6 +48,15 @@ export class GunInterpService {
     return Promise.all(gunsArr)
       .then(data => data);
   }
+  getGunsFromLibrary(type: string) {
+    const gunArr = Observable.of([]);
+    if (this.user) {
+      return this.db.list(`/usernames/${this.user}/gunLibrary`);
+    } else {
+      console.log('SHIT HAPPENED');
+      return Observable.of([]);
+    }
+  }
   addGun(gun) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;

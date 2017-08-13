@@ -267,3 +267,7 @@ width:25%;
 
 	margin-right: 10%
 }
+:host /deep/ image-zoom-container{
+		background-color: #1c252f;
+
+}
