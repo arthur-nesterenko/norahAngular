@@ -27,15 +27,16 @@ export class GunInterpComponent implements AfterViewInit {
   ) {}
   
   openTexture() {
-    if (this.isTexture) {
-      this.isTexture = false;
-      this.isGun = true;
-      this.isGenerate = false;
-    } else {
-      this.isTexture = true;
-      this.isGun = false;
-      this.isGenerate = false;
-    }
+    console.log('Texture');
+    // if (this.isTexture) {
+    //   this.isTexture = false;
+    //   this.isGun = true;
+    //   this.isGenerate = false;
+    // } else {
+    //   this.isTexture = true;
+    //   this.isGun = false;
+    //   this.isGenerate = false;
+    // }
   }
   openGeneration() {
     
