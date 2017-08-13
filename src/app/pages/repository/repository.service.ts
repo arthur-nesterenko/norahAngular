@@ -33,8 +33,7 @@ export class RepositoryService {
     });
     return this.db.list('/animations', {
       query: {
-        orderByChild: 'name',
-        limitToFirst: 400
+        orderByChild: 'name'
       }
     });
   }

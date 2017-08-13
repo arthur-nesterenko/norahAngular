@@ -19,7 +19,7 @@ header {
   padding: 0 20px 0 0;
   background: $navbar-color;
   box-shadow: 0 4px 4px 0 #1b2836;
-  margin: 0;
+  margin: 0 0 80px;
 }
 
 nav.tm_navbar {
@@ -213,17 +213,7 @@ ul.list-unstyled {
   color: white;
   font-size: 15px;
 }
-.tag {
-  color: darkgrey;
-  border: 1px solid $home-box-color;
-  background-color: $home-box-color3;
-  border-radius: 30px;
-  height: 40px;
-  padding: 0 14px 3px;
-  float: left;
-  margin-top: 10px;
-  line-height: 1;
-}
+
 
 .del_btn a {
   padding: 10px 20px !important;

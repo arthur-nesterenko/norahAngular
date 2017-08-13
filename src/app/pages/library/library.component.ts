@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Http } from '@angular/http';
 import { LibraryService } from './library.service';
 
@@ -13,8 +13,10 @@ export class LibraryComponent implements OnInit {
   displayAnimations = [];
   page = 1;
   animationsCount = 0;
+  selectedAnimations = [];
 
   constructor(private libService: LibraryService, private http: Http) {}
+
   ngOnInit() {
     this.libService.removeSelected$
       .skip(1)
@@ -42,21 +44,26 @@ export class LibraryComponent implements OnInit {
     this.animationsCount = this.animations.length;
     this.displayAnimations = this.animations.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
   }
+
   download(url) {
     this.http.get(url);
   }
-  selectAnimation(animation) {
+  selectAnimation(animation, index) {
     animation.selected = !animation.selected;
+    if (animation.selected) {
+      this.selectedAnimations.push(animation);
+    } else {
+      this.selectedAnimations.splice(index, 1);
+    }
   }
   removeAnimations() {
-    this.animations.map(animation => {
-      console.log(animation);
+    this.animations = this.animations.map(animation => {
       if (animation.selected) {
         this.libService.removeAnimation(animation.$key);
       } else {
         return animation;
       }
     });
-    window.location.reload();
+    // window.location.reload();
   }
 }

@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
               private repService: RepositoryService, private libService: LibraryService, private seoService: SeoService) {
 
     this.router.events.subscribe((event) => {
-      console.log(event);
       if (event instanceof NavigationEnd) {
         this.showFilters = event.url.indexOf('repository') !== -1 || event.url.indexOf('my-library') !== -1;
         this.myLibrary = event.url.indexOf('my-library') !== -1;

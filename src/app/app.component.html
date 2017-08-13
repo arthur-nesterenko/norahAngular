@@ -1,6 +1,7 @@
-<div class="main">
+<div class="main container-fluid">
+  <div class="row">
     <!--header-->
-    <header [class]="'clearfix ' + (updateIndex ? 'updateIndex' : '')" class="clearfix">
+    <header [class]="'clearfix ' + (updateIndex ? 'updateIndex' : '')" class="col-xs-12 clearfix">
         <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix" role="navigation">
             <div class="logo"></div>
             <ul class="nav sf-menu  clearfix">
@@ -59,33 +60,7 @@
 
         <app-auth [showModal]="userAuthorized"></app-auth>
     </header>
-    <div class="container">
-
-        <div *ngIf="showFilters" class="radioBox">
-            <div class="container">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 filter" *ngIf="!myLibrary">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <span class="text-center pull-left">Filters: </span>
-                        </div>
-                        <div class="col-lg-9 tagName">
-                            <button (click)="removeTag(tag)" *ngFor="let tag of tags" class="tag closeDiv">{{tag}} <i class="fa "></i>
-              </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 filter" *ngIf="myLibrary">
-                    <div class="col-md-3">
-                        <p style="margin-top:5px;font-size:15px;color:white;">MY ASSETS</p>
-                    </div>
-                    <div class="del_btn">
-                        <a class="del_btn btn" (click)="deleteSelected($event)">Delete Selected</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 <router-outlet></router-outlet>
 <!--footer-->

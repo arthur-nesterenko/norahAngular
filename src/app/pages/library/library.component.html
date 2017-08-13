@@ -1,3 +1,15 @@
+<div class="container radioBox">
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 filter">
+    <div class="col-md-3">
+      <p style="margin-top:5px;font-size:15px;color:white;">MY ASSETS</p>
+    </div>
+    <div class="del_btn">
+      <button class="del_btn btn" (click)="removeAnimations()"
+         disabled="{{ !animationsCount || !selectedAnimations.length }}">Delete Selected</button>
+    </div>
+
+  </div>
+</div>
 <div class=" container-fluid zodiac_box zodiac_box_repos">
   <div class="row">
     <div class="col-sm-3 col-xs-4 leftSideBar">
@@ -5,30 +17,31 @@
     </div>
 
     <div class="col-sm-9 col-xs-8 zodiacCont library" *ngIf="animationsCount">
-        <div *ngFor="let animation of displayAnimations" class="box-video fadeInUp clust">
+      <div *ngFor="let animation of displayAnimations; let i = index" class="box-video fadeInUp clust">
+        <a *ngIf='animation.selected'
+           class="selected-anim">
+          <i class="fa fa-check fa-2x"></i>
+        </a>
+        <div style="z-index: 111;">
+          <a [href]="animation.animUrl" (click)="download(animation.animUrl)" class="download-anim"><i
+            class="fa fa-download fa-2x"
+            aria-hidden="true"></i></a>
+          <a *ngIf='!animation.selected'
+             (click)="selectAnimation(animation, i)"
+             class="selected-anim">
+            <i class="fa fa-trash fa-2x"></i>
+          </a>
           <a *ngIf='animation.selected'
+             (click)="selectAnimation(animation, i)"
              class="selected-anim">
             <i class="fa fa-check fa-2x"></i>
           </a>
-          <div style="z-index: 111;">
-            <a [href]="animation.animUrl" (click)="download(animation.animUrl)" class="download-anim"><i class="fa fa-download fa-2x"
-                                                                     aria-hidden="true"></i></a>
-            <a *ngIf='!animation.selected'
-               (click)="selectAnimation(animation)"
-               class="selected-anim">
-              <i class="fa fa-trash fa-2x"></i>
-            </a>
-            <a *ngIf='animation.selected'
-               (click)="selectAnimation(animation)"
-               class="selected-anim">
-              <i class="fa fa-check fa-2x"></i>
-            </a>
-            <div class="animation-name">{{animation.name}}</div>
-          </div>
-          <video autoplay loop muted src="{{animation.mp4Url}}">
-
-          </video>
+          <div class="animation-name">{{animation.name}}</div>
         </div>
+        <video autoplay loop muted src="{{animation.mp4Url}}">
+
+        </video>
+      </div>
     </div>
 
 
