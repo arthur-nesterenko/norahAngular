@@ -42,6 +42,8 @@
   <div class="col-md-11">
     <div class="ter-gen2" >
       <h3 class="text-center">Original Selections</h3>
+      <!--<div class="SignBtn" type="button">Delete Selected</div>-->
+
       <section class="items clearfix" id="gen2-images">
         <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
           <div class="item" (click)="selectImg($event)">
@@ -82,10 +84,9 @@
             <a (click)="isOpenAccord()"  data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a>
-                  Generation {{receivedData.length - i}}</a>
-                <span class="accordion-arrow" *ngIf="isOpen">▼</span>
-                <span class="accordion-arrow" *ngIf="!isOpen">▲</span>
+                  Generation {{receivedData.length - i}}
+                <div class="accordion-arrow" [hidden]="!isOpen">▼</div>
+                <div class="accordion-arrow" [hidden]="isOpen">▲</div>
               </h4>
             </div>
             <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
