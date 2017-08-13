@@ -92,6 +92,11 @@ export class TerrainGenService {
     }
   }
 
+  removeTerrainsFromLibray(key){
+    let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+    terrainLibraryList.remove(key);
+  }
+
   pushNewTerrain(terrainType: string, terrainName: string) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
