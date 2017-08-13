@@ -111,6 +111,9 @@
               </div>
             </div>
           </div>
+          <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate, 'is-hidden': isTexture}">
+            <a><i class="fa fa-play fa-rotate-180"></i></a>
+          </div>
         </div>
       </div>
     </div>
@@ -172,8 +175,6 @@
       </div>
         
     </div>
-    <div class="full-btn" (click)="openGeneration()" [ngClass]="{'is-active': isGenerate, 'is-hidden': isTexture}">
-      <a><i class="fa fa-play fa-rotate-180"></i></a>
-    </div>
+    
   </div>
 </div>
