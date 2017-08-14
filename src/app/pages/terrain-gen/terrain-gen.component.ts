@@ -20,7 +20,7 @@ export class TerrainGenComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $('.expand').on('click', function () {
+    $('.expandt').on('click', function () {
       $(this).next().slideToggle(200);
       const $expand = $(this).find('>:first-child');
 
