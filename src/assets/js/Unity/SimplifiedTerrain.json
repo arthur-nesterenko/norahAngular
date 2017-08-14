@@ -1,0 +1,9 @@
+{
+"TOTAL_MEMORY": 1073741824,
+"dataUrl": "SimplifiedTerrain.data.unityweb",
+"asmCodeUrl": "SimplifiedTerrain.asm.code.unityweb",
+"asmMemoryUrl": "SimplifiedTerrain.asm.memory.unityweb",
+"asmFrameworkUrl": "SimplifiedTerrain.asm.framework.unityweb",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20"
+}

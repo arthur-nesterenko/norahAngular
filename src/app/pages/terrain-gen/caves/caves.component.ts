@@ -6,6 +6,7 @@ import { Http,HttpModule,Headers,RequestOptions,Response  } from '@angular/http'
 import {HeightMapSocketService} from '../HeightMapSocketService';
 import {GlobalRef} from "../../../global-ref";
 declare var $: any;
+declare var ValidateInputsThenApply: any;
 
 
 @Component({
@@ -107,20 +108,22 @@ export class CavesComponent implements AfterViewInit {
 
   openImage(src) {
   console.log('SRC'+src);
-    $('#modalClose').click(function (e) {
-      $('#modalThree').css('display', 'none');
-      //$( "#group" ).show();
-      resetThree();
-    });
-    $('#modalThree').css('display', 'block');
-    //$( "#group" ).hide();
-    loader.load(src, function (texture) {
-      init(texture);
-    }, function (xhr) {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    }, function (xhr) {
-      console.log('An error happened');
-    });
+    ValidateInputsThenApply(src);
+
+    // $('#modalClose').click(function (e) {
+    //   $('#modalThree').css('display', 'none');
+    //   //$( "#group" ).show();
+    //   resetThree();
+    // });
+    // $('#modalThree').css('display', 'block');
+    // //$( "#group" ).hide();
+    // loader.load(src, function (texture) {
+    //   init(texture);
+    // }, function (xhr) {
+    //   console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    // }, function (xhr) {
+    //   console.log('An error happened');
+    // });
   }
 
   clearCheckImages(){
