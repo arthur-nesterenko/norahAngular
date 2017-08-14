@@ -26,9 +26,6 @@
     width: 290px;
     overflow-y: scroll;
 }
-::-webkit-scrollbar {
-    display: none;
-}
 #integration-list {
     font-family: 'Open Sans', sans-serif;
     width: 100%;
@@ -61,6 +58,10 @@ div#integration-list h2 {
     width: 100%;
     margin: 0 0 0px 0;
     border-bottom: 1px solid #2f3d4c;
+}
+::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: scrollbargripper-vertical;
 }
 #integration-list ul:last-child {
     /* border-bottom: 1px solid #2f3d4c; */
@@ -265,13 +266,17 @@ input::-moz-focus-outer {
     border: 0;
 }
 .expand-box li {
-    width: 18px !important;
-    height: 13px !important;
+    width: 30% !important;
+    /* height: 13px !important; */
     padding: 0px !important;
     margin: 0 5px 0 0 !important;
     border: 1px solid #1260a4;
     border-bottom: 1px solid #1260a4 !important;
     display: inline-block !important;
+    float: left;
+    color: white;
+    font-size: 12px;
+    text-align: center;
 }
 .expand-box ul {
     margin: 0 !important;
@@ -281,9 +286,13 @@ input::-moz-focus-outer {
     border-bottom: none !important;
 }
 .expand-box {
-    float: right;
+    /*float: right;
     right: 30%;
     position: relative;
+    */
+    width: 80%;
+    margin-left: 10%;
+
 }
 h2.t-white {
     color: #fff !important;
@@ -456,7 +465,7 @@ input.addui-slider-input {
     display: none !important;
 }
 .noUi-connect {
-    background: #0287f9 !important;
+    background: #0287f9 !important ;
 }
 .Parameters_Content .noUi-horizontal .noUi-handle {
         display: block;
@@ -642,14 +651,32 @@ height: 4px !important;
 .head-detail ul.dropdown-menu {
     background: #131a23;
     position: absolute;
-    top: 0;
+    top: -400%;
     left: -45px;
     width: 126px;
+    overflow-y:scroll;
+    -ms-overflow-style: scrollbar;
+    overflow-x: hidden;
+    max-height: 200px;
+    bottom:100%;
 }
 .head-detail ul.dropdown-menu li a {
     padding: 8px 16px;
     color: #fff;
     font-size: 14px;
+}
+
+
+
+.dropdown-menu::-webkit-scrollbar {
+    display: block;
+    -webkit-appearance: scrollbargripper-vertical;
+    width: 5px;
+ 
+}
+ul.dropdown-menu::-webkit-scrollbar-thumb {
+    background: white;
+ 
 }
 .head-detail ul.dropdown-menu li a:hover {
     background: #008aff;

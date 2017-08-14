@@ -1,0 +1,128 @@
+.sidebar {
+	background:#253443;
+	padding-left:0;
+	padding-right:0;
+	min-height:500px;
+}
+
+.container-fluid {
+	padding:0;
+	margin-top:10px;
+	background:#202a34 !important;
+}
+
+.tab {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  overflow: hidden;
+}
+
+input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+label {
+  position: relative;
+  display: block;
+  padding: 0 0 0 1em;
+  font: 15px/68px "Questrial";
+  border-bottom: 1px solid #303d4c;
+  line-height: 4 !important;
+  margin-bottom:0 !important;
+  cursor: pointer;
+}
+.blue label {
+  background: #2980b9;
+}
+.tab-content {
+  max-height: 0;
+  overflow: hidden;
+  background: #303d4c;
+  -webkit-transition: max-height .35s;
+  -o-transition: max-height .35s;
+  transition: max-height .35s;
+}
+.blue .tab-content {
+  background: #3498db;
+}
+.tab-content p {
+  margin: 1em;
+}
+/* :checked */
+input:checked ~ .tab-content {
+  max-height: 10em;
+}
+/* Icon */
+label::after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  width: 3em;
+  height: 3em;
+  line-height: 4 !important;
+  text-align: center;
+  -webkit-transition: all .35s;
+  -o-transition: all .35s;
+  transition: all .35s;
+}
+input[type=checkbox] + label::after {
+  content: "+";
+}
+input[type=radio] + label::after {
+  content: "\25BC";
+}
+input[type=checkbox]:checked + label::after {
+  transform: rotate(315deg);
+}
+input[type=radio]:checked + label::after {
+  transform: rotateX(180deg);
+}
+
+.heading {
+	background:#253443;
+	width:100%;
+	font: 15px/68px "Questrial";
+	line-height:3 !important;
+	color:#fff;
+	text-align:center;
+}
+
+.dabbe .col-md-3 {
+	background:#1c252f;
+	min-height:150px;
+	width:23% !important;
+	margin-left:2% !important;
+	margin-top:10px;
+	position:relative;
+}
+
+.checkB {
+	position:absolute;
+	color:#fff;
+	top:5px;
+	left:10px;
+	opacity:10;
+	z-index:1;
+}
+
+#deleteBTN {
+	opacity:10;
+	z-index:1;
+	background:#1c252f;
+	color:#fff !important;
+	height:20px;
+	position:absolute;
+	left:25px;
+	top:12px;
+	border-radius: 5px;
+    font-size: 11px !important;
+    line-height: 18px;
+    padding: 0 20px;
+    border: 0;
+    outline: none;
+}
+

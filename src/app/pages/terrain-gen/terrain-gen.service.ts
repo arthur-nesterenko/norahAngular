@@ -11,6 +11,7 @@ export class TerrainGenService {
 
   private terrainsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   user: any;
+  private receivedData = [];
 
   constructor(
     @Inject(FirebaseApp) private firebaseApp: any,
@@ -18,6 +19,13 @@ export class TerrainGenService {
     private auth: AngularFireAuth,
     private global: GlobalRef) {
     this.getUser();
+  }
+
+  setReceivedData(receivedData) {
+    this.receivedData = receivedData;
+  }
+  getReceivedData() {
+    return this.receivedData;
   }
 
   getUser() {
@@ -43,7 +51,9 @@ export class TerrainGenService {
   getTerrainsFromLibrary(type: string) {
     const terrainsArr = Observable.of([]);
     if (this.user) {
-      return this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+      let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+      console.log(terrainLibraryList);
+      return terrainLibraryList;
     } else {
       console.log('SHIT HAPPENED');
       return Observable.of([]);
@@ -88,6 +98,11 @@ export class TerrainGenService {
           }
         });
     }
+  }
+
+  removeTerrainsFromLibray(key){
+    let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+    terrainLibraryList.remove(key);
   }
 
   pushNewTerrain(terrainType: string, terrainName: string) {

@@ -33,7 +33,20 @@ h3 {
     line-height: 1.1;
     font-size: 24px;
 }
-
+.delete-selected {
+  padding: 5px 5px !important;
+  width: 16%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid #008aff;
+  border-radius: 30px;
+  color: #fff;
+  background: #253443 none;
+  transition: all 0.2s ease-in-out;
+}
 span.property-name {
     text-align: left !important;
 }

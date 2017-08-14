@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import * as $ from 'jquery';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 import { GlobalRef } from '../../global-ref';
 import { RepositoryService } from './repository.service';
-
 
 @Component({
   selector: 'bc-repository',
@@ -19,7 +19,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   page = 1;
   keyword = '';
   animationsCount = 0;
-
+  search: EventEmitter<string> = new EventEmitter();
 
   constructor(private repService: RepositoryService, private global: GlobalRef) {
     repService.unselectedTags$.subscribe(tag => {
@@ -34,27 +34,35 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     this.selectedTags = [];
     this.repService.animations
       .subscribe((result: Animation[]) => {
-      console.log(result);
+      result = result.sort((a, b) => {
+        return a.displayName.localeCompare(b.displayName);
+      });
         this.animations = result;
-        this.filterAnimations();
+        this.filterAnimations(false);
       });
     this.repService.page$.subscribe(page => {
       this.page = page;
-      this.filterAnimations();
+      this.filterAnimations(false);
     });
     this.repService.tags.subscribe((tags: Tag[string]) => {
       this.tags = tags.map((tag: Tag) => {
         delete tag.$exists;
 
         const store = [];
-        for (const i in tag) {
-          if (i !== '$key') {
+        for ( const i in tag ) {
+          if ( i !== '$key' ) {
             store.push(tag[i]);
           }
         }
-        return {key: tag['$key'], tags: store};
+        return { key: tag['$key'], tags: store };
       });
     });
+    this.search
+      .debounceTime(800)
+      .subscribe(value => {
+        this.keyword = value;
+        this.filterAnimations(true);
+      });
   }
 
   setPage(page) {
@@ -62,50 +70,65 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   }
 
   addTag(tag) {
-    this.repService.nextPage(1);
-    if (!this.selectedTags.includes(tag)) {
+    if ( !this.selectedTags.includes(tag) ) {
       this.selectedTags.push(tag);
       this.repService.addTag(tag);
     }
-    this.filterAnimations();
+    this.filterAnimations(true);
+    this.repService.nextPage(1);
   }
 
   removeTag(tag) {
-    this.repService.nextPage(1);
     this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
-    this.filterAnimations();
+    this.filterAnimations(false);
+    this.repService.nextPage(1);
   }
 
-  filterAnimations() {
-    const selectedTags = this.selectedTags;
-    if (!selectedTags.length) {
-      this.animationsCount = this.animations.length;
-      this.displayAnimations = this.animations.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
+  filterAnimations(showToast: boolean) {
+    let results;
+    if (!this.keyword) {
+      results = this.animations.slice();
+    } else {
+      results = this.animations.filter(item => {
+        return item.name.indexOf(this.keyword) !== -1;
+      });
     }
-    const arrayLength = selectedTags.length;
-    const anim_final = [];
-    if (arrayLength > 0 && !$.isEmptyObject(this.animations)) {
-      this.animations.forEach(function (anim) {
+    const selectedTags = this.selectedTags;
+    if (selectedTags.length) {
+      const arrayLength = selectedTags.length;
+      const animFinal = [];
+      if ( arrayLength > 0 && !$.isEmptyObject(results) ) {
+        results.forEach(function (anim) {
 
-        let count = 0;
-        for (const t in anim['tags']) {
-          for (let i = 0; i < arrayLength; i++) {
-            if (t === selectedTags[i]) {
-              count++;
+          let count = 0;
+          for ( const t in anim['tags'] ) {
+            for ( let i = 0; i < arrayLength; i++ ) {
+              if ( t === selectedTags[i] ) {
+                count++;
+              }
             }
           }
-        }
-        if (count === arrayLength) {
-          anim_final.push(anim);
-        }
-      });
-    } else {
-      return;
+          if ( count === arrayLength ) {
+            animFinal.push(anim);
+          }
+        });
+      }
+      results = animFinal;
     }
-    this.animationsCount = anim_final.length;
-    this.displayAnimations = anim_final.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
+    this.animationsCount = results.length;
+    this.displayAnimations = results.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
+    if (showToast) {
+      this.showToast();
+    }
   }
-
+  showToast() {
+    console.log(this.animationsCount);
+    if ( this.animationsCount ) {
+      this.global.nativeGlobal.toastr.info(`${this.animationsCount} animations found`);
+    } else {
+      this.global.nativeGlobal.toastr.error('No animations found!');
+    }
+  }
   checkTag(tag, array) {
     const a = array.filter((item) => item.tags[tag]);
     return a.length === array.length;
@@ -115,7 +138,7 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
     const download = wnd.download;
-    if (firebase.auth().currentUser) {
+    if ( firebase.auth().currentUser ) {
       const animName = animation.name;
       const duration = animation.duration;
       const displayName = animation.displayName;
@@ -128,11 +151,11 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
         Object.keys(libraryItems).forEach(function (itemKey) {
           exists = libraryItems[itemKey]['name'] === animName;
         });
-        if (!exists) {
+        if ( !exists ) {
           const newObjRef = firebase.database().ref('usernames').child(userId).child('mylibrary/').push();
 
           const storageBucket = (firebase.app().options as any).storageBucket;
-          const animMp4Name = 'mp4Files/' + animName + '.mp4';
+          const animMp4Name = `mp4Files/${animName}.mp4`;
           const mp4Url = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/${encodeURIComponent(animMp4Name)}?alt=media`;
 
           const animFileName = 'animFiles/' + animName + '.anim';
@@ -162,17 +185,17 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   matchTags() {
     const arrayLength = this.selectedTags.length;
     const anim_final = [];
-    if (arrayLength > 0 && !$.isEmptyObject(this.displayAnimations)) {
+    if ( arrayLength > 0 && !$.isEmptyObject(this.displayAnimations) ) {
       this.displayAnimations.forEach((anim) => {
         let count = 0;
-        for (const t in anim['tags']) {
-          for (let i = 0; i < arrayLength; i++) {
-            if (t === this.selectedTags[i]) {
+        for ( const t in anim['tags'] ) {
+          for ( let i = 0; i < arrayLength; i++ ) {
+            if ( t === this.selectedTags[i] ) {
               count++;
             }
           }
         }
-        if (count === arrayLength) {
+        if ( count === arrayLength ) {
           anim_final.push(anim);
         }
       });
@@ -196,12 +219,12 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
   }
 
   searchKeywords(anims) {
-    if (this.keyword.length > 0) {
+    if ( this.keyword.length > 0 ) {
       const filteredAnims = [];
       anims.filter((anim) => {
         const k = this.keyword.split(' ');
-        for (let i = 0; i < k.length; i++) {
-          if (anim.displayName.toLowerCase().indexOf(k[i]) >= 0) {
+        for ( let i = 0; i < k.length; i++ ) {
+          if ( anim.displayName.toLowerCase().indexOf(k[i]) >= 0 ) {
             console.log('Key: ' + k + ' name ' + anim.displayName);
             filteredAnims.push(anim);
             return anim;
@@ -220,7 +243,6 @@ export class RepositoryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-
   }
 }
 
@@ -232,6 +254,7 @@ export interface Animation {
   jsonUrl: string;
   mp4Url: string;
   name: string;
+  displayName: string;
   yamlUrl: string;
   tags: Tag[];
 }

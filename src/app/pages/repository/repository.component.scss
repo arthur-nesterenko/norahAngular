@@ -3,8 +3,42 @@
 :host {
   background: $background-color;
 }
+
+.radioBox {
+  background-color: $navbar-color;
+  margin-top: -80px;
+  margin-bottom: 1%;
+  & span {
+    font-size: 23px;
+    text-align: center;
+    color: white;
+    margin-left: 3%;
+
+    &.searchLabel {
+      padding-left: 15px;
+    }
+  }
+  font: $navbar-font;
+}
+
+.tag {
+  color: darkgrey;
+  border: 1px solid $home-box-color;
+  background-color: $home-box-color3;
+  border-radius: 30px;
+  height: 40px;
+  padding: 0 14px 3px;
+  float: left;
+  margin-top: 3%;
+  line-height: 1;
+}
+
 .zodiacCont {
   min-height: 815px;
+
+  .box-video {
+    float: left;
+  }
 }
 .zodiac_box {
   overflow: hidden;
@@ -101,7 +135,7 @@ li.presentation:hover {
 }
 
 .pagination > li > a, .pagination > li > span {
-  background-colo: $navbar-color !important;
+  background-color: $navbar-color !important;
   color: darkgrey;
   border: 1px solid $home-box-color;
 
@@ -109,4 +143,7 @@ li.presentation:hover {
 .menuS {
   padding-top: 70px;
 
+}
+.searchBar {
+  padding-top: 20px;
 }

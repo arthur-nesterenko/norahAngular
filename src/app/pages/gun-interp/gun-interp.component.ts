@@ -16,27 +16,35 @@ import {
 })
 export class GunInterpComponent implements AfterViewInit {
   guns = [];
+  libraryGuns = [];
   isGun: boolean = true;
   isGenerate: boolean = false;
   isTexture: boolean = false;
-  generationType = 'mountains';
+  generationType = 'gun/Sniper';
   constructor(
     public gunInterpService: GunInterpService,
     private http: Http
   ) {}
   
   openTexture() {
-    if (this.isTexture) {
-      this.isTexture = false;
-      this.isGun = true;
-      this.isGenerate = false;
-    } else {
-      this.isTexture = true;
-      this.isGun = false;
-      this.isGenerate = false;
-    }
+    console.log('Texture');
+    // if (this.isTexture) {
+    //   this.isTexture = false;
+    //   this.isGun = true;
+    //   this.isGenerate = false;
+    // } else {
+    //   this.isTexture = true;
+    //   this.isGun = false;
+    //   this.isGenerate = false;
+    // }
   }
   openGeneration() {
+    
+    setTimeout(() => {
+      this.gunInterpService.getGuns(this.generationType)
+        .then(data => {this.libraryGuns = data, console.log(data, this.libraryGuns);})
+        .catch(error => console.log(error));
+    }, 1500);
     if (this.isGenerate) {
       this.isTexture = false;
       this.isGun = true;
@@ -86,8 +94,6 @@ export class GunInterpComponent implements AfterViewInit {
         .then(data => {this.guns = data, console.log(data, this.guns);})
         .catch(error => console.log(error));
     }, 1500);
-
-    console.log(this.guns);
 
   }
 

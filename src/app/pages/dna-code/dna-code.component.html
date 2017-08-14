@@ -26,11 +26,11 @@
                                  
                                  <li>
                                     <div class="Parameters_Content_Title">Height</div>
-                                   <nouislider  [(ngModel)]="Weight" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                   <nouislider  [(ngModel)]="Height" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
                                  </li>
                                  <li>
                                     <div class="Parameters_Content_Title">Weight</div>
-                                   <nouislider [(ngModel)]="Height" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                   <nouislider [(ngModel)]="Weight" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
                                  </li>
 
                                  <li>
@@ -41,60 +41,43 @@
                                     <div class="Parameters_Content_Title">Proportions</div>
                                    <nouislider [(ngModel)]="Proportion" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
                                  </li>
+                                  <li class="sex-r-sliderm">
+                                    
+                                      <div class="Parameters_Content_Title">Sex</div>
+                                       <nouislider [connect]="true" name="Sex" [(ngModel)]="Sex" [config]="someKeyboardConfig" (change)="saveBaseParamRange('sex',$event)"></nouislider>
+                                 </li>
+                                       <li>
+                            
+                                <div class="expand-box">
+                        <ul>
+                           <li style="background-color:#66afea">Asian</li>
+                           <li style="background-color:#0287f9">African</li>
+                           <li style="background-color:#072136">Caucasian</li>
+                        </ul>
+                     </div>
+                     
+                                <div class ="Parameters_Content_Title">Ethnicity</div>
+                                 <nouislider  class="eSlider" name="ethnicity" [(ngModel)]="ethnicity" [config]="ethinicityConfig"  (change)="saveBaseParamRange('allasian',$event,asianSlider)"></nouislider>
+                              
+                                
+                              
+                  
+                        
+                     
+                  </li>
                               </ul>
                            </div>
                         </div>
                      </div>
                   </li>
-                  <li>
-                     <div class="expand-box">
-                        <ul>
-                           <li></li>
-                           <li></li>
-                           <li></li>
-                        </ul>
-                     </div>
-                     <a class="expand">
-                        <div class="right-arrow">▼</div>
-                        <h2 class="t-white">Ethnicity</h2>
-                     </a>
-                     <div class="detail" style="display: none;">
-                        <div class="Parameters_Content text-blue m-cutom">
-                            <ul>
-                              <li>
-                                 <div class="Parameters_Content_Title m-custom">Asian</div>
-                                 <nouislider [connect]="true" name="Asian" [(ngModel)]="Asian" [config]="someKeyboardConfig" #asianSlider (change)="saveBaseParamRange('asian',$event,asianSlider)"></nouislider>
-                              </li>
-                              <li>
-                                 <div class="Parameters_Content_Title m-custom">African</div>
-                                <nouislider [connect]="true" name="African"   [(ngModel)]="African" [config]="someKeyboardConfig" (change)="saveBaseParamRange('african',$event)"></nouislider>
-                              </li>
-                              <li>
-                                 <div class="Parameters_Content_Title m-custom">Caucasian</div>
-                                 <nouislider [connect]="true" name="Caucasian"  [(ngModel)]="Caucasian" [config]="someKeyboardConfig" (change)="saveBaseParamRange('caucasian',$event)"></nouislider>
-                              </li>
-                              <li class="sex-r-slider">
-                                 <div class="integration-slider">
-                                    <a>
-                                       <h2>Sex</h2>
-                                       <nouislider [connect]="true" name="Sex" [(ngModel)]="Sex" [config]="someKeyboardConfig" (change)="saveBaseParamRange('sex',$event)"></nouislider>
-                                 </a>
-                                 </div>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </li>
+                  
+                 
                </ul>
             </div>
             <div class="part-styler">
                <ul>
                   <li>
                      <div class="integration-slider">
-                        <div class="move-arrow">
-                           <a ><i class="fa fa-minus"></i></a>
-                           <a ><i class="fa fa-plus"></i></a>
-                        </div>
                         <a class="expand">
                            <div class="right-arrow">▼</div>
                            <div>
@@ -141,7 +124,7 @@
     <area alt="" title="right-ear"   (click)='facePartTypeSelected("ears")' shape="rect" coords="180,150,195,207" />
     
 </map>
-                              <a href="#"><img src="assets/images/recycling.png" alt=""></a>
+                            
                            </div>
                         </div>
                      </div>
@@ -161,9 +144,10 @@
                      <div class="dna-code-title2" *ngIf="false" >
                         <h2>“ An old man is wiser than it appears”</h2>
                      </div>
+                   
                      <div class="block block-object">
                         <span class="helper"></span>
-                        <img src={{selectedImage.file}} alt="">
+                        <img id="dnaCode_main_img"  [imageZoom]=selectedImage.file  src="{{selectedImage.file}}" appZooom >
                         <div class="object-container-dna-btm">
                            <div class="addgame">
                               <a href="javascript:void(0)" class="addgame-btn">Add to game</a>
@@ -175,7 +159,7 @@
                      </div>
                   </div>
                   <div class="head-detail">
-                     <div class="head-title">
+                    <div class="head-title">
                         <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
                         <div class="dropdown pull-right">                       
                          <div ngbDropdown class="d-inline-block">
@@ -189,9 +173,10 @@
                          </div>
                        </div>                       
                      </div>
-                     <div class="head-detail-block">
-
-                      
+                     
+                    <div class="head-detail-block">
+                          
+                        
                         <div class="full-btn left">
                            <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
                         </div>
