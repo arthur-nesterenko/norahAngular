@@ -26,7 +26,6 @@ export class LibraryService {
     this.removeSelected.next(true);
   }
   removeAnimation(key) {
-    console.log(key);
-    return this.db.object(`/usernames/${this.authService.currentUser.uid}/mylibrary/${key}`).remove();
+    this.db.object(`/usernames/${this.authService.currentUser.uid}/mylibrary/${key}`).remove();
   }
 }

@@ -57,13 +57,9 @@ export class LibraryComponent implements OnInit {
     }
   }
   removeAnimations() {
-    this.animations = this.animations.map(animation => {
-      if (animation.selected) {
-        this.libService.removeAnimation(animation.$key);
-      } else {
-        return animation;
-      }
-    });
-    // window.location.reload();
+    const arr = this.animations.filter(animation => animation.selected);
+    this.animations = this.animations.filter(animation => !animation.selected);
+    arr.forEach(animation => this.libService.removeAnimation(animation.$key));
+    this.selectedAnimations = [];
   }
 }
