@@ -16,6 +16,7 @@ export class AuthComponent {
   authForm: FormGroup;
   providers = ['Facebook', 'Twitter', 'Google'];
   state = 'login';
+  error = '';
   @Input() showModal: Observable<boolean>;
   @ViewChild('authModal') public authModal: ModalDirective;
 
@@ -30,6 +31,7 @@ export class AuthComponent {
     this.authService.currentState.subscribe((state: User) => {
       this.user = state !== null ? state : null;
     });
+    this.authService.error.subscribe(error => this.error = error);
   }
   get email(): string {
     return this.authForm.value.email;
@@ -38,14 +40,17 @@ export class AuthComponent {
     return this.authForm.value.password;
   }
   switchForm(state): void {
+    this.error = '';
     this.state = state;
   }
   signWithCredentials() {
+    this.error = '';
     this.state === 'login' ?
       this.authService.login({email: this.email, password: this.password}, ) :
       this.authService.signWithCredentials({email: this.email, password: this.password});
   }
   loginWithProvider(provider: string): void {
+    this.error = '';
     switch (provider) {
       case 'Google':
         this.authService.loginWithGoogle();
