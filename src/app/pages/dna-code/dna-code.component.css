@@ -271,3 +271,17 @@ width:25%;
 		background-color: #1c252f;
 
 }
+
+
+:host /deep/ nouislider.eSlider .noUi-connect:nth-child(1) {
+    background:  #66afea !important
+    ;
+}
+:host /deep/ nouislider.eSlider .noUi-connect:nth-child(5) {
+    background:#072136 !important
+    ;
+}
+:host /deep/ nouislider.eSlider .noUi-connect:nth-child(3) {
+   /* background: green !important
+    ;*/
+}
