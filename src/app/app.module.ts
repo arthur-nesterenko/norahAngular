@@ -32,6 +32,7 @@ import { SeoService } from './seo.service';
 	ExportGameComponent,
     CharMakerComponent,
     DnaCodeComponent,
+
   ],
   imports: [
     BrowserModule,
