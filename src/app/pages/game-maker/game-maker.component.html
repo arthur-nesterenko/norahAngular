@@ -1,0 +1,40 @@
+ 
+<div id="mySidenav" class="sidenav">
+ 
+    <div class="tile" (click)='switchView("terrain-gen")'  >
+     
+  </div>
+
+    <div class="tile"  (click)='switchView("gun-interp")' >
+      
+    </div>
+
+  <div class="tile" (click)='switchView("char-maker")' >
+      
+      
+  </div>
+
+
+</div>
+<a href="javascript:void(0)" class="openbtn" id="openbtn" (click)="toggleSideBar()"> </a>
+ 
+<!-- Add all page contents inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
+
+ 
+  <div class="content"  id="char-maker" >
+    <app-dna-code></app-dna-code>    
+    </div>
+    
+      <div class="content" id="gun-interp" style="display: none" >
+    
+      <app-gun-interp></app-gun-interp>
+   </div>   
+    
+      <div class="content" id="terrain-gen" style="display:none" >
+     
+      <app-terrain-gen></app-terrain-gen>
+   </div>   
+   
+   
+  </div>

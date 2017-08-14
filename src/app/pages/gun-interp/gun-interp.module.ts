@@ -17,7 +17,7 @@ const routes: Routes = [
     CommonModule,
     HttpModule, 
     RouterModule.forChild(routes),
-  ],
+  ],exports:[GunInterpComponent],
   providers: [GunInterpService]
 })
 export class GunInterpModule { }

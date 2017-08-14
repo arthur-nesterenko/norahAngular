@@ -20,19 +20,21 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SocketIoModule } from 'ng2-socket-io';
 import { GunInterpModule } from './pages/gun-interp/gun-interp.module';
-import {ImageZoomModule} from 'angular2-image-zoom';
+import { ImageZoomModule} from 'angular2-image-zoom';
 import { GunInterpService } from './pages/gun-interp/gun-interp.service';
 import { LibraryService } from './pages/library/library.service';
 import { SeoService } from './seo.service';
+import { GameMakerComponent } from './pages/game-maker/game-maker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-	ExportGameComponent,
+	  ExportGameComponent,
     CharMakerComponent,
     DnaCodeComponent,
-  ],
+    GameMakerComponent
+    ],
   imports: [
     BrowserModule,
     HttpModule,
