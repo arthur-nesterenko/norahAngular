@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
       });
   }
   setSEO(page) {
-    const seoConfig = SEO_CONFIGURATION[page].seo;
+    const seoConfig = SEO_CONFIGURATION[page] ? SEO_CONFIGURATION[page].seo : SEO_CONFIGURATION['home'].seo;
     this.seoService.setTitle(seoConfig.title);
     this.seoService.setMetaDescription(seoConfig.description);
     this.seoService.setMetaKeywords(seoConfig.keywords);
