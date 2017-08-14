@@ -37,7 +37,6 @@
     "ngx-bootstrap": "^1.7.1",
     "nouislider": "^9.0.0",
     "promise-polyfill": "^6.0.2",
-    "rxjs": "^5.1.0",
     "socket.io": "^2.0.3",
     "three": "^0.86.0",
     "three-obj-loader": "^1.1.2",

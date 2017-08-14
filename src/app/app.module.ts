@@ -10,6 +10,7 @@ import { BrowserGlobalRef, GlobalRef } from './global-ref';
 import { AboutComponent } from './pages/about/about.component';
 import { AuthModule } from './pages/auth/auth.module';
 import { DialogService } from './pages/auth/dialog/dialog.component';
+import { ExportGameComponent } from './pages/export-game/export-game.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 import { HomeModule } from './pages/home/home.module';
@@ -28,6 +29,7 @@ import { SeoService } from './seo.service';
   declarations: [
     AppComponent,
     AboutComponent,
+	ExportGameComponent,
     CharMakerComponent,
     DnaCodeComponent,
   ],
