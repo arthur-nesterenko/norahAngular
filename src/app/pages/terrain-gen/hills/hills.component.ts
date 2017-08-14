@@ -243,5 +243,24 @@ export class HillsComponent implements AfterViewInit {
       });
   }
 
+  addToLibraryFromGeneration(receivedImg){
+    let recived = receivedImg.split('/');
+
+    fetch(receivedImg)
+      .then(res => res.blob()) // Gets the response and returns it as a blob
+      .then(blob => {
+        let objectURL = URL.createObjectURL(blob);
+        let storageRef = firebase.storage().ref();
+        let path = `/mountains/${recived[recived.length - 1]}`;
+        let iRef = storageRef.child(path);
+        iRef.put(blob).then((snapshot) => {
+          const terrainObj = {
+            type: 'mountains',
+            name: recived[recived.length - 1]
+          };
+          this.tergenService.addTerrain(terrainObj);
+        });
+      });
+  }
 
 }
