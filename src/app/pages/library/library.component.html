@@ -5,7 +5,7 @@
     </div>
     <div class="del_btn">
       <button class="del_btn btn" (click)="removeAnimations()"
-         disabled="{{ !animationsCount || !selectedAnimations.length }}">Delete Selected</button>
+         [disabled]="!animationsCount || !selectedAnimations.length">Delete Selected</button>
     </div>
 
   </div>
