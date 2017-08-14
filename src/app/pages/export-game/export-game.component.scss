@@ -24,9 +24,10 @@ input {
   z-index: -1;
 }
 
-label {
+.lbl_0 {
   position: relative;
   display: block;
+  background:#253443 !important;
   padding: 0 0 0 1em;
   font: 15px/68px "Questrial";
   border-bottom: 1px solid #303d4c;
@@ -105,8 +106,8 @@ input[type=radio]:checked + label::after {
 	color:#fff;
 	top:5px;
 	left:10px;
-	opacity:10;
-	z-index:1;
+	opacity:0;
+	z-index:-1;
 }
 
 #deleteBTN {
@@ -124,5 +125,32 @@ input[type=radio]:checked + label::after {
     padding: 0 20px;
     border: 0;
     outline: none;
+}
+
+.lbl {
+	width:25px;
+	height:25px;
+	border:0;
+	content:'';
+	top:5px;
+	left:10px;
+	background:url('/assets/images/tick_1.png') no-repeat !important;
+	position:absolute;
+	opacity:10;
+	z-index:1;
+}
+
+.lbl:after {
+	content:'' !important;
+}
+
+input[type="checkbox"] + label{
+    background:url('/assets/images/tick_1.png') no-repeat !important;
+    cursor:pointer;
+	background-size:cover !important;
+}
+input[type="checkbox"]:checked + label{
+    background:url('/assets/images/tick_2.png') no-repeat !important;
+	background-size:cover !important;
 }
 
