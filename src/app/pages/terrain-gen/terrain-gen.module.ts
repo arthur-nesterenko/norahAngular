@@ -28,7 +28,12 @@ const routes: Routes = [
     IslandsComponent,
     CavesComponent
   ],
-  exports: [RouterModule],
+  exports: [RouterModule,TerrainGenComponent,
+    MountainsComponent,
+    HillsComponent,
+    PlainsComponent,
+    IslandsComponent,
+    CavesComponent],
   entryComponents: [TerrainGenComponent],
   providers: [TerrainGenService]
 })

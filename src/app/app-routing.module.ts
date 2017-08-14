@@ -7,6 +7,8 @@ import { AuthGuard } from './pages/auth/auth-guard.service';
 import { ExportGameComponent } from './pages/export-game/export-game.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
+import { GameMakerComponent } from './pages/game-maker/game-maker.component';
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -20,6 +22,9 @@ const appRoutes: Routes = [
   {
     path: 'export-game',
     component: ExportGameComponent
+  },{
+    path: 'export-movie',
+    component: GameMakerComponent
   },
   {
     path: 'char-maker',
