@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {TerrainGenService } from '../terrain-gen/terrain-gen.service';
 declare var $:any;
 
 @Component({
   selector: 'app-game-maker',
   templateUrl: './game-maker.component.html',
-  styleUrls: ['./game-maker.component.css']
+  styleUrls: ['./game-maker.component.css'],
+  providers:[TerrainGenService]
 })
 export class GameMakerComponent implements OnInit {
 sideBarOpen:boolean=false;
