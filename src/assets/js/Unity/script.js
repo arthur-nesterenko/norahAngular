@@ -38,15 +38,17 @@ function ResetAndHidePlayer(sendResetMessage) {
     //Some weird hack we need to do to get button presses to register again
     //document.getElementById("input_area").click();
     viewingTerrainWebGL = false;
+    document.exitPointerLock();
 }
 
 
-document.onclick = function(event) {
+document.onmousedown = function(event) {
 
     if (viewingTerrainWebGL) {
         if (event.target.nodeName != "CANVAS") {
             document.getElementById("unity").style.display = "none";
             viewingTerrainWebGL = false;
+            document.exitPointerLock();    
         }
     } else {
         if (event.target.nodeName == "INPUT") {
