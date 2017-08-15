@@ -69,7 +69,7 @@ function ValidateInputsThenApply(src) {
 
     //Send the urls to unity
     gameInstance.SendMessage("Terrain", "FromJS_LoadHeightmap", src);
-    gameInstance.SendMessage("Terrain", "FromJS_LoadTerrainTex", 'https://absentiagungen.tech/newtex1_lores.jpg');
+    gameInstance.SendMessage("Terrain", "FromJS_LoadTerrainTex", 'https://firebasestorage.googleapis.com/v0/b/norahanimation.appspot.com/o/texture%2Fnewtex1_lores.jpg?alt=media&token=0ff19e3a-1246-4e7c-ada9-7e2e3399f725');
 
     //To make we don't immediately close the unity popup window when setting viewingGL to true
     setTimeout(function() { viewingTerrainWebGL = true; }, 100);
