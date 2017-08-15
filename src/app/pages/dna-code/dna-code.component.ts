@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import { NouiFormatter } from 'ng2-nouislider';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SocketService} from './SocketService';
-import {GeneratedImages} from './data-model';
+import {GeneratedImages ,DefaultInputValues} from './data-model';
 
 declare var $:any;
 declare var jQuery: any;
@@ -504,6 +504,17 @@ this.outputRes = {
         "macrodetails/African": (this.ethnicity[1]-this.ethnicity[0])/10,
         "macrodetails/Caucasian": (10-this.ethnicity[1])/10
       }
+
+
+       for(var attr in DefaultInputValues){
+      if(this.inputRes[attr]){}
+      else
+      {this.inputRes[attr]=0;
+      this.outputRes[attr]=DefaultInputValues[attr];
+    }
+  
+  }
+
       console.log(this.inputRes);
       console.log(this.outputRes);
     this.sendValues(this.inputRes,this.outputRes,"Generation "+this.generationCount);

@@ -690,7 +690,7 @@ ul.dropdown-menu::-webkit-scrollbar-thumb {
     width: 183px;
     height: 153px;
     float: left;
-    margin: 10px 0px 9px 10px;
+    margin: 0px 0px 9px 10px;
 }
 .full-btn {
     display: -webkit-box;

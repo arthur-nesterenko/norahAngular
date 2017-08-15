@@ -179,10 +179,8 @@ position: absolute;
 }
 
 .scroller-content{
-	position:relative;
-	left:0;
-	top:-10px;
-	width:1000px;
+	margin:0 auto;
+	width:600px;
 }
 
 #Sidebar{
@@ -250,9 +248,8 @@ width:25%;
 .shuffle-btn a{
     background: #008aff;
     color: #fff;
-    width: 45%;
     float: left;
-    padding: 10px 0;
+    padding: 10px;
     text-align: center;
 }
 .shuffle-btn a:hover{
