@@ -418,6 +418,10 @@ function onWindowResize() {
 
 function changeCameraMode(mode_){
 
+    //Make sure unity terrain enter press doesn't conflict with this
+    if (viewingTerrainWebGL)
+        return;
+
     var s = "first person";
     if(mode_) { s = "birds view"; } 
     

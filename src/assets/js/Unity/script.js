@@ -1,5 +1,5 @@
 
-var viewingGL = false;
+var viewingTerrainWebGL = false;
 var justPressedReturn = false;
 var justPressedAlt = false;
 
@@ -37,17 +37,17 @@ function ResetAndHidePlayer(sendResetMessage){
     gameInstance.SendMessage("Terrain", "FromJS_Reset");
   document.getElementById("unity").style.display = "none";
   //Some weird hack we need to do to get button presses to register again
-  document.getElementById("input_area").click();
-  viewingGL = false;
+  //document.getElementById("input_area").click();
+  viewingTerrainWebGL = false;
 }
 
 
 document.onclick = function(event){
 
-  if (viewingGL){
+  if (viewingTerrainWebGL){
     if (event.target.nodeName != "CANVAS"){
       document.getElementById("unity").style.display = "none";
-      viewingGL = false;
+      viewingTerrainWebGL = false;
     }
   }
   else{
@@ -76,6 +76,6 @@ function ValidateInputsThenApply(src)
   gameInstance.SendMessage("Terrain", "FromJS_LoadTerrainTex", 'https://upload.wikimedia.org/wikipedia/commons/1/10/Red-brick-wall-texture-2.jpg');
 
   //To make we don't immediately close the unity popup window when setting viewingGL to true
-  setTimeout(function(){viewingGL = true;}, 100);
+  setTimeout(function(){viewingTerrainWebGL = true;}, 100);
 
 }
