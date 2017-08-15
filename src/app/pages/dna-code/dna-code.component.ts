@@ -507,10 +507,13 @@ this.outputRes = {
 
 
        for(var attr in DefaultInputValues){
-      if(this.inputRes[attr]){}
+          if(this.inputRes[attr]){
+           //   console.log("found "+attr)
+           }
       else
-      {this.inputRes[attr]=0;
-      this.outputRes[attr]=DefaultInputValues[attr];
+      {  //console.log("not found "+attr);
+        this.inputRes[attr]=DefaultInputValues[attr];
+        this.outputRes[attr]=DefaultInputValues[attr];
     }
   
   }
@@ -521,8 +524,6 @@ this.outputRes = {
 
   const inputjson = JSON.stringify(this.inputRes);
   const outputjson = JSON.stringify(this.outputRes);
-  console.log(inputjson);
-  console.log(outputjson);
   var blobinput = new Blob([inputjson], {type: "application/json"});
   var bloboutput = new Blob([outputjson], {type: "application/json"});
   

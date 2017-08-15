@@ -281,10 +281,6 @@ export const DefaultInputValues={
 "measure/measure-napetowaist-dist-decr|incr":0.0,
 "measure/measure-waist-circ-decr|incr":0.0,
 "measure/measure-waisttohip-dist-decr|incr":0.0,
-
-"macrodetails-height/Height":0.0,
-"macrodetails-universal/Weight":0.0,
-"macrodetails/Gender":0.0
 }
 
 
