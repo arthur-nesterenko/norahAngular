@@ -24,7 +24,7 @@ export class GunInterpService {
   private gunsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   user: any;
   constructor(
-    @Inject(FirebaseApp) private firebaseApp: any,
+    @Inject(FirebaseApp) public firebaseApp: any,
     private db: AngularFireDatabase,
     private auth: AngularFireAuth,
     private global: GlobalRef) {
@@ -39,7 +39,7 @@ export class GunInterpService {
     this.gunsArr.forEach(item => {
       gunsArr.push(firebase
         .storage(this.firebaseApp)
-        .ref(type)
+        .ref(`${type}`)
         .child(`${item}.png`)
         .getDownloadURL()
         .then(data => data)
@@ -51,12 +51,16 @@ export class GunInterpService {
   getGunsFromLibrary(type: string) {
     const gunArr = Observable.of([]);
     if (this.user) {
-      return this.db.list(`/usernames/${this.user}/gunLibrary`);
+      let list = this.db.list(`/usernames/${this.user}/gunLibrary`);
+      return list;
     } else {
       console.log('SHIT HAPPENED');
       return Observable.of([]);
-    }
+    };
+    
+    
   }
+
   addGun(gun) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
@@ -103,9 +107,10 @@ export class GunInterpService {
       .child(this.user)
       .child('gunLibrary')
       .push();
+    const gunIndexName = gunName.match(/%2F(.+)\?/)[1];
     newObjRef.set({
       type: gunType,
-      name: gunName
+      name: gunIndexName
     });
     toastr.info('Added to your library');
   }

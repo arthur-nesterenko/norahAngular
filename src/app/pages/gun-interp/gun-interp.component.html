@@ -9,22 +9,22 @@
 
         </li>
         <li>
-          <a (click)='setGunsType("mountain")'>
+          <a (click)='setGunsType("Sniper")'>
                     Sniper
                 </a>
         </li>
         <li>
-          <a (click)='setGunsType("mountain")'>
+          <a (click)='setGunsType("Shotgun")'>
                     Shot Gun
                 </a>
         </li>
         <li>
-          <a (click)='setGunsType("mountain")'>
+          <a (click)='setGunsType("Rifle")'>
                     Rifle
                 </a>
         </li>
         <li>
-          <a (click)='setGunsType("mountain")'>
+          <a (click)='setGunsType("Handgun")'>
                     Handgun
                 </a>
         </li>
@@ -73,7 +73,7 @@
               </div>
               <div class="gun-content__texture">
                 <div class="row">
-                  <div class="col-md-3" *ngFor="let item of libraryGuns">
+                  <div class="col-md-3" *ngFor="let item of libraryGuns | async">
                     <div class="gun-content__item">
                       <img [src]="item" alt="Gun" class="gun-content__item-img">
                       <div class="gun-content__item-overlay">
@@ -89,6 +89,7 @@
                       </div>
                     </div>
                   </div>
+                  
                 </div>
               </div>
               <div class="gun-content__title">
