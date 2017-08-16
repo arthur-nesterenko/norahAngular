@@ -90,9 +90,21 @@ export class PlainsComponent implements AfterViewInit {
     const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
       type: 'mountains',
-      name: terrainName
+      name: terrainName,
+      src: terrain
     };
     this.tergenService.addTerrain(terrainObj);
+  }
+
+  addToGame(terrain: string) {
+    console.log(terrain);
+    const terrainName = terrain.match(/%2F(.+)\?/)[1];
+    const terrainObj = {
+      type: 'mountains',
+      name: terrainName,
+      src: terrain
+    };
+    this.tergenService.addTerrainToGame(terrainObj);
   }
 
   deleteFromLibrary(terrain: string){
