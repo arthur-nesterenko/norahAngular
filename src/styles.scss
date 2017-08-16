@@ -59,6 +59,26 @@ h3 {
   padding: 0px;
   margin: 0px;
 }
+.modal-unity{
+  padding-top: 150px !important;
+  background-color: transparent;
+
+}
+.container-unity{
+  color: #FFF;
+  padding-right: 0;
+  > div {
+    background: #253443;
+    color: #FFF;
+    display: flex;
+  > .col-md-2{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  }
+}
 
 span.property-name {
     text-align: left !important;
