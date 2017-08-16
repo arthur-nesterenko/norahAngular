@@ -251,13 +251,13 @@ private generationCount=0;
                   src: data.files[0],
                   id: data.id
                 });
+              } else {
+                var link = document.createElement("a");
+                link.download = "a";
+                link.href = data.files[0];
+                document.body.appendChild(link);
+                link.click();
               }
-              var link = document.createElement("a");
-              link.download = "a";
-              link.href = data.files[0];
-              document.body.appendChild(link);
-              link.click();
-
             }
         });
 
