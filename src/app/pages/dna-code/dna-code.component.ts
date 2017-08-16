@@ -1,5 +1,5 @@
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Component, OnInit,OnChanges,SimpleChange,SimpleChanges,AfterViewInit } from '@angular/core';
+import { Component, OnInit,OnChanges,SimpleChange,SimpleChanges,AfterViewInit,HostListener } from '@angular/core';
 import {NgForm, FormBuilder,ReactiveFormsModule,FormGroup} from '@angular/forms';
 import { Http,Headers} from '@angular/http';
 import {Observable,Subscription} from 'rxjs/Rx';
@@ -652,31 +652,28 @@ else
 
 
 ngAfterViewInit(){
-/*
-    try{
-      console.log(jQuery("#dnaCode_main_img"));
-        let div=jQuery("#zoom_div")[0];
-        let img=jQuery("#zoom_div img")[0];
-      jQuery("#dnaCode_main_img").hover(
-        (event)=>{
-          console.log()
-        div.style.display="block";
-        console.log("left before"+img.style.left);
-        console.log("calc:"+(-8*event.offsetX)+"px");
-          console.log("hover on");
-          img.style.left=(-8*event.offsetX)+"px"
-          console.log(event.offsetX);
-          console.log("left after"+img.style.left);
-      },
-        (event)=>{
-          div.style.display="none";
-          console.log("hover off");
-        })
 
-      //jQuery("#dnaCode_main_img").elevateZoom();
-     }catch(e){
-      console.log(e);
-   }*/
+}
+
+@HostListener('document:keydown', ['$event'])
+changeImage(event:KeyboardEvent){
+if(this.processedFiles){
+  if(event.keyCode==37){
+      //left arrow
+      let index=this.processedFiles.files.findIndex((x)=>x.file==this.selectedImage.file)
+      if(index!=0)
+        this.selectedImage=this.processedFiles.files[index-1];
+
+    }
+  if(event.keyCode==39){
+    //rightarrow
+    
+      let index=this.processedFiles.files.findIndex((x)=>x.file==this.selectedImage.file)
+      if(index!=this.processedFiles.files.length-1)
+        this.selectedImage=this.processedFiles.files[index+1];
+
+  }
+}
 }
 
 }
