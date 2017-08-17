@@ -20,7 +20,7 @@ declare var jQuery: any;
   providers:[SocketService]
 })
 export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
- 
+
   public hideFooter=false;
   public inputRes:any;
   public outputRes:any;
@@ -49,9 +49,9 @@ export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
   private selectedBodyPart:any;
   private changeHistory:Array<GeneratedImages>=[];
   private bodyPartImage:any="assets/images/human/human.png"
-  
 
-  
+
+
   private oldEthinicVal={
 
        asian:[6, 2],
@@ -60,7 +60,7 @@ export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
 
   }
 
-  
+
   public BaseParams: number[] = [0, 10];
   public Height: number[] = [0, 10];
   public Weight: number[] = [0, 10];
@@ -153,7 +153,7 @@ private generationCount=0;
             $(".expand").on( "click", function() {
               $(this).next().slideToggle(200);
               var $expand = $(this).find(">:first-child");
-           
+
               if($expand.text() == "▼") {
                 $expand.text("►");
              } else {
@@ -162,14 +162,14 @@ private generationCount=0;
            });
       });
 
-    
-         
+
+
       this.socket.on('files',(data)=>{
 
 
         console.log("Socket Data Received: ");
         console.log(data);
-      //if(data.id==this.FileUploadId){    
+      //if(data.id==this.FileUploadId){
        this.showMessag("Files successfully processed ");
 
         if(this.processedFiles){
@@ -180,19 +180,19 @@ private generationCount=0;
 
            this.processedFiles=new GeneratedImages(data.id,data.generationName,"",data.files);
           this.selectedImage=data.files[0];
-        
+
        }
 
        this.changeHistory.push(this.processedFiles);
 
-       
+
       //files received
       //load them in the component
-      
-      
-    
+
+
+
       });
-      
+
 
       this.socket.on("info",(data)=>{
 
@@ -220,34 +220,33 @@ private generationCount=0;
       });
 
          this.socket.emit("bodyPart",{part:"head"});
-        //export fbx
          this.socket.on("exportModel",(data)=>{
-          //export fbx file  
-          console.log("model received");
-          console.log(data);
+             //export fbx
+            console.log("model received");
+            console.log(data);
+
           if(data)
-            {
-              var link = document.createElement("a");
-              link.download = "a";
-              link.href = data.files[0];
-              document.body.appendChild(link);
-              link.click();
-              
-            }
+            {  var link = document.createElement("a");
+                link.download = "a";
+                link.href = data.files[0];
+                document.body.appendChild(link);
+                link.click();
+             
+              }
         });
 
         this.socket.on("serverReady",(data)=>{
           setTimeout(()=>{this.serverReady=true;
           this.showMessag("Server is ready now");
-          },10000);    
-          
+          },10000);
+
         });
 
-  } 
+  }
 
   switchImage(id:string){
 
-  
+
     console.log("Switching image to:"+id);
     console.log(this.processedFiles);
       this.changeHistory=this.changeHistory.map((gen)=>{
@@ -286,7 +285,7 @@ console.log(this.processedFiles);
     $("#toasterDiv")[0].style.display="block";
 
     setTimeout(()=>{$("#toasterDiv")[0].style.display="none"},2000);
-    
+
 
 }
   undo(){
@@ -313,7 +312,7 @@ console.log(this.processedFiles);
         this.showMessag("Please select an Image template and body part to merge");
         return;
       }
-    
+
     let inputVal= Object.assign({},this.selectedImage);
 
     for(var attr in this.selectedBodyPart){
@@ -326,26 +325,26 @@ console.log(this.processedFiles);
     let outputVal=Object.assign({},this.selectedImage,this.selectedBodyPart);
 
     delete outputVal.file;
-    
+
 
     delete inputVal.file;
-    
+
     console.log(inputVal);
     console.log(outputVal);
     const inputjson = JSON.stringify(inputVal);
     const outputjson = JSON.stringify(outputVal);
-  
+
  //send via socket
 
  this.sendValues(inputVal,outputVal,"Generation: "+this.bodyParts.part);
-    
+
 
   }
 
 imageSelected(index:number){
   try{
       this.selectedImage=this.processedFiles.files[index];
-      
+
 
   }catch(ex){
 
@@ -365,7 +364,7 @@ imageSelected(index:number){
         var sliderLimit = -250;
 
 
-   
+
     var currentPosition = parseInt(view.css("left"));
     if (currentPosition < 0) view.stop(false,true).animate({left:"+="+move},{ duration: 400});
 
@@ -449,9 +448,9 @@ let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
         return;
       }
       this.generationCount++;
-    /*  
-    this.inputRes = 
-        { 
+    /*
+    this.inputRes =
+        {
         "macrodetails/Age": this.Age[0]/10,
         "macrodetails-height/Height": this.Height[0]/10,
         "macrodetails/Gender": this.Sex[0]/10,
@@ -462,10 +461,10 @@ let val2:any=[this.Asian[0]-(dx1/2.0),this.Asian[1]-(dx2/2.0)];
         "macrodetails/African": this.African[0]/10,
         "macrodetails/Caucasian": this.Caucasian[0]/10
       }
-    
+
 
 this.outputRes = {
-         
+
         "macrodetails/Age": this.Age[1]/10,
         "macrodetails-height/Height": this.Height[1]/10,
         "macrodetails/Gender": this.Sex[1]/10,
@@ -476,10 +475,10 @@ this.outputRes = {
         "macrodetails/African": this.African[1]/10,
         "macrodetails/Caucasian": this.Caucasian[1]/10
       }*/
-    
-       
-    this.inputRes = 
-        { 
+
+
+    this.inputRes =
+        {
         "macrodetails/Age": this.Age[0]/10,
         "macrodetails-height/Height": this.Height[0]/10,
         "macrodetails/Gender": this.Sex[0]/10,
@@ -490,10 +489,10 @@ this.outputRes = {
         "macrodetails/African": (this.ethnicity[1]-this.ethnicity[0])/10,
         "macrodetails/Caucasian": (10-this.ethnicity[1])/10
       }
-    
+
 
 this.outputRes = {
-         
+
         "macrodetails/Age": this.Age[1]/10,
         "macrodetails-height/Height": this.Height[1]/10,
         "macrodetails/Gender": this.Sex[1]/10,
@@ -515,7 +514,7 @@ this.outputRes = {
         this.inputRes[attr]=DefaultInputValues[attr];
         this.outputRes[attr]=DefaultInputValues[attr];
     }
-  
+
   }
 
       console.log(this.inputRes);
@@ -526,7 +525,7 @@ this.outputRes = {
   const outputjson = JSON.stringify(this.outputRes);
   var blobinput = new Blob([inputjson], {type: "application/json"});
   var bloboutput = new Blob([outputjson], {type: "application/json"});
-  
+
   let form: FormData = new FormData();
   form.append("input",blobinput, "input.json");
   form.append("output",bloboutput, "output.json");
@@ -539,10 +538,10 @@ this.outputRes = {
                 if (request.status === 200) {
                   console.log("sUCCESS");
                   var d=JSON.parse(request.response);
-                    console.log(d);    
-                    
+                    console.log(d);
+
                // this.toaster.pop('success',"Char maker ","Files successfully uploaded  ID:"+d.id );
-               this.FileUploadId=d.id;  
+               this.FileUploadId=d.id;
                this.showMessag("Files successfully uploaded  ID:"+d.id );
               } else {
                   console.log("fAILED");
@@ -617,7 +616,7 @@ else
     console.log('Value changed to', value);
   }
 
-  exportFbx(){
+  exportFbx(addToGame){
       //input.json from selected Image
       if(!this.serverReady)
       {
@@ -637,17 +636,19 @@ else
     }
 
 
-    
-    
+
+
 
     delete inputVal.file;
-    
+    if (addToGame) {
+      inputVal.addToGame = addToGame;
+    }
     console.log(inputVal);
 //    const inputjson = JSON.stringify(inputVal);
-    
+
  //send via socket
 
-    this.socket.emit("exportModel",{inputValues:inputVal});
+    this.socket.emit("exportModel",{inputValues: inputVal});
   }
 
 
@@ -677,4 +678,4 @@ if(this.processedFiles){
 }
 
 }
- 
+

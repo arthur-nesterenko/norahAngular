@@ -30,7 +30,7 @@ export class GunInterpComponent implements AfterViewInit {
     public gunInterpService: GunInterpService,
     private http: Http
   ) {}
-  
+
   openTexture() {
     console.log('Texture');
     // if (this.isTexture) {
@@ -65,12 +65,12 @@ export class GunInterpComponent implements AfterViewInit {
       });
       this.libraryGuns = Promise.all(anims);
     });
-    
+
   }
-  
-  
+
+
   setGunsType(type: string) {
-    
+
     this.generationType = type;
     this.gunInterpService.getUser();
     setTimeout(() => {
@@ -81,7 +81,7 @@ export class GunInterpComponent implements AfterViewInit {
   }
 
   addToLibrary(gun: string) {
-    
+
     const gunName = gun.match(/%2F(.+)\?/)[1];
     const gunObj = {
       type: this.generationType,
@@ -89,6 +89,16 @@ export class GunInterpComponent implements AfterViewInit {
     };
     this.gunInterpService.addGun(gunObj);
   }
+  addToGame(gun: string) {
+
+      const gunName = gun.match(/%2F(.+)\?/)[1];
+      const gunObj = {
+        type: this.generationType,
+        name: gunName,
+        src: gun
+      };
+      this.gunInterpService.addGunToGame(gunObj);
+    }
 
    openImage(src) {
   console.log('SRC'+src);
