@@ -222,7 +222,7 @@ private generationCount=0;
          this.socket.emit("bodyPart",{part:"head"});
         //export fbx
          this.socket.on("exportModel",(data)=>{
-
+          //export fbx file  
           console.log("model received");
           console.log(data);
           if(data)
