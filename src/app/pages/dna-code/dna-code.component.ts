@@ -9,10 +9,17 @@ import { NouiFormatter } from 'ng2-nouislider';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SocketService} from './SocketService';
 import {GeneratedImages ,DefaultInputValues} from './data-model';
+import {
+  GlobalRef
+} from '../../global-ref';
+import {  AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
+
 
 declare var $:any;
 declare var jQuery: any;
-
+  
 @Component({
   selector: 'app-dna-code',
   templateUrl: './dna-code.component.html',
@@ -49,7 +56,7 @@ export class DnaCodeComponent implements OnInit,OnChanges,AfterViewInit {
   private selectedBodyPart:any;
   private changeHistory:Array<GeneratedImages>=[];
   private bodyPartImage:any="assets/images/human/human.png"
-
+    
 
 
   private oldEthinicVal={
@@ -135,6 +142,9 @@ private generationCount=0;
     private _http: Http,
     private sanitizer: DomSanitizer,
     private socket:SocketService,
+    private global: GlobalRef,
+    private firebaseAuth:AngularFireAuth,
+    private firebaseDb:AngularFireDatabase
   )
   {
     // this.getInput();
@@ -232,6 +242,33 @@ private generationCount=0;
                 document.body.appendChild(link);
                 link.click();
              
+              }
+        });
+     this.socket.on("addToGame",(data)=>{
+             //export fbx
+            console.log("model received");
+            console.log(data);
+
+          if(data)
+            {  
+               // link.href = data.files[0];
+                
+               var request = new XMLHttpRequest();
+                request.open('GET', data.files[0], true);
+                request.responseType = 'blob';
+        
+                request.send(null);
+                request.onreadystatechange =  ()=> {
+                if (request.readyState === 4 && request.status === 200) {
+                 
+                      //console.log(request.response);
+
+                      this.addToGame(request.response);
+
+              }
+                
+    }
+                //this.addToGame(data.files[0]);
               }
         });
 
@@ -616,40 +653,36 @@ else
     console.log('Value changed to', value);
   }
 
-  exportFbx(addToGame){
+  exportFbx(addToGame:boolean=false){
       //input.json from selected Image
       if(!this.serverReady)
       {
         this.showMessag("Server is not ready.Please wait for few seconds");
         return;
       }
-    if(! this.selectedImage){
-      this.showMessag("Please select a image to export");
+    if( !this.processedFiles){
+      this.showMessag("Please generate model to export");
       return;
 
     }
     let inputVal= Object.assign({},this.selectedImage);
 
-    for(var attr in this.selectedBodyPart){
-
-      inputVal[attr]=0;
-    }
 
 
 
 
 
     delete inputVal.file;
-    if (addToGame) {
-      inputVal.addToGame = addToGame;
-    }
+
     console.log(inputVal);
-//    const inputjson = JSON.stringify(inputVal);
+    console.log("addtogame"+addToGame);
 
  //send via socket
-
-    this.socket.emit("exportModel",{inputValues: inputVal});
-  }
+if(addToGame)
+    this.socket.emit("exportModel",{inputValues: inputVal,addToGame:addToGame});
+else
+     this.socket.emit("exportModel",{inputValues: inputVal});
+}
 
 
 ngAfterViewInit(){
@@ -676,6 +709,42 @@ if(this.processedFiles){
   }
 }
 }
+
+
+addToGame(file) {
+    const wnd = this.global.nativeGlobal;
+    const toastr = wnd.toastr;
+
+    if(!firebase.auth().currentUser)
+      {
+        toastr.error("Please log in to continue");
+        return;
+      }
+
+      
+      var newObjRef= firebase.database()
+        .ref('usernames')
+        .child(firebase.auth().currentUser.uid)
+        .child('gameLibrary')
+        .child('charModels').push();
+
+        var filename=newObjRef.key+".fbx";
+
+        toastr.info("Uploading file to storage");
+    firebase.storage().ref('/gameLibrary/charModels').child(`${filename}`).put(file).then((snapshot)=>{
+        console.log(snapshot);
+         var obj=  {fileUrl:snapshot.downloadURL,fileRef:snapshot.ref.fullPath};
+         console.log(obj);
+      newObjRef.set({file:snapshot.downloadURL}).then((d)=>{
+          console.log(d);
+          toastr.info("File has been added to library.");
+      });
+
+    });
+            
+   
+  }
+ 
 
 }
 
