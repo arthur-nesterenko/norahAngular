@@ -135,7 +135,8 @@ ethinicityConfig: any = {
     values: 1,
     stepped: true
 	  }
-	};
+  };
+  toastr:any;
 serverReady:boolean=false;
 private generationCount=0;
   constructor(
@@ -147,6 +148,9 @@ private generationCount=0;
     private firebaseDb:AngularFireDatabase
   )
   {
+    const wnd = this.global.nativeGlobal;
+    this.toastr = wnd.toastr;
+
     // this.getInput();
     // this.getOutput();
   }
@@ -258,14 +262,33 @@ private generationCount=0;
                 request.responseType = 'blob';
         
                 request.send(null);
+                this.toastr.info("preparing files to upload");
+                request.onerror=(e:ErrorEvent)=>{
+                        this.toastr.erro("Failed to process file");
+                };
                 request.onreadystatechange =  ()=> {
                 if (request.readyState === 4 && request.status === 200) {
                  
                       //console.log(request.response);
 
-                      this.addToGame(request.response);
-
+                      var fbxFile=request.response;
+                      //this.addToGame(request.response);
+                     var request2 = new XMLHttpRequest();
+                     request2.open('GET', this.selectedImage.file, true);
+                      request2.responseType = 'blob';
+        
+                        request2.send(null);
+                        request2.onreadystatechange =  ()=> {
+                            if (request2.readyState === 4 && request2.status === 200) {
+                                this.addToGame(fbxFile,request2.response);
+                              }else{
+           //                       this.toastr.error("failed to add model Image to the library");
+                         } 
               }
+
+              }else{
+                        //this.toastr.error("failed to add model to the library");
+                } 
                 
     }
                 //this.addToGame(data.files[0]);
@@ -711,7 +734,7 @@ if(this.processedFiles){
 }
 
 
-addToGame(file) {
+addToGame(fbxfile,imageFile) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
 
@@ -729,17 +752,21 @@ addToGame(file) {
         .child('charModels').push();
 
         var filename=newObjRef.key+".fbx";
+        var imageFilename=newObjRef.key+".png"
 
         toastr.info("Uploading file to storage");
-    firebase.storage().ref('/gameLibrary/charModels').child(`${filename}`).put(file).then((snapshot)=>{
-        console.log(snapshot);
-         var obj=  {fileUrl:snapshot.downloadURL,fileRef:snapshot.ref.fullPath};
-         console.log(obj);
-      newObjRef.set({file:snapshot.downloadURL}).then((d)=>{
-          console.log(d);
-          toastr.info("File has been added to library.");
-      });
-
+        firebase.storage().ref('/gameLibrary/charModels').child(`${filename}`).put(fbxfile).then((snapshot)=>{
+          console.log(snapshot);
+          var obj=  {modelLink:snapshot.downloadURL,modelRef:snapshot.ref.fullPath};
+          console.log(obj);
+          firebase.storage().ref('/gameLibrary/charModels').child(`${imageFilename}`).put(imageFile).then((snapshot)=>{
+            obj["imageLink"]=snapshot.downloadURL;
+            obj["imageRef"]= snapshot.ref.fullPath;
+            newObjRef.set(obj).then((d)=>{
+              console.log(d);
+              toastr.info("File has been added to library.");
+            });
+          });
     });
             
    

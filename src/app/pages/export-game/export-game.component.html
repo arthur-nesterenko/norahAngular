@@ -25,38 +25,10 @@
 			Game Library
 		</div>
 		<div class="dabbe">
-			<div class="col-md-3">
+			<div  *ngFor="let model of charModels|async"  class="col-md-3">
 				<input type="checkbox" class="checkB" id="c1">
 				<label for="c1" class="lbl"></label>
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c2">
-				<label for="c2" class="lbl"></label>
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c3">
-				<label for="c3" class="lbl"></label>
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c4">
-				<label for="c4" class="lbl"></label>
-			</div>
-			
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c5">
-				<label for="c5" class="lbl"></label>
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c6">
-				<label for="c6" class="lbl"></label>
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c7">
-				<label for="c7" class="lbl"></label>
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" class="checkB" id="c8">
-				<label for="c8" class="lbl"></label>
+				<img [src]="model.imageLink" style="height:200px" >
 			</div>
 		</div>
 	</div>
