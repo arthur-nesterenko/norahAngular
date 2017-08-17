@@ -220,45 +220,19 @@ private generationCount=0;
       });
 
          this.socket.emit("bodyPart",{part:"head"});
-        //export fbx
          this.socket.on("exportModel",(data)=>{
-           const user = firebase.auth().currentUser;
-
-           console.log("model received");
-          console.log(data);
+             //export fbx
+            console.log("model received");
+            console.log(data);
 
           if(data)
-            {
-              if (data.addToGame) {
-                firebase.database()
-                  .ref('usernames')
-                  .child(user.uid)
-                  .child('gameLibrary')
-                  .child('characterModels')
-                  .once('child_added', (model) => {
-                    const filename = `${model.key}.fbx`;
-                    const file = model.val().src;
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('GET', file);
-                    xhr.responseType = 'blob';
-                    xhr.onload = (event: any) => {
-                      event.target.response.name = filename;
-                      firebase.storage().ref('/gameLibrary/characterModels').child(`${filename}`).put(event.target.response);
-                    };
-                    xhr.send();
-                  });
-                firebase.database().ref(`usernames/${user.uid}/gameLibrary/characterModels`).set({
-                  src: data.files[0],
-                  id: data.id
-                });
-              } else {
-                var link = document.createElement("a");
+            {  var link = document.createElement("a");
                 link.download = "a";
                 link.href = data.files[0];
                 document.body.appendChild(link);
                 link.click();
+             
               }
-            }
         });
 
         this.socket.on("serverReady",(data)=>{
