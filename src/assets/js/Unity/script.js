@@ -65,7 +65,11 @@ function ValidateInputsThenApply(src) {
     var inputs = document.getElementsByTagName("INPUT");
     //Validate
     console.log('SRC11' + src);
-
+// reset the view
+  document.getElementById("leftView1").style.display = "none";
+  document.getElementById("leftView2").style.display = "block";
+  document.getElementById("rightView1").style.display = "none";
+  document.getElementById("rightView2").style.display = "block";
 
     document.getElementById("unity").style.display = "block";
 
