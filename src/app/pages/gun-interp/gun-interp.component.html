@@ -1,6 +1,6 @@
 <div class="main_wapper wrapper wrapper--gun wrap">
   <div class="row gun-wrapper">
-    <div class="col-md-2 gun-sidebar" style="margin-top:-10px;">
+    <div class="col-md-2 gun-sidebar" style="margin-top:-14px;">
       <ul class="gun-options" [ngSwitch]="currentComponent">
         <li>
           <a class="expand">
@@ -41,9 +41,9 @@
         </li>
       </ul> -->
     </div>
-    <div [ngClass]="{'col-md-10': !isTexture, 'col-md-8': isTexture}" style="margin-top:-10px;padding-right: 90px;">
-      <div class="gun-content">
-		<div class="row" *ngIf="isGun">
+    <div [ngClass]="{'col-md-10': !isTexture, 'col-md-8': isTexture}" style="margin-top:-14px; ">
+      <div class="gun-content" style="width:93%">
+		<div class="row" *ngIf="isGun" style="margin-right:0;margin-left:0;">
             <div class="gun-content__title" *ngIf="isGun" style="padding:10px 0;    font: 20px/1em 'Questrial';font-size: 16px;">
           Gun Generator
         </div>
