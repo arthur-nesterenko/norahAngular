@@ -1,6 +1,7 @@
 var viewingTerrainWebGL = false;
 var justPressedReturn = false;
 var justPressedAlt = false;
+var isBirdEyeView = false;
 
 function HandleSceneLoaded() {
     document.getElementById("loader").style.display = "none";
@@ -45,11 +46,11 @@ function ResetAndHidePlayer(sendResetMessage) {
 document.onmousedown = function(event) {
 
     if (viewingTerrainWebGL) {
-        if (event.target.nodeName != "CANVAS") {
+      /*  if (event.target.nodeName != "CANVAS") {
             document.getElementById("unity").style.display = "none";
             viewingTerrainWebGL = false;
             document.exitPointerLock();    
-        }
+        }*/
     } else {
         if (event.target.nodeName == "INPUT") {
             gameInstance.SendMessage("Terrain", "FromJS_SetWebGLInput", 0);
@@ -58,7 +59,6 @@ document.onmousedown = function(event) {
         }
     }
 };
-
 
 function ValidateInputsThenApply(src) {
     var foundErr = false;
@@ -76,4 +76,22 @@ function ValidateInputsThenApply(src) {
     //To make we don't immediately close the unity popup window when setting viewingGL to true
     setTimeout(function() { viewingTerrainWebGL = true; }, 100);
 
+}
+function TopDownCamera(){
+    //console.log("TopDownCamera is called");
+  //isBirdEyeView = false;
+    //return 'topdown';
+  document.getElementById("leftView1").style.display = "none";
+  document.getElementById("leftView2").style.display = "block";
+  document.getElementById("rightView1").style.display = "none";
+  document.getElementById("rightView2").style.display = "block";
+}
+function FirstPersonController(){
+  //console.log("FirstPersonController is called");
+  // isBirdEyeView = true;
+  //return 'fristperson';
+  document.getElementById("leftView1").style.display = "block";
+  document.getElementById("leftView2").style.display = "none";
+  document.getElementById("rightView1").style.display = "block";
+  document.getElementById("rightView2").style.display = "none";
 }
