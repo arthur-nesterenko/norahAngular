@@ -264,7 +264,7 @@ private generationCount=0;
                 request.send(null);
                 this.toastr.info("preparing files to upload");
                 request.onerror=(e:ErrorEvent)=>{
-                        this.toastr.erro("Failed to process file");
+                        this.toastr.error("Failed to process file");
                 };
                 request.onreadystatechange =  ()=> {
                 if (request.readyState === 4 && request.status === 200) {

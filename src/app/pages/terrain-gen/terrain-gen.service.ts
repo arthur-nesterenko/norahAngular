@@ -110,7 +110,7 @@ export class TerrainGenService {
       const terrainName = terrain.name;
       firebase.database()
         .ref('usernames')
-        .child(this.user)
+        .child(firebase.auth().currentUser.uid)
         .child('gameLibrary')
         .child('terrainModels')
         .once('value', (snapshot) => {
@@ -153,7 +153,7 @@ export class TerrainGenService {
     const toastr = wnd.toastr;
     const newObjRef = firebase.database()
       .ref('usernames')
-      .child(this.user)
+      .child(this.user.uid)
       .child('terrainGenLibrary')
       .push();
     newObjRef.set({
@@ -166,13 +166,12 @@ export class TerrainGenService {
     toastr.info('Added to your library');
   }
   pushToGame(terrainType: string, terrainName: string, src?: string) {
-    firebase.database()
+    /*firebase.database()
       .ref('usernames')
       .child(this.user)
       .child('gameLibrary')
       .child('terrainModels')
       .on('child_added', (data) => {
-        const filename = `${data.key}.png`;
         const file = data.val().src;
         const xhr = new XMLHttpRequest();
         xhr.open('GET', file);
@@ -182,20 +181,57 @@ export class TerrainGenService {
           firebase.storage().ref('/gameLibrary/terrainModels').child(`${filename}`).put(event.target.response);
         };
         xhr.send();
-      });
+      });*/
+
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
-    const newObjRef = firebase.database()
+
+        const newObjRef = firebase.database()
       .ref('usernames')
-      .child(this.user)
+      .child(firebase.auth().currentUser.uid)
       .child('gameLibrary')
       .child('terrainModels')
       .push();
-    newObjRef.set({
-      type: terrainType,
-      name: `${terrainType} ${terrainName}`,
-      src: src
-    });
-    toastr.info('Added to your library');
-  }
+        const filename = `${newObjRef.key}.png`;
+
+       var request = new XMLHttpRequest();
+                request.open('GET', src, true);
+                request.responseType = 'blob';
+        
+                request.send(null);
+                toastr.info("preparing files to upload");
+                request.onerror=(e:ErrorEvent)=>{
+                        toastr.erro("Failed to process file");
+                };
+                request.onreadystatechange =  ()=> {
+                if (request.readyState === 4 && request.status === 200) {
+                 
+                      //console.log(request.response);
+                             firebase.storage().ref('/gameLibrary/terrainModels').child(`${filename}`).put(request.response).then((snapshot)=>{
+
+                                  console.log("adding terraingen to library");
+                                  console.log(newObjRef);
+                                  newObjRef.set({
+                                  type: terrainType,
+                                  name: `${terrainType} ${terrainName}`,
+                                  src: src,
+                                  imageLink:snapshot.downloadURL
+                                  }).then((d)=>{
+                                      if(d){
+                                              console.log("failed to add terrain gen to libraray");
+                                                console.log(d);
+                                                toastr.info("failed to add model to your library");
+                                              }
+                                          });
+                                    toastr.info('Added to your library');
+
+
+                                
+
+                             });
+ 
+                    }};
+
+
+       }
 }
