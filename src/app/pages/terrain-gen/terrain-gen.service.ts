@@ -69,15 +69,16 @@ export class TerrainGenService {
     if (firebase.auth().currentUser) {
       const terrainType = terrain.type;
       const terrainName = terrain.name;
+      /*
       firebase.database()
         .ref('usernames')
-        .child(this.user)
+        .child(firebase.auth().currentUser.uid)
         .child('terrainGenLibrary')
         .once('value', (snapshot) => {
           if (snapshot.val()) {
             firebase.database()
               .ref('usernames')
-              .child(this.user)
+              .child(firebase.auth().currentUser.uid)
               .child('terrainGenLibrary')
               .once('value', data => {
                 const value = data.val();
@@ -98,8 +99,12 @@ export class TerrainGenService {
           } else {
             this.pushNewTerrain(terrainType, terrainName);
           }
-        });
+        });*/
+
+        this.pushNewTerrain(terrainType, terrainName,terrain);
     }
+
+
   }
   addTerrainToGame(terrain) {
 
@@ -151,9 +156,10 @@ export class TerrainGenService {
   pushNewTerrain(terrainType: string, terrainName: string, src?: string) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
+    console.log("new Terrain");
     const newObjRef = firebase.database()
       .ref('usernames')
-      .child(this.user.uid)
+      .child(firebase.auth().currentUser.uid)
       .child('terrainGenLibrary')
       .push();
     newObjRef.set({
