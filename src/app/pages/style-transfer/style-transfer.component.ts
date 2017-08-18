@@ -62,24 +62,31 @@ export class StyleTransferComponent implements AfterViewInit {
         ++count;
         if (animations.hasOwnProperty(i) && typeof(i) !== 'function') {
           animationArray.push(names[i]);
-          if (count <= half_length) {
-            right_array.push(names[i]);
-            right_displaynames_array.push(displayNames[i]);
-            console.log('gone right ' + names[i]);
-            right_duration_array.push(durations[i]);
-            console.log('right duration ' + durations[i]);
-          } else {
-            left_array.push(names[i]);
-            left_displaynames_array.push(displayNames[i]);
-            console.log('gone left ' + names[i]);
-            left_duration_array.push(durations[i]);
-            console.log('left duration ' + durations[i]);
-          }
+          right_array.push(names[i]);
+          left_array.push(names[i]);
+          right_displaynames_array.push(displayNames[i]);
+          right_duration_array.push(durations[i]);
+          left_displaynames_array.push(displayNames[i]);
+          left_duration_array.push(durations[i]);
+          // if (count <= half_length) {
+          //   right_array.push(names[i]);
+            
+          //   console.log('gone right ' + names[i]);
+            
+          //   console.log('right duration ' + durations[i]);
+          // } else {
+          //   left_array.push(names[i]);
+            
+          //   console.log('gone left ' + names[i]);
+            
+          //   console.log('left duration ' + durations[i]);
+          // }
         }
       }
 
 
       console.log('animationArray');
+      console.log(animationArray);
       console.log('left_array: ');
       console.log(left_array);
       console.log(left_duration_array);
@@ -367,10 +374,10 @@ export class StyleTransferComponent implements AfterViewInit {
 
 
     wnd.handleClick = function (cb) {
-      const name = cb.getAttribute('name');
-      if (name === 'Loop')
+      var id = cb.getAttribute('id');
+      if (id === 'loop')
         gameInstance.SendMessage('ControllerHelper', 'SetLoop', cb.checked.toString());
-      if (name === 'TimeStretch')
+      if (id === 'timestretch')
         gameInstance.SendMessage('ControllerHelper', 'SetTimeStretch', cb.checked.toString());
     };
 
