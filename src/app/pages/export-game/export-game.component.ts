@@ -11,10 +11,23 @@ import { LibraryService } from './library.service';
 })
 export class ExportGameComponent {
 
-  charModels:any
+  charModels:any;
+  terrainModels:any;
+  gunModels:any;
+  selectedModelType:string="charModel"
   constructor(private library:LibraryService) {
 
-    this.charModels=library.getCharModels();
+    library.isReady().subscribe((user)=>{
+          this.charModels=library.getCharModels();
+          this.terrainModels=library.getTerrainModels();
+
+
+    });
+      }
+
+  switchModelType(modelType:string){
+
+    this.selectedModelType=modelType;
   }
 
 

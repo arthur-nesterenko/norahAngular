@@ -1,16 +1,16 @@
 <div class="container-fluid">
 	<div class="col-md-3 sidebar">
-		<div class="tab">
+		<div class="tab"  (click)='switchModelType("charModel")'>
 		  <input id="tab-one" type="checkbox" name="tabs">
 		  <label for="tab-one" class="lbl_0" style="background:#253443 !important;">Character Models</label>
 		  
 		</div>
-		<div class="tab">
+		<div class="tab"  >
 		  <input id="tab-two" type="checkbox" name="tabs">
 		  <label for="tab-two" class="lbl_0" style="background:#253443 !important;">Gun Models</label>
 		  
 		</div>
-		<div class="tab">
+		<div class="tab" (click)='switchModelType("terrainModel")' >
 		  <input id="tab-three" type="checkbox" name="tabs">
 		  <label for="tab-three" class="lbl_0" style="background:#253443 !important;">Terrain Models</label>
 		  
@@ -24,8 +24,26 @@
 			<input type="button" value="Delete" id="deleteBTN">
 			Game Library
 		</div>
-		<div class="dabbe">
+
+		<div  *ngIf='selectedModelType=="charModel"' class="dabbe">
 			<div  *ngFor="let model of charModels|async"  class="col-md-3">
+				<input type="checkbox" class="checkB" id="c1">
+				<label for="c1" class="lbl"></label>
+				<img [src]="model.imageLink" style="height:200px" >
+			</div>
+		</div>
+
+		
+		<div  *ngIf='selectedModelType=="terrainModel"' class="dabbe">
+			<div  *ngFor="let model of terrainModels|async"  class="col-md-3">
+				<input type="checkbox" class="checkB" id="c1">
+				<label for="c1" class="lbl"></label>
+				<img [src]="model.imageLink" style="height:200px" >
+			</div>
+		</div>
+		
+		<div  *ngIf='selectedModelType=="gunModel"' class="dabbe">
+			<div  *ngFor="let model of gunModels|async"  class="col-md-3">
 				<input type="checkbox" class="checkB" id="c1">
 				<label for="c1" class="lbl"></label>
 				<img [src]="model.imageLink" style="height:200px" >
