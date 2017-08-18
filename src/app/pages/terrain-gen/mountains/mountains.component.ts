@@ -12,7 +12,8 @@ declare var ValidateInputsThenApply: any;
 @Component({
   selector: 'app-mountains',
   templateUrl: './mountains.component.html',
-  providers:[HeightMapSocketService]
+  styleUrls: ['./mountains.component.scss'],
+  providers: [ HeightMapSocketService ]
 })
 export class MountainsComponent implements AfterViewInit {
 
@@ -33,6 +34,7 @@ export class MountainsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+
     setTimeout(() => {
       this.tergenService.getTerrains(this.generationType)
         .then(data => this.terrains = data)
