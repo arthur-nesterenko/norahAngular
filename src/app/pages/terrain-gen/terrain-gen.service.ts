@@ -69,39 +69,32 @@ export class TerrainGenService {
     if (firebase.auth().currentUser) {
       const terrainType = terrain.type;
       const terrainName = terrain.name;
-      /*
-      firebase.database()
+      
+         firebase.database()
         .ref('usernames')
         .child(firebase.auth().currentUser.uid)
         .child('terrainGenLibrary')
+        .orderByChild("name").equalTo(`${terrainType} ${terrainName}`).limitToFirst(1)
         .once('value', (snapshot) => {
-          if (snapshot.val()) {
-            firebase.database()
-              .ref('usernames')
-              .child(firebase.auth().currentUser.uid)
-              .child('terrainGenLibrary')
-              .once('value', data => {
-                const value = data.val();
-                if (value) {
-                  const exist = Object.keys(value).filter(key => {
-                    return value[key].name === terrainName && value[key].type === terrainType;
-                  });
-                  console.log(exist);
-                  if (!exist.length) {
-                    this.pushNewTerrain(terrainType, terrainName);
-                  } else {
+          if ( snapshot.val() ) {
+                const value = snapshot.val();
+                console.log(value);
+                console.log(snapshot);
                     toastr.error('Already in your library');
-                  }
-                } else {
-                  toastr.error('Already in your library');
-                }
-              });
+                  
+                             
           } else {
-            this.pushNewTerrain(terrainType, terrainName);
+            //not in the library // add it to lib
+            //toastr.info("Not in your library");
+            this.pushNewTerrain(terrainType, terrainName,terrain.src);
+          
+            // this.pushToGame()
           }
-        });*/
-
-        this.pushNewTerrain(terrainType, terrainName,terrain);
+        });
+   
+      
+    }else{
+      toastr.error("Please login first")
     }
 
 
@@ -113,38 +106,33 @@ export class TerrainGenService {
     if ( firebase.auth().currentUser ) {
       const terrainType = terrain.type;
       const terrainName = terrain.name;
+      console.log("terrainname" +terrainName);
       firebase.database()
         .ref('usernames')
         .child(firebase.auth().currentUser.uid)
         .child('gameLibrary')
-        .child('terrainModels')
+        .child('terrainModels').orderByChild("name").equalTo(`${terrainType} ${terrainName}`).limitToFirst(1)
         .once('value', (snapshot) => {
           if ( snapshot.val() ) {
-            firebase.database()
-              .ref('usernames')
-              .child(this.user)
-              .child('gameLibrary')
-              .child('terrainModels')
-              .once('value', data => {
-                const value = data.val();
-                if ( value ) {
+                const value = snapshot.val();
+                console.log(value);
+                console.log(snapshot);
                   const exist = Object.keys(value).filter(key => {
                     return value[key].name === terrainName && value[key].type === terrainType;
                   });
-                  console.log(exist);
-                  if ( !exist.length ) {
-                    this.pushToGame(terrainType, terrainName, terrain.src);
-                  } else {
-                    toastr.error('Already in your library');
-                  }
-                } else {
-                  toastr.error('Already in your library');
-                }
-              });
+                    toastr.error('Already in your game library');
+                  
+                             
           } else {
-            this.pushToGame(terrainType, terrainName, terrain.src);
+            //not in the library // add it to lib
+            //toastr.info("Not in your library");
+             this.pushToGame(terrainType, terrainName, terrain.src);
+          
+            // this.pushToGame()
           }
         });
+    }else{
+          toastr.error("Please log in to first");
     }
   }
 
@@ -164,7 +152,7 @@ export class TerrainGenService {
       .push();
     newObjRef.set({
       type: terrainType,
-      name: terrainName,
+      name: `${terrainType} ${terrainName}`,
       src: src
     }, (result) => console.log(result)).then(result => {
       console.log(result);
