@@ -339,13 +339,13 @@ console.log(this.processedFiles);
   }
 
   showMessag(msg:string){
-  let d=$("#toasterDiv")[0];
+  /*let d=$("#toasterDiv")[0];
   //console.log(d);
     d.innerHTML=msg;
     $("#toasterDiv")[0].style.display="block";
 
-    setTimeout(()=>{$("#toasterDiv")[0].style.display="none"},2000);
-
+    setTimeout(()=>{$("#toasterDiv")[0].style.display="none"},2000);*/
+this.toastr.info(msg);
 
 }
   undo(){
