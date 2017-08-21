@@ -1,0 +1,41 @@
+<div class="main_wapper wrapper wrap">
+  <div class="row">
+    <div class="col-md-2 terrain-sidebar">
+      <ul>
+        <li>
+           
+          <ul class="terrain-detail">
+		  <li><a><span style="font-size: 16px;
+    color: #0287f9;
+    font-weight: 500;">Gun Generator</span></a></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'mountains'}"
+              (click)="selectTerrain('mountains')"><span>Sniper</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'hills'}"
+              (click)="selectTerrain('hills')"><span>Shot Gun</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'plains'}"
+              (click)="selectTerrain('plains')"><span>Rifle</span></li>
+            <li
+              [ngClass]="{'active-gen': activeLink === 'islands'}"
+              (click)="selectTerrain('islands')"><span>Handgun</span></li>
+           <!--  <li
+              [ngClass]="{'active-gen': activeLink === 'caves'}"
+              (click)="selectTerrain('caves')"><span>Caves</span></li> -->
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10 terrain-content">
+      <div class="row">
+        <div class="terrain-components" [ngSwitch]="currentComponent">
+          <app-mountains [generationType]="currentComponent" *ngSwitchCase="'mountains'"></app-mountains>
+          <app-hills [generationType]="currentComponent" *ngSwitchCase="'hills'"></app-hills>
+          <app-plains [generationType]="currentComponent" *ngSwitchCase="'plains'"></app-plains>
+          <app-islands [generationType]="currentComponent" *ngSwitchCase="'islands'"></app-islands>
+          
+        </div>
+      </div>
+    </div>
+  </div>
