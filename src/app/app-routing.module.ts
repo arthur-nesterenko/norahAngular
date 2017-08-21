@@ -66,9 +66,14 @@ const appRoutes: Routes = [
     loadChildren: 'app/pages/motion-editor/motion-editor.module#MotionEditorModule',
     canActivate: [AuthGuard]
   },
+  //{
+    //path: 'gun-interp',
+    //loadChildren: 'app/pages/gun-interp/gun-interp.module#GunInterpModule',
+    //canActivate: [AuthGuard]
+  //},
   {
-    path: 'gun-interp',
-    loadChildren: 'app/pages/gun-interp/gun-interp.module#GunInterpModule',
+    path: 'gun-gen',
+    loadChildren: 'app/pages/gun-gen/gun-gen.module#GunInterpModule',
     canActivate: [AuthGuard]
   },
 
