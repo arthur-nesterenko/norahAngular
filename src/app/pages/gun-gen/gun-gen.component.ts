@@ -34,7 +34,7 @@ export class GunInterpComponent implements AfterViewInit {
   }
 
   selectTerrain(terrainsType: string) {
-	  alert(terrainsType);
+	  
     this.activeLink = terrainsType;
     this.currentComponent = terrainsType;
   }
