@@ -88,7 +88,7 @@ export class TerrainGenService {
                   });
                   console.log(exist);
                   if ( !exist.length ) {
-                    this.pushNewTerrain(terrainType, terrainName);
+                    this.pushNewTerrain(terrainType, terrainName, terrain.src);
                   } else {
                     toastr.error('Already in your library');
                   }
@@ -97,13 +97,13 @@ export class TerrainGenService {
                 }
               });
           } else {
-            this.pushNewTerrain(terrainType, terrainName);
+            this.pushNewTerrain(terrainType, terrainName, terrain.src);
           }
         });
     }
   }
 
-  pushNewTerrain(terrainType: string, terrainName: string) {
+  pushNewTerrain(terrainType: string, terrainName: string, src: string) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
     const newObjRef = firebase.database()
@@ -113,7 +113,8 @@ export class TerrainGenService {
       .push();
     newObjRef.set({
       type: terrainType,
-      name: terrainName
+      name: terrainName,
+      src: src
     });
     toastr.info('Added to your library');
   }
