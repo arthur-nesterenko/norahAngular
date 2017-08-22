@@ -8,6 +8,7 @@ import { ExportGameComponent } from './pages/export-game/export-game.component';
 import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 import { GameMakerComponent } from './pages/game-maker/game-maker.component';
+import { SniperComponent } from './pages/sniper/sniper.component';
 
 const appRoutes: Routes = [
   {
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
   {
     path: 'dna-code',
     component: DnaCodeComponent
+  },
+  {
+    path: 'sniper',
+    component: SniperComponent
   },
   {
     path: 'terrain-gen',

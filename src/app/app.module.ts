@@ -27,6 +27,7 @@ import { GunInterpService } from './pages/gun-gen/gun-gen.service';
 import { LibraryService } from './pages/library/library.service';
 import { SeoService } from './seo.service';
 import { GameMakerComponent } from './pages/game-maker/game-maker.component';
+import { SniperComponent } from './pages/sniper/sniper.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { GameMakerComponent } from './pages/game-maker/game-maker.component';
 	  ExportGameComponent,
     CharMakerComponent,
     DnaCodeComponent,
-    GameMakerComponent
+    GameMakerComponent,
+    SniperComponent
     ],
   imports: [
     BrowserModule,
