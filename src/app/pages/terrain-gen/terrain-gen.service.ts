@@ -66,39 +66,58 @@ export class TerrainGenService {
   addTerrain(terrain) {
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
-    if (firebase.auth().currentUser) {
+    if ( firebase.auth().currentUser ) {
       const terrainType = terrain.type;
       const terrainName = terrain.name;
-      
-         firebase.database()
+      firebase.database()
         .ref('usernames')
-        .child(firebase.auth().currentUser.uid)
+        .child(this.user)
         .child('terrainGenLibrary')
-        .orderByChild("name").equalTo(`${terrainType} ${terrainName}`).limitToFirst(1)
         .once('value', (snapshot) => {
           if ( snapshot.val() ) {
-                const value = snapshot.val();
-                console.log(value);
-                console.log(snapshot);
+            firebase.database()
+              .ref('usernames')
+              .child(this.user)
+              .child('terrainGenLibrary')
+              .once('value', data => {
+                const value = data.val();
+                console.log(value)
+                if ( value ) {
+                  const exist = Object.keys(value).filter(key => {
+                    return value[key].name === terrainName && value[key].type === terrainType;
+                  });
+                  console.log(exist);
+                  if ( !exist.length ) {
+                    this.pushNewTerrain(terrainType, terrainName);
+                  } else {
                     toastr.error('Already in your library');
-                  
-                             
+                  }
+                } else {
+                  toastr.error('Already in your library');
+                }
+              });
           } else {
-            //not in the library // add it to lib
-            //toastr.info("Not in your library");
-            this.pushNewTerrain(terrainType, terrainName,terrain.src);
-          
-            // this.pushToGame()
+            this.pushNewTerrain(terrainType, terrainName);
           }
         });
-   
-      
-    }else{
-      toastr.error("Please login first")
     }
-
-
   }
+
+  pushNewTerrain(terrainType: string, terrainName: string) {
+    const wnd = this.global.nativeGlobal;
+    const toastr = wnd.toastr;
+    const newObjRef = firebase.database()
+      .ref('usernames')
+      .child(this.user)
+      .child('terrainGenLibrary')
+      .push();
+    newObjRef.set({
+      type: terrainType,
+      name: terrainName
+    });
+    toastr.info('Added to your library');
+  }
+
   addTerrainToGame(terrain) {
 
     const wnd = this.global.nativeGlobal;
@@ -121,13 +140,13 @@ export class TerrainGenService {
                     return value[key].name === terrainName && value[key].type === terrainType;
                   });
                     toastr.error('Already in your game library');
-                  
-                             
+
+
           } else {
             //not in the library // add it to lib
             //toastr.info("Not in your library");
              this.pushToGame(terrainType, terrainName, terrain.src);
-          
+
             // this.pushToGame()
           }
         });
@@ -139,25 +158,6 @@ export class TerrainGenService {
   removeTerrainsFromLibray(key){
     let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
     terrainLibraryList.remove(key);
-  }
-
-  pushNewTerrain(terrainType: string, terrainName: string, src?: string) {
-    const wnd = this.global.nativeGlobal;
-    const toastr = wnd.toastr;
-    console.log("new Terrain");
-    const newObjRef = firebase.database()
-      .ref('usernames')
-      .child(firebase.auth().currentUser.uid)
-      .child('terrainGenLibrary')
-      .push();
-    newObjRef.set({
-      type: terrainType,
-      name: `${terrainType} ${terrainName}`,
-      src: src
-    }, (result) => console.log(result)).then(result => {
-      console.log(result);
-    });
-    toastr.info('Added to your library');
   }
   pushToGame(terrainType: string, terrainName: string, src?: string) {
     /*firebase.database()
@@ -191,7 +191,7 @@ export class TerrainGenService {
        var request = new XMLHttpRequest();
                 request.open('GET', src, true);
                 request.responseType = 'blob';
-        
+
                 request.send(null);
                 toastr.info("preparing files to upload");
                 request.onerror=(e:ErrorEvent)=>{
@@ -199,7 +199,7 @@ export class TerrainGenService {
                 };
                 request.onreadystatechange =  ()=> {
                 if (request.readyState === 4 && request.status === 200) {
-                 
+
                       //console.log(request.response);
                              firebase.storage().ref('/gameLibrary/terrainModels').child(`${filename}`).put(request.response).then((snapshot)=>{
 
@@ -220,10 +220,10 @@ export class TerrainGenService {
                                     toastr.info('Added to your library');
 
 
-                                
+
 
                              });
- 
+
                     }};
 
 
