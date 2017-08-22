@@ -10,7 +10,7 @@ import { FileLoader } from 'three';
 @Injectable()
 export class GunInterpService {
 
-  private terrainsArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+  private terrainsArr: number[] = [1, 2, 3, 4, 5];
   user: any;
   private receivedData = [];
 
@@ -35,13 +35,14 @@ export class GunInterpService {
   }
 
   /* Get data from Firebase Storage */
-  getTerrains(type: string) {
+  getGuns(type: string) {
     const terrainsArr = [];
     this.terrainsArr.forEach(item => {
       terrainsArr.push(firebase
         .storage(this.firebaseApp)
-        .ref(type)
-        .child(`${item}.png`)
+        .ref('gunImages')
+        .child(type)
+        .child(`gun${item}.png`)
         .getDownloadURL()
         .then(data => data)
       );
@@ -50,10 +51,9 @@ export class GunInterpService {
       .then(data => data);
   }
 
-  getTerrainsFromLibrary(type: string) {
-    const terrainsArr = Observable.of([]);
+  getGunsFromLibrary(type: string) {
     if (this.user) {
-      let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+      const terrainLibraryList = this.db.list(`/usernames/${this.user}/gunLibrary`);
       console.log(terrainLibraryList);
       return terrainLibraryList;
     } else {
@@ -72,13 +72,13 @@ export class GunInterpService {
       firebase.database()
         .ref('usernames')
         .child(this.user)
-        .child('terrainGenLibrary')
+        .child('gunLibrary')
         .once('value', (snapshot) => {
           if (snapshot.val()) {
             firebase.database()
               .ref('usernames')
               .child(this.user)
-              .child('terrainGenLibrary')
+              .child('gunLibrary')
               .once('value', data => {
                 const value = data.val();
                 if (value) {
@@ -87,7 +87,7 @@ export class GunInterpService {
                   });
                   console.log(exist);
                   if (!exist.length) {
-                    this.pushNewTerrain(terrainType, terrainName);
+                    this.pushNewTerrain(terrainType, terrainName, terrain.src);
                   } else {
                     toastr.error('Already in your library');
                   }
@@ -96,7 +96,7 @@ export class GunInterpService {
                 }
               });
           } else {
-            this.pushNewTerrain(terrainType, terrainName);
+            this.pushNewTerrain(terrainType, terrainName, terrain.src);
           }
         });
     }
@@ -144,7 +144,7 @@ export class GunInterpService {
   }
 
   removeTerrainsFromLibray(key){
-    let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+    let terrainLibraryList = this.db.list(`/usernames/${this.user}/gunLibrary`);
     terrainLibraryList.remove(key);
   }
 
@@ -154,7 +154,7 @@ export class GunInterpService {
     const newObjRef = firebase.database()
       .ref('usernames')
       .child(this.user)
-      .child('terrainGenLibrary')
+      .child('gunLibrary')
       .push();
     newObjRef.set({
       type: terrainType,
