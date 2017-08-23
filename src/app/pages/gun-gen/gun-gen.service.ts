@@ -101,34 +101,35 @@ export class GunInterpService {
         });
     }
   }
-  addTerrainToGame(terrain) {
-
+  addGunToGame(gun) {
+    console.log("adding gun to game")
+console.log(gun)
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
     if ( firebase.auth().currentUser ) {
-      const terrainType = terrain.type;
-      const terrainName = terrain.name;
+      const gunType = gun.type;
+      const gunName = `${gun.type} ${gun.name}`;
       firebase.database()
         .ref('usernames')
         .child(this.user)
         .child('gameLibrary')
-        .child('terrainModels')
+        .child('gunModels')
         .once('value', (snapshot) => {
           if ( snapshot.val() ) {
             firebase.database()
               .ref('usernames')
               .child(this.user)
               .child('gameLibrary')
-              .child('terrainModels')
+              .child('gunModels')
               .once('value', data => {
                 const value = data.val();
                 if ( value ) {
                   const exist = Object.keys(value).filter(key => {
-                    return value[key].name === terrainName && value[key].type === terrainType;
+                    return value[key].name === gunName && value[key].type === gunType;
                   });
                   console.log(exist);
                   if ( !exist.length ) {
-                    this.pushToGame(terrainType, terrainName, terrain.src);
+                    this.pushToGame(gunType, gunName, gun.src);
                   } else {
                     toastr.error('Already in your library');
                   }
@@ -137,7 +138,7 @@ export class GunInterpService {
                 }
               });
           } else {
-            this.pushToGame(terrainType, terrainName, terrain.src);
+            this.pushToGame(gunType, gunName, gun.src);
           }
         });
     }
@@ -165,37 +166,58 @@ export class GunInterpService {
     });
     toastr.info('Added to your library');
   }
-  pushToGame(terrainType: string, terrainName: string, src?: string) {
-    firebase.database()
-      .ref('usernames')
-      .child(this.user)
-      .child('gameLibrary')
-      .child('terrainModels')
-      .on('child_added', (data) => {
-        const filename = `${data.key}.png`;
-        const file = data.val().src;
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', file);
-        xhr.responseType = 'blob';
-        xhr.onload = (event: any) => {
-          event.target.response.name = filename;
-          firebase.storage().ref('/gameLibrary/terrainModels').child(`${filename}`).put(event.target.response);
-        };
-        xhr.send();
-      });
+  pushToGame(gunType: string, gunName: string, src?: string) {
+    
     const wnd = this.global.nativeGlobal;
     const toastr = wnd.toastr;
     const newObjRef = firebase.database()
       .ref('usernames')
       .child(this.user)
       .child('gameLibrary')
-      .child('terrainModels')
+      .child('gunModels')
       .push();
-    newObjRef.set({
-      type: terrainType,
-      name: `${terrainType} ${terrainName}`,
-      src: src
-    });
-    toastr.info('Added to your library');
-  }
+
+
+      const filename = `${newObjRef.key}.png`;
+      
+             var request = new XMLHttpRequest();
+                      request.open('GET', src, true);
+                      request.responseType = 'blob';
+      
+                      request.send(null);
+                      toastr.info("preparing files to upload");
+                      request.onerror=(e:ErrorEvent)=>{
+                              toastr.erro("Failed to process file");
+                      };
+                      request.onreadystatechange =  ()=> {
+                      if (request.readyState === 4 && request.status === 200) {
+      
+                            //console.log(request.response);
+                                   firebase.storage().ref('/gameLibrary/gunModels').child(`${filename}`).put(request.response).then((snapshot)=>{
+      
+                                        console.log("adding gunGen to library");
+                                        console.log(newObjRef);
+                                        newObjRef.set({
+                                        type: gunType,
+                                        name: `${gunType} ${gunName}`,
+                                        src: src,
+                                        imageLink:snapshot.downloadURL
+                                        }).then((d)=>{
+                                            if(d){
+                                                    console.log("failed to add Gun gen to libraray");
+                                                      console.log(d);
+                                                      toastr.info("failed to Gun model to your library");
+                                                    }
+                                                });
+                                          toastr.info('Added to your game library');
+      
+      
+      
+      
+                                   });
+      
+                          }};
+      
+      
+             }
 }
