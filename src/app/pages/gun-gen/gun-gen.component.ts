@@ -145,15 +145,15 @@ export class GunGenComponent implements AfterViewInit {
     this.gunGenService.addTerrain(terrainObj);
   }
 
-  addToGame(terrain: string) {
-    console.log(terrain);
-    const terrainName = terrain.match(/%2F(.+)\?/)[1];
-    const terrainObj = {
-      type: 'mountains',
-      name: terrainName,
-      src: terrain
+  addToGame(gun: string) {
+    console.log(gun);
+    const gunName = gun.match(/%2F(.+)\?/)[1];
+    const gunObj = {
+      type: this.activeLink,
+      name: gunName,
+      src: gun
     };
-    this.gunGenService.addTerrainToGame(terrainObj);
+    this.gunGenService.addGunToGame(gunObj);
   }
 
   openImage(src) {
@@ -169,7 +169,7 @@ export class GunGenComponent implements AfterViewInit {
         images[i].getElementsByTagName('input')[0].type === 'checkbox' &&
         images[i].getElementsByTagName('input')[0].checked ) {
         images[i].getElementsByTagName('input')[0].checked = false;
-        const test = images[i].getElementsByClassName('fa-check-circle-o')as HTMLCollectionOf<HTMLElement>;
+        const test = images[i].getElementsByClassName('fa-check-circle-o') as HTMLCollectionOf<HTMLElement>;
         test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
         images[i].classList.toggle('active-img');
       }
