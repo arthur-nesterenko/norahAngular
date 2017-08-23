@@ -4,11 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TerrainGenComponent } from './terrain-gen.component';
 import { TerrainGenService } from './terrain-gen.service';
-import {MountainsComponent} from './mountains/mountains.component';
-import { HillsComponent } from './hills/hills.component';
-import { PlainsComponent } from './plains/plains.component';
-import { IslandsComponent } from './islands/islands.component';
-import { CavesComponent } from './caves/caves.component';
+import { HttpModule } from '@angular/http';
+import { HeightMapSocketService } from './HeightMapSocketService';
 
 
 const routes: Routes = [
@@ -18,24 +15,18 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    HttpModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
     TerrainGenComponent,
-    MountainsComponent,
-    HillsComponent,
-    PlainsComponent,
-    IslandsComponent,
-    CavesComponent
   ],
-  exports: [RouterModule,TerrainGenComponent,
-    MountainsComponent,
-    HillsComponent,
-    PlainsComponent,
-    IslandsComponent,
-    CavesComponent],
+  exports: [
+    RouterModule,
+    TerrainGenComponent,
+  ],
   entryComponents: [TerrainGenComponent],
-  providers: [TerrainGenService]
+  providers: [TerrainGenService, HeightMapSocketService]
 })
 export class TerrainGenModule {
 }

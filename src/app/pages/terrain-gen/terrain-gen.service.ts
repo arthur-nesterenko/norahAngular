@@ -1,11 +1,11 @@
-import {Inject, Injectable} from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
 import { FirebaseApp } from 'angularfire2/angularfire2';
-import * as firebase from 'firebase';
-import { GlobalRef } from '../../global-ref';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { FileLoader } from 'three';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
+import { GlobalRef } from '../../global-ref';
 
 @Injectable()
 export class TerrainGenService {
@@ -18,6 +18,7 @@ export class TerrainGenService {
     @Inject(FirebaseApp) private firebaseApp: any,
     private db: AngularFireDatabase,
     private auth: AngularFireAuth,
+    private http: Http,
     private global: GlobalRef) {
     this.getUser();
 
@@ -36,24 +37,14 @@ export class TerrainGenService {
 
   /* Get data from Firebase Storage */
   getTerrains(type: string) {
-    const terrainsArr = [];
-    this.terrainsArr.forEach(item => {
-      terrainsArr.push(firebase
-        .storage(this.firebaseApp)
-        .ref(type)
-        .child(`${item}.png`)
-        .getDownloadURL()
-        .then(data => data)
-      );
-    });
-    return Promise.all(terrainsArr)
-      .then(data => data);
+    return this.http.get('https://www.googleapis.com/storage/v1/b/norahanimation.appspot.com/o',
+      { search: `prefix=terrainImages/${type}` });
   }
 
   getTerrainsFromLibrary(type: string) {
     const terrainsArr = Observable.of([]);
     if (this.user) {
-      let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+      const terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
       console.log(terrainLibraryList);
       return terrainLibraryList;
     } else {
@@ -81,7 +72,7 @@ export class TerrainGenService {
               .child('terrainGenLibrary')
               .once('value', data => {
                 const value = data.val();
-                console.log(value)
+                console.log(value);
                 if ( value ) {
                   const exist = Object.keys(value).filter(key => {
                     return value[key].name === terrainName && value[key].type === terrainType;
@@ -126,12 +117,12 @@ export class TerrainGenService {
     if ( firebase.auth().currentUser ) {
       const terrainType = terrain.type;
       const terrainName = terrain.name;
-      console.log("terrainname" +terrainName);
+      console.log('terrainname' + terrainName);
       firebase.database()
         .ref('usernames')
         .child(firebase.auth().currentUser.uid)
         .child('gameLibrary')
-        .child('terrainModels').orderByChild("name").equalTo(`${terrainType} ${terrainName}`).limitToFirst(1)
+        .child('terrainModels').orderByChild('name').equalTo(`${terrainType} ${terrainName}`).limitToFirst(1)
         .once('value', (snapshot) => {
           if ( snapshot.val() ) {
                 const value = snapshot.val();
@@ -152,12 +143,12 @@ export class TerrainGenService {
           }
         });
     }else{
-          toastr.error("Please log in to first");
+          toastr.error('Please log in to first');
     }
   }
 
   removeTerrainsFromLibray(key){
-    let terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
+    const terrainLibraryList = this.db.list(`/usernames/${this.user}/terrainGenLibrary`);
     terrainLibraryList.remove(key);
   }
   pushToGame(terrainType: string, terrainName: string, src?: string) {
@@ -189,33 +180,36 @@ export class TerrainGenService {
       .push();
         const filename = `${newObjRef.key}.png`;
 
-       var request = new XMLHttpRequest();
+       const request = new XMLHttpRequest();
                 request.open('GET', src, true);
                 request.responseType = 'blob';
 
                 request.send(null);
-                toastr.info("preparing files to upload");
-                request.onerror=(e:ErrorEvent)=>{
-                        toastr.erro("Failed to process file");
+                toastr.info('preparing files to upload');
+                request.onerror = (e: ErrorEvent) => {
+                        toastr.erro('Failed to process file');
                 };
-                request.onreadystatechange =  ()=> {
+                request.onreadystatechange =  () => {
                 if (request.readyState === 4 && request.status === 200) {
 
                       //console.log(request.response);
-                             firebase.storage().ref('/gameLibrary/terrainModels').child(`${filename}`).put(request.response).then((snapshot)=>{
+                             firebase.storage().ref('/gameLibrary/terrainModels')
+                               .child(`${filename}`)
+                               .put(request.response)
+                               .then((snapshot) => {
 
-                                  console.log("adding terraingen to library");
+                                  console.log('adding terraingen to library');
                                   console.log(newObjRef);
                                   newObjRef.set({
                                   type: terrainType,
                                   name: `${terrainType} ${terrainName}`,
                                   src: src,
-                                  imageLink:snapshot.downloadURL
-                                  }).then((d)=>{
-                                      if(d){
-                                              console.log("failed to add terrain gen to libraray");
+                                  imageLink: snapshot.downloadURL
+                                  }).then((d) => {
+                                      if (d){
+                                              console.log('failed to add terrain gen to libraray');
                                                 console.log(d);
-                                                toastr.info("failed to add model to your library");
+                                                toastr.info('failed to add model to your library');
                                               }
                                           });
                                     toastr.info('Added to your library');
