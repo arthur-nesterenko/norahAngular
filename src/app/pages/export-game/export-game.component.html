@@ -1,18 +1,15 @@
 <div class="container-fluid">
 	<div class="col-md-3 sidebar">
-		<div class="tab"  (click)='switchModelType("charModel")'>
-		  <input id="tab-one" type="checkbox" name="tabs">
-		  <label for="tab-one" class="lbl_0" style="background:#253443 !important;">Character Models</label>
+		<div  (click)='switchModelType("charModel")'  class="tab"  >
+		  <label for="tab-one" class="lbl_0" [ngClass]="selectedModelType === 'charModel'?'active-gen':'lbl_0'" >Character Models</label>
 		  
 		</div>
-		<div class="tab"  >
-		  <input id="tab-two" type="checkbox" name="tabs">
-		  <label for="tab-two" class="lbl_0" style="background:#253443 !important;">Gun Models</label>
+		<div (click)='switchModelType("gunModel")' [ngClass]="selectedModelType === 'gunModel'?'active-gen tab':'tab'" >
+		  <label for="tab-two" class="lbl_0" >Gun Models</label>
 		  
 		</div>
-		<div class="tab" (click)='switchModelType("terrainModel")' >
-		  <input id="tab-three" type="checkbox" name="tabs">
-		  <label for="tab-three" class="lbl_0" style="background:#253443 !important;">Terrain Models</label>
+		<div class="tab" (click)='switchModelType("terrainModel")'  [ngClass]="selectedModelType === 'terrainModel'?'active-gen tab':'tab'" >
+		  <label for="tab-three" class="lbl_0">Terrain Models</label>
 		  
 		</div>
 		

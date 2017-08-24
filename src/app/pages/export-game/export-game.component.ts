@@ -20,13 +20,13 @@ export class ExportGameComponent {
     library.isReady().subscribe((user)=>{
           this.charModels=library.getCharModels();
           this.terrainModels=library.getTerrainModels();
-
+        this.gunModels=library.getGunModels();
 
     });
       }
 
   switchModelType(modelType:string){
-
+console.log("switching")
     this.selectedModelType=modelType;
   }
 
