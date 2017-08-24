@@ -39,6 +39,16 @@ export class LibraryService {
   }
 
   
+  getGunModels(){
+    
+        if(firebase.auth().currentUser.uid){
+        return this.firedb.list(`usernames/${firebase.auth().currentUser.uid}/gameLibrary/gunModels`);
+        }else{
+          console.log("current user is null")
+          return Observable.of([]);
+        }
+      }
+  
   getTerrainModels(){
 
     if(firebase.auth().currentUser.uid)
