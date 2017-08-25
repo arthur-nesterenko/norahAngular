@@ -187,7 +187,7 @@ export class TerrainGenService {
                 request.send(null);
                 toastr.info('preparing files to upload');
                 request.onerror = (e: ErrorEvent) => {
-                        toastr.erro('Failed to process file');
+                        toastr.error('Failed to process file');
                 };
                 request.onreadystatechange =  () => {
                 if (request.readyState === 4 && request.status === 200) {

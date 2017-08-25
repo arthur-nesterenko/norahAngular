@@ -167,18 +167,21 @@ div.rotate {
         }
         .gen1 {
             margin: 35px;
-            font-size: 14px;
+            // font-size: 20px;
             transform: rotate(90deg);
             color: #0287f9;
+            font: 25px/68px "Questrial";
         }
         .gen2 {
             margin: 35px;
-            font-size: 14px;
+            // font-size: 20px;
             transform: rotate(-90deg);
             color: #0287f9;
+            font: 25px/68px "Questrial";
         }
         a {
             color: #fff;
+            margin-top: 50%;
         }
     }
     .ter-gen2 {
