@@ -17,7 +17,7 @@ declare const ValidateInputsThenApply: any;
 export class TerrainGenComponent implements AfterViewInit {
 
   activeLink = 'canyons';
-  isGenerate = false;
+  isGenerate = true;
   isOpen = true;
   terrains: any;
   userTerrains: any;

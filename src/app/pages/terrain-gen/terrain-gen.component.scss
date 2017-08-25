@@ -180,7 +180,7 @@ div.rotate {
       padding: 0;
     }
     .items {
-      height: 390px;
+      max-height: 540px;
       overflow-y: scroll;
       .item {
         label {
@@ -283,4 +283,8 @@ div.rotate {
     color: #555;
     padding: 0 15px;
     cursor: pointer;
+}
+.items {
+  max-height: 540px !important;
+  overflow-y: scroll;
 }
