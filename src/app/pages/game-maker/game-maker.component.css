@@ -1,18 +1,27 @@
 /* The side navigation menu */
+
 .sidenav {
-     /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: absolute; /* Stay in place */
-    z-index: 999999; /* Stay on top */
-    top:100px;
+    /* 100% Full-height */
+    width: 0;
+    /* 0 width - change this with JavaScript */
+    position: absolute;
+    /* Stay in place */
+    z-index: 999999;
+    /* Stay on top */
+    top: 100px;
     left: 0;
-    background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-     /* padding-top: 60px; Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    background-color: #111;
+    /* Black*/
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    /* padding-top: 60px; Place content 60px from the top */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in the sidenav */
 }
 
+
 /* The navigation menu links */
+
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -22,12 +31,17 @@
     transition: 0.3s
 }
 
+
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover, .offcanvas a:focus{
+
+.sidenav a:hover,
+.offcanvas a:focus {
     color: #f1f1f1;
 }
 
+
 /* Position and style the close button (top right corner) */
+
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -38,12 +52,12 @@
     display: none;
     z-index: 999999
 }
+
 .openbtn {
     position: absolute;
-    
     z-index: 999999;
     left: 0px;
-    top:100px;
+    top: 100px;
     height: 30px;
     width: 30px;
     background-image: url("/assets/images/menuIcon2.png");
@@ -51,95 +65,86 @@
     font-size: 50px;
     color: white;
     font-size: 20px;
-    
     color: white;
-        transition: margin-left .5s;
-
+    transition: margin-left .5s;
 }
 
+
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
 #main {
     transition: margin-left .5s;
-    padding: 20px;
+    padding: 0px;
     min-height: 500px;
 }
 
 
-
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }
 
-
-#mySidenav div.tile{
-    width:60px;
+#mySidenav div.tile {
+    width: 60px;
     height: 60px;
-    border-bottom:1px solid #202a34;
+    border-bottom: 1px solid #202a34;
     max-height: 250px;
     overflow: hidden;
     background-size: 60px 60px;
 }
 
+.activeView {}
 
-
-.activeView{
-
-   }
-
-#mySidenav div.content{
+#mySidenav div.content {
     display: none;
 }
 
-#mySidenav .title{
-
+#mySidenav .title {
     color: white;
     display: block;
     font-size: 20px;
     text-align: center;
 }
 
-
-#main .title{
-
+#main .title {
     display: none;
-    }
-#main div.content{
+}
+
+#main div.content {
     display: block;
 }
+
 #mySidenav div.overlay {
-    width:250px;
+    width: 250px;
     height: 125px;
-    border:2px;
+    border: 2px;
     display: none;
     background-color: #0287f9;
     position: absolute;
-    
 }
 
-#main div.overlay{
-
-    display:none;
+#main div.overlay {
+    display: none;
 }
 
-#main div.tile{
+#main div.tile {
     max-height: 100%
-    
-
 }
-
-
-
 
 .tile:nth-child(1) {
-    background-image:url("/assets/images/terrainIcon.png")
+    background-image: url("/assets/images/terrainIcon.png")
 }
+
 .tile:nth-child(2) {
-    background-image:url("/assets/images/gunIcon.png");
-    
+    background-image: url("/assets/images/gunIcon.png");
 }
 
 .tile:nth-child(3) {
-background-image:url("/assets/images/charmakerIcon.png")   
+    background-image: url("/assets/images/charmakerIcon.png")
 }
