@@ -160,7 +160,7 @@ export class TerrainGenComponent implements AfterViewInit {
 
   addToGame(terrain: any) {
     console.log(terrain);
-    const terrainName = terrain.match(/%2F(.+)\?/)[1];
+    // const terrainName = terrain.match(/%2F(.+)\?/)[1];
     const terrainObj = {
       type: this.activeLink,
       name: terrain.name.split(`${this.activeLink}/`)[1],
