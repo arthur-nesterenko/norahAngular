@@ -87,9 +87,30 @@ export class TerrainGenComponent implements AfterViewInit {
         });
         this.userTerrains = Promise.all(anims);
       });
-    this.isGenerate = !this.isGenerate;
+    // this.isGenerate = !this.isGenerate;
+    if ( this.isGenerate==false ) {
+      this.isGenerate = true;
+    
   }
-
+}
+  generationButton() {
+    this.terrainService.getTerrainsFromLibrary(this.activeLink)
+      .subscribe(items => {
+        //console.log(items);
+        const anims = items.map(file => {
+          console.log(file.name);
+          return firebase
+            .storage()
+            .ref(`terrainImages/${file.type}/`)
+            .child(`${file.name}`)
+            .getDownloadURL();
+        });
+        this.userTerrains = Promise.all(anims);
+      });
+    this.isGenerate = !this.isGenerate;
+    console.log("generation Button");
+    console.log(this.isGenerate);
+  }
   isOpenAccord() {
     this.isOpen = !this.isOpen;
 
