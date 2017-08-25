@@ -12,6 +12,14 @@
     }
 }
 
+.container2 {
+    text-align: center;
+    @media (min-width: 1220px) {
+        padding: 0;
+    }
+    color:#ffffff;
+}
+
 header {
     position: relative;
     width: 100%;
@@ -26,14 +34,17 @@ nav.tm_navbar {
     padding: 0;
     margin: 0;
     float: left;
-    min-height: 0;
-    background: none;
-    cursor: pointer;
-    .logo {
-        background: url("/assets/images/logo.png") no-repeat center;
-        float: left;
-        width: 120px;
-        height: 70px;
+
+    :hover {
+      >a {
+        color:white;
+        background:$blue !important;
+        transition: all 0.3s;
+      }
+      >span {
+        color: #ffffff;
+        transition: all 0.3s;
+      }
     }
     ul {
         float: left;

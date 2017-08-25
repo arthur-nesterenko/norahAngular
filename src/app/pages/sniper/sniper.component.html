@@ -1,3 +1,401 @@
-<p>
-  sniper works!
-</p>
+<div class="content indent">
+    <div class="thumb-box10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4 wow fadeInUp">
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-4">
+                    <h2 class="wow fadeIn" data-wow-delay="0.1s">Game Data Form</h2>
+                    <form [formGroup]="gameDataForm" o id="gameDataForm">
+                        <div class="contact-form-loader"></div>
+                        <fieldset>
+                            <label class="name form-div-1">
+                <strong>Name*</strong>
+                <input formControlName="name" type="text" name="name" placeholder="" value="" required/>
+              </label>
+                            <!-->11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+                            <!-->
+
+
+                            <h3>Build info</h3>
+                            <label for="BuildInfo_CompanyName">Company</label>
+                            <input class="form-control" data-val="true" data-val-required="The CompanyName field is required." id="BuildInfo_CompanyName" name="BuildInfo.CompanyName" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.CompanyName" data-valmsg-replace="true"></span>
+                            <br>
+                            <label for="BuildInfo_GameName">Game name</label>
+                            <input class="form-control" data-val="true" data-val-required="The GameName field is required." id="BuildInfo_GameName" name="BuildInfo.GameName" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.GameName" data-valmsg-replace="true"></span>
+                            <br>
+                            <label for="BuildInfo_BundleIdentifier">Bundle identifier</label>
+                            <input class="form-control" data-val="true" data-val-required="The BundleIdentifier field is required." id="BuildInfo_BundleIdentifier" name="BuildInfo.BundleIdentifier" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.BundleIdentifier" data-valmsg-replace="true"></span>
+                            <br>
+                            <label for="BuildInfo_VersionCode">Version code</label>
+                            <input class="form-control" data-val="true" data-val-required="The VersionCode field is required." id="BuildInfo_VersionCode" name="BuildInfo.VersionCode" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.VersionCode" data-valmsg-replace="true"></span>
+                            <br>
+                            <label for="BuildInfo_VersionNumber">Version number</label>
+                            <input class="form-control" data-val="true" data-val-number="The field VersionNumber must be a number." data-val-required="The VersionNumber field is required." id="BuildInfo_VersionNumber" name="BuildInfo.VersionNumber" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.VersionNumber" data-valmsg-replace="true"></span>
+                            <br>
+                            <label for="BuildInfo_AppIconFile">App Icon</label>
+                            <div class="input-group">
+                                <input type="file" name="BuildInfo.AppIconFile" id="BuildInfo_AppIconFile" class="form-control" accept=".png">
+                            </div>
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.AppIconFile" data-valmsg-replace="true"></span>
+                            <br>
+                            <label>
+                                  <input class="check-box" data-val="true" data-val-required="The ExportForAndroid field is required." id="BuildInfo_ExportForAndroid" name="BuildInfo.ExportForAndroid" type="checkbox" value="true"><input name="BuildInfo.ExportForAndroid" type="hidden" value="false"> Build for Android?
+                              </label>
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.ExportForAndroid" data-valmsg-replace="true"></span>
+                            <br>
+                            <label>
+                                  <input class="check-box" data-val="true" data-val-required="The ExportForIOS field is required." id="BuildInfo_ExportForIOS" name="BuildInfo.ExportForIOS" type="checkbox" value="true"><input name="BuildInfo.ExportForIOS" type="hidden" value="false"> Build for iOS?
+                              </label>
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.ExportForIOS" data-valmsg-replace="true"></span>
+                            <br>
+                            <label>
+                                  <input class="check-box" data-val="true" data-val-required="The ExportForWebGL field is required." id="BuildInfo_ExportForWebGL" name="BuildInfo.ExportForWebGL" type="checkbox" value="true"><input name="BuildInfo.ExportForWebGL" type="hidden" value="false"> Build for WebGL?
+                              </label>
+                            <span class="field-validation-valid" data-valmsg-for="BuildInfo.ExportForWebGL" data-valmsg-replace="true"></span>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <h3>Scene info</h3>
+
+                    <br>
+                    <label for="SceneInfo_HeightMapFile">Heightmap</label>
+                    <div class="input-group">
+                        <input type="file" id="SceneInfo_HeightMapFile" name="SceneInfo.HeightMapFile" class="form-control" accept=".png">
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="SceneInfo.HeightMapFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="SceneInfo_TextureFile">Texture</label>
+                    <div class="input-group">
+                        <input type="file" id="SceneInfo_TextureFile" name="SceneInfo.TextureFile" class="form-control" accept=".png">
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="SceneInfo.TextureFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="SceneInfo_TextureTileSize">Tile size</label>
+                    <div class="input-group">
+                        <input class="form-control" id="SceneInfo_TextureTileSize" name="SceneInfo.TextureTileSize" type="text" value="">
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="SceneInfo.TextureTileSize" data-valmsg-replace="true"></span>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <h3>Player info</h3>
+                    <label>
+                                  <input class="check-box" data-val="true" data-val-required="The VR field is required." id="PlayerInfo_VR" name="PlayerInfo.VR" type="checkbox" value="true"><input name="PlayerInfo.VR" type="hidden" value="false"> Is VR?
+                              </label>
+                    <span class="field-validation-valid" data-valmsg-for="PlayerInfo.VR" data-valmsg-replace="true"></span>
+                    <br>
+
+                    <label for="PlayerInfo_PrefabName">Prefab</label>
+                    <div class="input-group">
+                        <select class="form-control" data-val="true" data-val-required="The PrefabName field is required." id="PlayerInfo_PrefabName" name="PlayerInfo.PrefabName"><option value="ContractKillerSniper">ContractKillerSniper</option>
+                          <option value="HitmanSniper">HitmanSniper</option>
+                          <option value="SpectatorPlayer">SpectatorPlayer</option>
+                          </select>
+
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="PlayerInfo.PrefabName" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="PlayerInfo_PositionIndex">Position index</label>
+                    <input class="form-control" data-val="true" data-val-number="The field PositionIndex must be a number." data-val-required="The PositionIndex field is required." id="PlayerInfo_PositionIndex" name="PlayerInfo.PositionIndex" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="PlayerInfo.PositionIndex" data-valmsg-replace="true"></span>
+                    <br>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <h4>Power</h4>
+                            <label for="PlayerInfo_Power_Leg">Leg</label>
+                            <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Leg must be a number." data-val-required="The Leg field is required." id="PlayerInfo_Power_Leg" name="PlayerInfo.Power.Leg" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="PlayerInfo.Power.Leg" data-valmsg-replace="true"></span>
+
+                            <label for="PlayerInfo_Power_Body">Body</label>
+                            <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Body must be a number." data-val-required="The Body field is required." id="PlayerInfo_Power_Body" name="PlayerInfo.Power.Body" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="PlayerInfo.Power.Body" data-valmsg-replace="true"></span>
+
+                            <label for="PlayerInfo_Power_Head">Head</label>
+                            <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Head must be a number." data-val-required="The Head field is required." id="PlayerInfo_Power_Head" name="PlayerInfo.Power.Head" type="text" value="">
+                            <span class="field-validation-valid" data-valmsg-for="PlayerInfo.Power.Head" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <hr>
+                <div class="form-group">
+                    <h3>Gun info</h3>
+                    <label for="GunInfo_ModelFile">Model</label>
+                    <div class="input-group">
+                        <input accept=".fbx" class="form-control" data-val="true" data-val-required="The ModelFile field is required." id="GunInfo_ModelFile" name="GunInfo.ModelFile" type="file" value="">
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.ModelFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_TextureFile">Albedo</label>
+                    <div class="input-group">
+                        <input accept=".png" class="form-control" data-val="true" data-val-required="The TextureFile field is required." id="GunInfo_TextureFile" name="GunInfo.TextureFile" type="file" value="">
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.TextureFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_HeightmapFile">Heightmap</label>
+                    <div class="input-group">
+                        <input accept=".png" class="form-control" id="GunInfo_HeightmapFile" name="GunInfo.HeightmapFile" type="file" value="">
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.HeightmapFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_FireAnimationFile">Fire animation</label>
+                    <div class="input-group">
+                        <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The FireAnimationFile field is required." id="GunInfo_FireAnimationFile" name="GunInfo.FireAnimationFile" type="file" value="">
+
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.FireAnimationFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_RecoilAnimationFile">Recoil animation</label>
+                    <div class="input-group">
+                        <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The RecoilAnimationFile field is required." id="GunInfo_RecoilAnimationFile" name="GunInfo.RecoilAnimationFile" type="file" value="">
+
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.RecoilAnimationFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_FireSoundFile">Fire sound</label>
+                    <div class="input-group">
+                        <input accept=".mp3,.wav" class="form-control" data-val="true" data-val-required="The FireSoundFile field is required." id="GunInfo_FireSoundFile" name="GunInfo.FireSoundFile" type="file" value="">
+
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.FireSoundFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_RecoilSoundFile">Recoil sound</label>
+                    <div class="input-group">
+                        <input accept=".mp3,.wav" class="form-control" data-val="true" data-val-required="The RecoilSoundFile field is required." id="GunInfo_RecoilSoundFile" name="GunInfo.RecoilSoundFile" type="file" value="">
+
+                    </div>
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.RecoilSoundFile" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_Range">Range</label>
+                    <input class="form-control" data-val="true" data-val-number="The field Range must be a number." data-val-required="The Range field is required." id="GunInfo_Range" name="GunInfo.Range" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.Range" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_MaxAngle">Max angle</label>
+                    <input class="form-control" data-val="true" data-val-number="The field MaxAngle must be a number." data-val-required="The MaxAngle field is required." id="GunInfo_MaxAngle" name="GunInfo.MaxAngle" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.MaxAngle" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_ZoomScope">Zoom scope</label>
+                    <input class="form-control" data-val="true" data-val-number="The field ZoomScope must be a number." data-val-required="The ZoomScope field is required." id="GunInfo_ZoomScope" name="GunInfo.ZoomScope" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.ZoomScope" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_ReloadTime">Reload time</label>
+                    <input class="form-control" data-val="true" data-val-number="The field ReloadTime must be a number." data-val-required="The ReloadTime field is required." id="GunInfo_ReloadTime" name="GunInfo.ReloadTime" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.ReloadTime" data-valmsg-replace="true"></span>
+                    <br>
+                    <label for="GunInfo_MagSize">Mag size</label>
+                    <input class="form-control" data-val="true" data-val-number="The field MagSize must be a number." data-val-required="The MagSize field is required." id="GunInfo_MagSize" name="GunInfo.MagSize" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="GunInfo.MagSize" data-valmsg-replace="true"></span>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <h2>Enemies</h2>
+                    <div id="enemiesTable">
+                    </div>
+                    <hr>
+                    <p><a id="addEnemy" class="btn btn-info" onclick="enemyViewModel.addNew()">Add enemy</a></p>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <h2>NPCs</h2>
+                    <div id="npcTable">
+                    </div>
+                    <hr>
+                    <p><a id="addNPC" class="btn btn-info" onclick="npcViewModel.addNew()">Add NPC</a></p>
+                </div>
+                <hr>
+                <p>
+                    <a id="formSubmitBtn" class="btn btn-success btn-lg">Generate »</a>
+                </p>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/x-jquery-tmpl" id="enemyTemplate">
+    <div>
+        <hr />
+        <blockquote class="blockquote">
+            <div class="form-group">
+                <h3 class="float-left">Enemy</h3>
+                <a class="btn btn-danger float-right margin-as-heading" onclick="$(this).parent().parent().parent().remove();">Delete</a>
+                <div class="clearfix"></div>
+                <hr />
+                <input autocomplete="off" name="Enemies.Index" type="hidden" value="${index}" />
+                <label for="Enemies___index___ModelFile">Model</label>
+                <div class="input-group">
+                    <input accept=".fbx" class="form-control" data-val="true" data-val-required="The ModelFile field is required." id="Enemies___index___ModelFile" name="Enemies[${index}].ModelFile" type="file" value="" />
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].ModelFile" data-valmsg-replace="true"></span> <br />
+                <label for="Enemies___index___TextureFile">Albedo</label>
+                <div class="input-group">
+                    <input accept=".png" class="form-control" data-val="true" data-val-required="The TextureFile field is required." id="Enemies___index___TextureFile" name="Enemies[${index}].TextureFile" type="file" value="" />
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].TextureFile" data-valmsg-replace="true"></span> <br />
+                <label for="Enemies___index___HeightmapFile">Heightmap</label>
+                <div class="input-group">
+                    <input accept=".png" class="form-control" id="Enemies___index___HeightmapFile" name="Enemies[${index}].HeightmapFile" type="file" value="" />
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].HeightmapFile" data-valmsg-replace="true"></span> <br />
+                <label for="Enemies___index___RouteIndex">Route index</label><input class="form-control" data-val="true" data-val-number="The field RouteIndex must be a number." data-val-required="The RouteIndex field is required." id="Enemies___index___RouteIndex"
+                    name="Enemies[${index}].RouteIndex" type="text" value="0" /><span class="field-validation-valid" data-valmsg-for="Enemies[${index}].RouteIndex" data-valmsg-replace="true"></span> <br />
+                <label for="Enemies___index___RunAnimationFile">Run animation</label>
+                <div class="input-group">
+                    <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The RunAnimationFile field is required." id="Enemies___index___RunAnimationFile" name="Enemies[${index}].RunAnimationFile" type="file" value="" />
+
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].RunAnimationFile" data-valmsg-replace="true"></span> <br />
+                <label for="Enemies___index___WalkAnimationFile">Walk animation</label>
+                <div class="input-group">
+                    <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The WalkAnimationFile field is required." id="Enemies___index___WalkAnimationFile" name="Enemies[${index}].WalkAnimationFile" type="file" value="" />
+
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].WalkAnimationFile" data-valmsg-replace="true"></span> <br />
+                <label for="Enemies___index___FallAnimationFile">Fall animation</label>
+                <div class="input-group">
+                    <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The FallAnimationFile field is required." id="Enemies___index___FallAnimationFile" name="Enemies[${index}].FallAnimationFile" type="file" value="" />
+
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].FallAnimationFile" data-valmsg-replace="true"></span> <br />
+                <div class="form-inline">
+                    <div class="form-group">
+                        <h4>Power</h4>
+                        <label for="Enemies___index___Power_Leg">Leg</label>
+                        <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Leg must be a number." data-val-required="The Leg field is required." id="Enemies___index___Power_Leg" name="Enemies[${index}].Power.Leg" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].Power.Leg" data-valmsg-replace="true"></span>
+
+                        <label for="Enemies___index___Power_Body">Body</label>
+                        <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Body must be a number." data-val-required="The Body field is required." id="Enemies___index___Power_Body" name="Enemies[${index}].Power.Body" type="text" value=""
+                        />
+                        <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].Power.Body" data-valmsg-replace="true"></span>
+
+                        <label for="Enemies___index___Power_Head">Head</label>
+                        <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Head must be a number." data-val-required="The Head field is required." id="Enemies___index___Power_Head" name="Enemies[${index}].Power.Head" type="text" value=""
+                        />
+                        <span class="field-validation-valid" data-valmsg-for="Enemies[${index}].Power.Head" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+        </blockquote>
+    </div>
+
+</script>
+
+<script type="text/x-jquery-tmpl" id="npcTemplate">
+    <div>
+        <hr />
+        <blockquote class="blockquote">
+            <div class="form-group">
+                <h3 class="float-left">NPC</h3>
+                <a class="btn btn-danger float-right margin-as-heading" onclick="$(this).parent().parent().parent().remove();">Delete</a>
+                <div class="clearfix"></div>
+                <hr />
+                <input autocomplete="off" name="NPCs.Index" type="hidden" value="${index}" />
+                <label for="NPCs___index___ModelFile">Model</label>
+                <div class="input-group">
+                    <input accept=".fbx" class="form-control" data-val="true" data-val-required="The ModelFile field is required." id="NPCs___index___ModelFile" name="NPCs[${index}].ModelFile" type="file" value="" />
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].ModelFile" data-valmsg-replace="true"></span> <br />
+                <label for="NPCs___index___TextureFile">Albedo</label>
+                <div class="input-group">
+                    <input accept=".png" class="form-control" data-val="true" data-val-required="The TextureFile field is required." id="NPCs___index___TextureFile" name="NPCs[${index}].TextureFile" type="file" value="" />
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].TextureFile" data-valmsg-replace="true"></span> <br />
+                <label for="NPCs___index___HeightmapFile">Heightmap</label>
+                <div class="input-group">
+                    <input accept=".png" class="form-control" id="NPCs___index___HeightmapFile" name="NPCs[${index}].HeightmapFile" type="file" value="" />
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].HeightmapFile" data-valmsg-replace="true"></span> <br />
+                <label for="NPCs___index___RouteIndex">Route index</label><input class="form-control" data-val="true" data-val-number="The field RouteIndex must be a number." data-val-required="The RouteIndex field is required." id="NPCs___index___RouteIndex"
+                    name="NPCs[${index}].RouteIndex" type="text" value="0" /><span class="field-validation-valid" data-valmsg-for="NPCs[${index}].RouteIndex" data-valmsg-replace="true"></span> <br />
+                <label for="NPCs___index___RunAnimationFile">Run animation</label>
+                <div class="input-group">
+                    <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The RunAnimationFile field is required." id="NPCs___index___RunAnimationFile" name="NPCs[${index}].RunAnimationFile" type="file" value="" />
+
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].RunAnimationFile" data-valmsg-replace="true"></span> <br />
+                <label for="NPCs___index___WalkAnimationFile">Walk animation</label>
+                <div class="input-group">
+                    <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The WalkAnimationFile field is required." id="NPCs___index___WalkAnimationFile" name="NPCs[${index}].WalkAnimationFile" type="file" value="" />
+
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].WalkAnimationFile" data-valmsg-replace="true"></span> <br />
+                <label for="NPCs___index___FallAnimationFile">Fall animation</label>
+                <div class="input-group">
+                    <input accept=".anim,.fbx" class="form-control" data-val="true" data-val-required="The FallAnimationFile field is required." id="NPCs___index___FallAnimationFile" name="NPCs[${index}].FallAnimationFile" type="file" value="" />
+
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].FallAnimationFile" data-valmsg-replace="true"></span> <br />
+                <div class="form-inline">
+                    <div class="form-group">
+                        <h4>Power</h4>
+                        <label for="NPCs___index___Power_Leg">Leg</label>
+                        <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Leg must be a number." data-val-required="The Leg field is required." id="NPCs___index___Power_Leg" name="NPCs[${index}].Power.Leg" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].Power.Leg" data-valmsg-replace="true"></span>
+
+                        <label for="NPCs___index___Power_Body">Body</label>
+                        <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Body must be a number." data-val-required="The Body field is required." id="NPCs___index___Power_Body" name="NPCs[${index}].Power.Body" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].Power.Body" data-valmsg-replace="true"></span>
+
+                        <label for="NPCs___index___Power_Head">Head</label>
+                        <input class="form-control form-ctrl-inline" data-val="true" data-val-number="The field Head must be a number." data-val-required="The Head field is required." id="NPCs___index___Power_Head" name="NPCs[${index}].Power.Head" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="NPCs[${index}].Power.Head" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+        </blockquote>
+    </div>
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-->111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+<!-->
+<div class="btns">
+    <button href="#" data-type="submit" (click)="submit()" class="btn-default btn4"><span></span>Submit
+                </button>
+</div>
+</fieldset>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
