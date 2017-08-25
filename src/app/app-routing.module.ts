@@ -9,7 +9,7 @@ import { CharMakerComponent } from './pages/char-maker/char-maker.component';
 import { DnaCodeComponent } from './pages/dna-code/dna-code.component';
 import { GameMakerComponent } from './pages/game-maker/game-maker.component';
 import { SniperComponent } from './pages/sniper/sniper.component';
-
+import {GameMakerStartComponent} from './pages/game-maker-start/game-maker-start.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     path: 'export-game',
     component: ExportGameComponent
   },{
-    path: 'export-movie',
+    path: 'game-maker',
     component: GameMakerComponent
   },
   {
@@ -76,6 +76,10 @@ const appRoutes: Routes = [
     loadChildren: 'app/pages/gun-gen/gun-gen.module#GunInterpModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: 'game-maker-start',
+    component: GameMakerStartComponent
+  }
 
 ];
 

@@ -26,6 +26,7 @@ import { SniperComponent } from './pages/sniper/sniper.component';
 import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SeoService } from './seo.service';
+import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-start.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SeoService } from './seo.service';
     CharMakerComponent,
     DnaCodeComponent,
     GameMakerComponent,
-    SniperComponent
+    SniperComponent,
+    GameMakerStartComponent
     ],
   imports: [
     BrowserModule,
