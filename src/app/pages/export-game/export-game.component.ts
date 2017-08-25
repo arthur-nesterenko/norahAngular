@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import * as $ from 'jquery';
 import { LibraryService } from './library.service';
-
+import {
+  GlobalRef
+} from '../../global-ref';
 
 @Component({
   selector: 'export-game',
@@ -15,13 +17,23 @@ export class ExportGameComponent {
   terrainModels:any;
   gunModels:any;
   selectedModelType:string="charModel"
-  constructor(private library:LibraryService) {
+   toastr:any;
+  constructor(private library:LibraryService,private global: GlobalRef) {
+    const wnd = this.global.nativeGlobal;
+    this.toastr = wnd.toastr;
 
-    library.isReady().subscribe((user)=>{
-          this.charModels=library.getCharModels();
-          this.terrainModels=library.getTerrainModels();
-        this.gunModels=library.getGunModels();
 
+    library.isLoggedIn().subscribe((user)=>{
+
+        if(user)
+          { this.toastr.info("User logged in");
+            this.charModels=library.getCharModels();
+            this.terrainModels=library.getTerrainModels();
+            this.gunModels=library.getGunModels();
+          }
+      else{
+              this.toastr.error("You need to login..");
+    }
     });
       }
 
