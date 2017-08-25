@@ -10,7 +10,6 @@
 
 .button {
     background-color: #008aff;
-    /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -18,4 +17,7 @@
     text-decoration: none;
     display: inline-block;
     font: 20px/68px "Questrial";
+    width: 20%;
+    margin-bottom: 10%;
+    margin-top: 2%;
 }

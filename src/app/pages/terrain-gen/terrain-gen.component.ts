@@ -77,7 +77,7 @@ export class TerrainGenComponent implements AfterViewInit {
     this.terrainService.getTerrainsFromLibrary(this.activeLink)
       .subscribe(items => {
         //console.log(items);
-        const anims = items.filter(file => file.type === this.activeLink).map(file => {
+        const anims = items.map(file => {
           console.log(file.name);
           return firebase
             .storage()

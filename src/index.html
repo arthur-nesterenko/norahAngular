@@ -46,19 +46,12 @@
     <link rel="stylesheet" href="/assets/css/modalClass.css">
     <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="/assets/js/three.js"></script>
-    <script src="/assets/js/mainGallery.js"></script>
-    <script src="/assets/js/CombinedCamera.js"></script>
-    <script src="/assets/js/FirstPersonControls.js"></script>
-    <script src="/assets/js/ImprovedNoise.js"></script>
-    <script src="/assets/js/dat.gui.min.js"></script>
+
+
     <script>
-        var loader = new THREE.TextureLoader();
-    </script>
-
-
-  <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "assets/js/Unity/SimplifiedTerrain.json", {onProgress: UnityProgress});
+        var gameInstance = UnityLoader.instantiate("gameContainer", "assets/js/Unity/SimplifiedTerrain.json", {
+            onProgress: UnityProgress
+        });
     </script>
     <!-- Piwik -->
     <script type="text/javascript">
@@ -88,9 +81,9 @@
 
     <app-root></app-root>
 
-<div class="popup" id="loader">
-  <h1>Loading...</h1>
-</div>
+    <div class="popup" id="loader">
+        <h1>Loading...</h1>
+    </div>
 
 
 </body>
