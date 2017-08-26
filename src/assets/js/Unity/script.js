@@ -66,12 +66,12 @@ function ValidateInputsThenApply(src) {
     //Validate
     console.log('SRC11' + src);
     // reset the view
-    //   document.getElementById("leftView1").style.display = "none";
-    //   document.getElementById("leftView2").style.display = "block";
-    //   document.getElementById("rightView1").style.display = "none";
-    //   document.getElementById("rightView2").style.display = "block";
+    document.getElementById("leftView1").style.display = "block";
+    document.getElementById("leftView2").style.display = "none";
+    document.getElementById("rightView1").style.display = "block";
+    document.getElementById("rightView2").style.display = "none";
 
-    //     document.getElementById("unity").style.display = "block";
+    document.getElementById("unity").style.display = "block";
 
     //Send the urls to unity
     gameInstance.SendMessage("Terrain", "FromJS_LoadHeightmap", src);
