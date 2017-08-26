@@ -46,11 +46,11 @@ function ResetAndHidePlayer(sendResetMessage) {
 document.onmousedown = function(event) {
 
     if (viewingTerrainWebGL) {
-      /*  if (event.target.nodeName != "CANVAS") {
-            document.getElementById("unity").style.display = "none";
-            viewingTerrainWebGL = false;
-            document.exitPointerLock();    
-        }*/
+        /*  if (event.target.nodeName != "CANVAS") {
+              document.getElementById("unity").style.display = "none";
+              viewingTerrainWebGL = false;
+              document.exitPointerLock();    
+          }*/
     } else {
         if (event.target.nodeName == "INPUT") {
             gameInstance.SendMessage("Terrain", "FromJS_SetWebGLInput", 0);
@@ -65,13 +65,13 @@ function ValidateInputsThenApply(src) {
     var inputs = document.getElementsByTagName("INPUT");
     //Validate
     console.log('SRC11' + src);
-// reset the view
-  document.getElementById("leftView1").style.display = "none";
-  document.getElementById("leftView2").style.display = "block";
-  document.getElementById("rightView1").style.display = "none";
-  document.getElementById("rightView2").style.display = "block";
+    // reset the view
+    //   document.getElementById("leftView1").style.display = "none";
+    //   document.getElementById("leftView2").style.display = "block";
+    //   document.getElementById("rightView1").style.display = "none";
+    //   document.getElementById("rightView2").style.display = "block";
 
-    document.getElementById("unity").style.display = "block";
+    //     document.getElementById("unity").style.display = "block";
 
     //Send the urls to unity
     gameInstance.SendMessage("Terrain", "FromJS_LoadHeightmap", src);
@@ -81,21 +81,23 @@ function ValidateInputsThenApply(src) {
     setTimeout(function() { viewingTerrainWebGL = true; }, 100);
 
 }
-function TopDownCamera(){
+
+function TopDownCamera() {
     //console.log("TopDownCamera is called");
-  //isBirdEyeView = false;
+    //isBirdEyeView = false;
     //return 'topdown';
-  document.getElementById("leftView1").style.display = "none";
-  document.getElementById("leftView2").style.display = "block";
-  document.getElementById("rightView1").style.display = "none";
-  document.getElementById("rightView2").style.display = "block";
+    document.getElementById("leftView1").style.display = "none";
+    document.getElementById("leftView2").style.display = "block";
+    document.getElementById("rightView1").style.display = "none";
+    document.getElementById("rightView2").style.display = "block";
 }
-function FirstPersonController(){
-  //console.log("FirstPersonController is called");
-  // isBirdEyeView = true;
-  //return 'fristperson';
-  document.getElementById("leftView1").style.display = "block";
-  document.getElementById("leftView2").style.display = "none";
-  document.getElementById("rightView1").style.display = "block";
-  document.getElementById("rightView2").style.display = "none";
+
+function FirstPersonController() {
+    //console.log("FirstPersonController is called");
+    // isBirdEyeView = true;
+    //return 'fristperson';
+    document.getElementById("leftView1").style.display = "block";
+    document.getElementById("leftView2").style.display = "none";
+    document.getElementById("rightView1").style.display = "block";
+    document.getElementById("rightView2").style.display = "none";
 }
