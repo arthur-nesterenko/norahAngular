@@ -13,11 +13,11 @@ import {
 })
 export class ExportGameComponent {
 
-  charModels:any;
-  terrainModels:any;
-  gunModels:any;
+  charModels:any=[];
+  terrainModels:any=[];
+  gunModels:any=[];
   selectedModelType:string="charModel"
-   toastr:any;
+  toastr:any;
   constructor(private library:LibraryService,private global: GlobalRef) {
     const wnd = this.global.nativeGlobal;
     this.toastr = wnd.toastr;
@@ -26,24 +26,35 @@ export class ExportGameComponent {
     library.isLoggedIn().subscribe((user)=>{
 
         if(user)
-          { this.toastr.info("User logged in");
-            this.charModels=library.getCharModels();
-            this.terrainModels=library.getTerrainModels();
-            this.gunModels=library.getGunModels();
+          { this.toastr.info("Loading...");
+             library.getCharModels().subscribe((d)=>{
+
+              this.charModels=d;
+                this.switchModelType(this.selectedModelType);
+              document.getElementById("c").click();  //click on a tab to force view Update
+              });
+
+            library.getTerrainModels().subscribe((d)=>{
+              this.terrainModels=d;
+            });
+            library.getGunModels().subscribe((d)=>{
+
+
+              this.gunModels=d;
+            });
           }
       else{
-              this.toastr.error("You need to login..");
+              //this.toastr.error("You need to login..");
     }
     });
       }
 
   switchModelType(modelType:string){
-console.log("switching")
+    console.log("switching...");
     this.selectedModelType=modelType;
   }
 
 
-	
 	
 
 }
