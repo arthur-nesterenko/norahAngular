@@ -53,85 +53,85 @@
                         </div>
                         <div class="col-md-1">
                             <div class="full-btn" (click)="generationButton()">
-                                <span>Generation</span>
-                                <a><i class="fa fa-play fa-rotate-180"></i></a>
+                                <span class="gen1">Generations</span>
+                                <a><i class=" fa fa-play fa-rotate-180 "></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="ter-gen2" *ngIf="!isGenerate">
-                        <div class="col-md-1 right-arrow">
-                            <div class="full-btn" (click)="generationButton()">
-                                <span>Generation</span>
-                                <a><i class="fa fa-play"></i></a>
+                    <div class="ter-gen2 " *ngIf="!isGenerate ">
+                        <div class="col-md-1 right-arrow ">
+                            <div class="full-btn " (click)="generationButton() ">
+                                <span class="gen2">Generations</span>
+                                <a><i class="fa fa-play "></i></a>
                             </div>
                         </div>
-                        <div class="col-md-11">
-                            <div class="ter-gen2">
-                                <h3 class="text-center">
+                        <div class="col-md-11 ">
+                            <div class="ter-gen2 ">
+                                <h3 class="text-center ">
                                     Original Selections
                                 </h3>
-                                <div class="delete-selected" type="button" *ngIf="showDeleteSelected" (click)="deleteSelected()">Delete Selected</div>
+                                <div class="delete-selected " type="button " *ngIf="showDeleteSelected " (click)="deleteSelected() ">Delete Selected</div>
 
-                                <section class="items clearfix" id="gen2-images">
-                                    <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
-                                        <div class="item" (click)="selectImg($event, terrain)">
-                                            <label [for]="i">
-                        <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
-                        <img [src]="terrain" alt="">
-                        <div class="overlay">
-                          <div class="item-row">
-                            <button style="position: absolute; left: 0; display: none;">
-                              <input class="imageSelection" [id]="i" type="checkbox" value="">
+                                <section class="items clearfix " id="gen2-images ">
+                                    <div class="col-md-3 " *ngFor="let terrain of userTerrains | async; let i=i ndex ">
+                                        <div class="item " (click)="selectImg($event, terrain) ">
+                                            <label [for]="i ">
+                        <i class="fa fa-check-circle-o fa-inverse " style="display: none; " aria-hidden="true "></i>
+                        <img [src]="terrain " alt=" ">
+                        <div class="overlay ">
+                          <div class="item-row ">
+                            <button style="position: absolute; left: 0; display: none; ">
+                              <input class="imageSelection " [id]="i " type="checkbox " value=" ">
                             </button>
                             <button>
-                              <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
+                              <i class="fa fa-play " aria-hidden="true " (click)="openImage(terrain) "></i>
                             </button>
                           </div>
-                          <div class="item-row action-btn">
-                            <button (click)="deleteFromLibrary(terrain)">Delete</button>
+                          <div class="item-row action-btn ">
+                            <button (click)="deleteFromLibrary(terrain) ">Delete</button>
                           </div>
                         </div>
                       </label>
                                         </div>
                                     </div>
                                 </section>
-                                <div id="modalThree" class="modal">
-                                    <div id="content" class="modal-content">
-                                        <span id="modalClose" class="close">&times;</span>
-                                        <div id="container"></div>
+                                <div id="modalThree " class="modal ">
+                                    <div id="content " class="modal-content ">
+                                        <span id="modalClose " class="close ">&times;</span>
+                                        <div id="container "></div>
                                     </div>
                                 </div>
-                                <h3 class="text-center new-gen-head">
+                                <h3 class="text-center new-gen-head ">
                                     <span>New Generations</span>
-                                    <i class="fa fa-sort fa-inverse" aria-hidden="true"></i>
+                                    <i class="fa fa-sort fa-inverse " aria-hidden="true "></i>
                                 </h3>
-                                <section class="new-generations-accordion">
-                                    <div class="panel-group" id="accordion">
+                                <section class="new-generations-accordion ">
+                                    <div class="panel-group " id="accordion ">
 
-                                        <div class="panel panel-default" *ngFor="let obj of receivedData?.reverse(); let i = index">
-                                            <a (click)="isOpenAccord()" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
+                                        <div class="panel panel-default " *ngFor="let obj of receivedData?.reverse(); let i=i ndex ">
+                                            <a (click)="isOpenAccord() " data-toggle="collapse " data-parent="#accordion " href="#collapse{{ i + 1 }} ">
+                                                <div class="panel-heading ">
+                                                    <h4 class="panel-title ">
                                                         Generation {{receivedData.length - i}}
-                                                        <div class="accordion-arrow" [hidden]="!isOpen">▼</div>
-                                                        <div class="accordion-arrow" [hidden]="isOpen">▲</div>
+                                                        <div class="accordion-arrow " [hidden]="!isOpen ">▼</div>
+                                                        <div class="accordion-arrow " [hidden]="isOpen ">▲</div>
                                                     </h4>
                                                 </div>
-                                                <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
-                                                    <div class="panel-body clearfix">
+                                                <div id="collapse{{ i + 1 }} " class="panel-collapse collapse ">
+                                                    <div class="panel-body clearfix ">
 
-                                                        <div class="col-md-3" *ngFor="let receivedImg of obj.receivedImages">
-                                                            <div class="item">
-                                                                <div class="rotate">
-                                                                    <img [src]="receivedImg" alt="" (error)="errorImage($event)" (load)="imageLoaded($event)"></div>
-                                                                <div class="overlay">
-                                                                    <div class="item-row">
+                                                        <div class="col-md-3 " *ngFor="let receivedImg of obj.receivedImages ">
+                                                            <div class="item ">
+                                                                <div class="rotate ">
+                                                                    <img [src]="receivedImg " alt=" " (error)="errorImage($event) " (load)="imageLoaded($event) "></div>
+                                                                <div class="overlay ">
+                                                                    <div class="item-row ">
                                                                         <button>
-                                      <i class="fa fa-play" aria-hidden="true" (click)="openImage(receivedImg)"></i>
+                                      <i class="fa fa-play " aria-hidden="true " (click)="openImage(receivedImg) "></i>
                                     </button>
                                                                     </div>
-                                                                    <div class="item-row action-btn">
-                                                                        <button (click)="addToLibraryFromGeneration(receivedImg)">Add to library</button>
+                                                                    <div class="item-row action-btn ">
+                                                                        <button (click)="addToLibraryFromGeneration(receivedImg) ">Add to library</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -144,32 +144,32 @@
 
                                     </div>
                                 </section>
-                                <div class="generate-btn text-center">
-                                    <button class="shuffle-gen" (click)="uploadImages('1.0', 2)">Hybrid Generate</button>
-                                    <button class="shuffle-gen" (click)="uploadImages('0.0', 1)">Shuffle Generate</button>
+                                <div class="generate-btn text-center ">
+                                    <button class="shuffle-gen " (click)="uploadImages( '1.0', 2) ">Hybrid Generate</button>
+                                    <button class="shuffle-gen " (click)="uploadImages( '0.0', 1) ">Shuffle Generate</button>
                                 </div>
 
 
                             </div>
                         </div>
                     </div>
-                    <div class="modal-unity" id="unity">
-                        <div class="container-fluid container-unity">
-                            <div class="clearfix">
+                    <div class="modal-unity " id="unity ">
+                        <div class="container-fluid container-unity ">
+                            <div class="clearfix ">
                                 <div class="col-md-2 ">
 
-                                    <div id="leftView1" style="display: none">YES</div>
-                                    <div id="leftView2"> NO</div>
+                                    <div id="leftView1 " style="display: none ">YES</div>
+                                    <div id="leftView2 "> NO</div>
 
 
                                 </div>
-                                <div class="col-md-8">
-                                    <div id="gameContainer" style="width: 100%; height: 100%;"></div>
+                                <div class="col-md-8 ">
+                                    <div id="gameContainer " style="width: 100%; height: 100%; "></div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 ">
 
-                                    <div id="rightView1" style="display: none">YES</div>
-                                    <div id="rightView2"> NO</div>
+                                    <div id="rightView1 " style="display: none ">YES</div>
+                                    <div id="rightView2 "> NO</div>
 
                                 </div>
                             </div>
