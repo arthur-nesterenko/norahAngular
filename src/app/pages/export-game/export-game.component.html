@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="col-md-3 sidebar">
-		<div  (click)='switchModelType("charModel")'  class="tab"  >
+		<div  (click)='switchModelType("charModel")'  class="tab" id="c"  >
 		  <label for="tab-one" class="lbl_0" [ngClass]="selectedModelType === 'charModel'?'active-gen':'lbl_0'" >Character Models</label>
 		  
 		</div>
@@ -23,7 +23,7 @@
 		</div>
 
 		<div  *ngIf='selectedModelType=="charModel"' class="dabbe">
-			<div  *ngFor="let model of charModels|async"  class="col-md-3">
+			<div  *ngFor="let model of charModels"  class="col-md-3">
 				<input type="checkbox" class="checkB" id="c1">
 				<label for="c1" class="lbl"></label>
 				<img [src]="model.imageLink" style="height:200px" >
@@ -32,7 +32,7 @@
 
 		
 		<div  *ngIf='selectedModelType=="terrainModel"' class="dabbe">
-			<div  *ngFor="let model of terrainModels|async"  class="col-md-3">
+			<div  *ngFor="let model of terrainModels"  class="col-md-3">
 				<input type="checkbox" class="checkB" id="c1">
 				<label for="c1" class="lbl"></label>
 				<img [src]="model.imageLink" style="height:200px" >
@@ -40,7 +40,7 @@
 		</div>
 		
 		<div  *ngIf='selectedModelType=="gunModel"' class="dabbe">
-			<div  *ngFor="let model of gunModels|async"  class="col-md-3">
+			<div  *ngFor="let model of gunModels"  class="col-md-3">
 				<input type="checkbox" class="checkB" id="c1">
 				<label for="c1" class="lbl"></label>
 				<img [src]="model.imageLink" style="height:200px" >

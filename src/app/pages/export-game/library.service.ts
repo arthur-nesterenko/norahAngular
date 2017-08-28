@@ -49,34 +49,18 @@ export class LibraryService {
   }  
   getCharModels(){
 
-    if(firebase.auth().currentUser.uid){
     return this.firedb.list(`usernames/${firebase.auth().currentUser.uid}/gameLibrary/charModels`);
-    }else{
-      console.log("current user is null")
-      return Observable.of([]);
-    }
+   
   }
 
   
   getGunModels(){
     
-        if(firebase.auth().currentUser.uid){
         return this.firedb.list(`usernames/${firebase.auth().currentUser.uid}/gameLibrary/gunModels`);
-        }else{
-          console.log("current user is null")
-          return Observable.of([]);
-        }
       }
   
   getTerrainModels(){
 
-    if(firebase.auth().currentUser.uid)
-   { return this.firedb.list(`usernames/${firebase.auth().currentUser.uid}/gameLibrary/terrainModels`);
-}else{
-     console.log("current user is null");
-     console.log(firebase.auth().currentUser);
-    console.log(firebase.auth());   
-      return Observable.of([]);
-    }
+    return this.firedb.list(`usernames/${firebase.auth().currentUser.uid}/gameLibrary/terrainModels`);
   }
 }
