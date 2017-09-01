@@ -27,6 +27,7 @@ import { TerrainGenModule } from './pages/terrain-gen/terrain-gen.module';
 import { TerrainGenService } from './pages/terrain-gen/terrain-gen.service';
 import { SeoService } from './seo.service';
 import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-start.component';
+import { GunGenImgDirective } from './pages/gun-gen/gun-gen-img.directive';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { GameMakerStartComponent } from './pages/game-maker-start/game-maker-sta
     DnaCodeComponent,
     GameMakerComponent,
     SniperComponent,
-    GameMakerStartComponent
+    GameMakerStartComponent,
+    GunGenImgDirective
     ],
   imports: [
     BrowserModule,

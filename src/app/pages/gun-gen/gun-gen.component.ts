@@ -4,7 +4,8 @@ import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { HeightMapSocketService } from './HeightMapSocketService';
 import { GlobalRef } from '../../global-ref';
 import * as firebase from 'firebase';
-
+import { GunSocketService } from './gun-socket.service';
+import { inputVal,outputVal } from './mock-data';  //dummy data
 declare var $: any;
 declare var ValidateInputsThenApply: any;
 
@@ -13,7 +14,8 @@ declare var ValidateInputsThenApply: any;
   selector: 'app-gun-gen',
   templateUrl: './gun-gen.component.html',
   styleUrls: ['./gun-gen.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers:[ GunSocketService ]
 })
 export class GunGenComponent implements AfterViewInit {
 
@@ -24,17 +26,58 @@ export class GunGenComponent implements AfterViewInit {
   guns = [];
   selectedImgs = [];
   userTerrains: any;
+  gunFiles=[];
   /* Received Data after clicking on button Upload */
   receivedData: any[] = [];
   showDeleteSelected = false;
   @Input() generationType: string;
 
+  toastr:any;
   constructor(public gunGenService: GunInterpService,
               private http: Http,
               private socket: HeightMapSocketService,
-              private global: GlobalRef) {
+              private global: GlobalRef,
+              private gSocket:GunSocketService
+            ) {
+              const wnd = this.global.nativeGlobal;
+              this.toastr = wnd.toastr;
+
+              this.gSocket.on("connection",()=>{
+                  console.log("Connected");
+                  this.showToast("Socket connected");
+              });
+
+              this.gSocket.on("files",(data)=>{
+
+                console.log("Files received");
+                console.log(data);
+                
+                this.showToast("Files received");
+                this.gunFiles=data["files"];
+              });
+
+              this.gSocket.on("errorInfo",(data)=>{
+
+                console.log(data);
+                
+                this.showToast("Info: "+data["msg"]);
+                
+              });
+              //for gungenImages
+              this.gSocket.on("imageFile",(d)=>{
+                console.log("ImageFile received");
+                console.log(d);
+                this.gunFiles=this.gunFiles.map((x)=>{
+                  if(x.id==d.file.id)
+                   {return d.file} else{} return x    });
+              });
   }
 
+
+  showToast(msg){
+
+    this.toastr.info(msg);
+  }
   ngAfterViewInit() {
     this.getGuns(this.activeLink);
 
@@ -302,6 +345,13 @@ export class GunGenComponent implements AfterViewInit {
         }
         this.selectedImgs = [];
       });
+  }
+
+
+  generateGun(){
+console.log("sending files");
+          this.gSocket.emit("upload",{inputValues:inputVal,outputValues:outputVal});
+
   }
 
 }

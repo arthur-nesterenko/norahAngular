@@ -80,23 +80,23 @@
                 </h3>
                 <div class="delete-selected" type="button" *ngIf="showDeleteSelected" (click)="deleteSelected()">Delete Selected</div>
 
-                <section class="items clearfix" id="gen2-images">
-                  <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i = index">
-                    <div class="item" (click)="selectImg($event, terrain)">
+                <section class="items clearfix" id="gen2-images"  >
+                  <div class="col-md-3" *ngFor="let f of gunFiles ; let i = index">
+                    <div class="item" (click)="selectImg($event, f)">
                       <label [for]="i">
                         <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
-                        <img [src]="terrain" alt="">
+                        <img [src]="f.img"  alt=""  >
                         <div class="overlay">
                           <div class="item-row">
                             <button style="position: absolute; left: 0; display: none;">
                               <input class="imageSelection" [id]="i" type="checkbox" value="">
                             </button>
                             <button>
-                              <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
+                              <i class="fa fa-play" aria-hidden="true" (click)="openImage(f)"></i>
                             </button>
                           </div>
                           <div class="item-row action-btn">
-                            <button (click)="deleteFromLibrary(terrain)">Delete</button>
+                            <button (click)="deleteFromLibrary(f)">Delete</button>
                           </div>
                         </div>
                       </label>
@@ -154,7 +154,7 @@
                 </section>
                 <div class="generate-btn text-center">
                   <button class="shuffle-gen" (click)="uploadImages('1.0', 2)">Hybrid Generate</button>
-                  <button class="shuffle-gen" (click)="uploadImages('0.0', 1)">Shuffle Generate</button>
+                  <button class="shuffle-gen" (click)="generateGun()">Shuffle Generate</button>
                 </div>
               </div>
             </div>
