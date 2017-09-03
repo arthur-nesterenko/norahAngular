@@ -1,0 +1,29 @@
+<div class="content indent">
+    <div class="thumb-box10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4 wow fadeInUp">
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-4">
+                    <h2 class="wow fadeIn" data-wow-delay="0.1s">Game Data Form</h2>
+                    <form [formGroup]="gameDataForm" o id="gameDataForm">
+                        <div class="contact-form-loader"></div>
+                        <fieldset>
+                            <label class="name form-div-1">
+                <strong>Name*</strong>
+                <input formControlName="name" type="text" name="name" placeholder="" value="qwerty" />
+                <input formControlName="name2" type="text" name="name2" placeholder="" value="ytrewq"/>
+              </label>
+
+                            <div class="btns">
+                                <button href="#" data-type="submit" (click)="submit()" class="btn-default btn4"><span></span>Submit
+                </button>
+                            </div>
+                        </fieldset>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

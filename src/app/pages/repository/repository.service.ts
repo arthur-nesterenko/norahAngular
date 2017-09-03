@@ -1,16 +1,16 @@
-import { Inject, Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { FirebaseApp } from 'angularfire2/angularfire2';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { Animation, Tag } from './repository.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-
+import { Animation } from './repository.component';
+import * as firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class RepositoryService {
 
-  public page$: BehaviorSubject<number> = new BehaviorSubject((50));
+  private page: BehaviorSubject<number> = new BehaviorSubject(1);
+  public page$: Observable<number> = this.page.asObservable();
   private firebaseApp;
   private selectedTags = new Subject<string>();
   private unselectedTags = new Subject<string>();
@@ -19,26 +19,28 @@ export class RepositoryService {
   private tagStore: string[] = [];
 
   constructor(
-    @Inject(FirebaseApp) firebaseApp,
     private db: AngularFireDatabase
   ) {
-    this.firebaseApp = firebaseApp;
   }
   get animations(): Observable<Animation[]> {
+    firebase.database().ref('/tags')
+      .once('value', (data) => {
+      console.log(data.val());
+    });
+    firebase.database().ref('/animations').orderByChild('name')
+      .once('value', (data) => {
+      console.log(data.val());
+    });
     return this.db.list('/animations', {
       query: {
-        orderByChild: 'name',
-        limitToFirst: this.page$
+        orderByChild: 'name'
       }
     });
   }
-  animationsFiles(name: string) {
-    return this.firebaseApp.storage().ref('animFiles').child(`${name}.anim`).getDownloadURL()
-      .then((animURL: string) => this.firebaseApp.storage().ref('mp4Files').child(`${name}.mp4`).getDownloadURL()
-        .then((mp4URL: string) => ({animURL: animURL, mp4URL: mp4URL})));
+  nextPage(page: number) {
+    this.page.next(page);
   }
-
-  get tags(): FirebaseListObservable<any[]> {
+  get tags() {
     return this.db.list('/tags');
   }
 

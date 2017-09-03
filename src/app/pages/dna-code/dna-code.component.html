@@ -1,0 +1,227 @@
+<div class="main_wapper wrapper">
+<!--Lest Sidebar-->
+
+<div id="Sidebar">
+            <div id="integration-list">
+               <ul>
+                  <li>
+                     <div class="integration-slider">
+                        <div *ngIf="false" class="range-slider square">
+                          <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someValue" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+
+                        </div>
+                        <a class="expand">
+                           <div class="right-arrow">▼</div>
+                           <div>
+                              <h2>Base Parameters</h2>
+                           </div>
+                        </a>
+                        <div class="detail" style="display: none;">
+                           <div class="Parameters_Content">
+                              <ul>
+                                <li>
+                                    <div class="Parameters_Content_Title">Age</div>
+                                   <nouislider  [(ngModel)]="Age" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+
+                                 <li>
+                                    <div class="Parameters_Content_Title">Height</div>
+                                   <nouislider  [(ngModel)]="Height" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+                                 <li>
+                                    <div class="Parameters_Content_Title">Weight</div>
+                                   <nouislider [(ngModel)]="Weight" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+
+                                 <li>
+                                    <div class="Parameters_Content_Title">Muscle</div>
+                                   <nouislider  [(ngModel)]="Muscle" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+                                 <li>
+                                    <div class="Parameters_Content_Title">Proportions</div>
+                                   <nouislider [(ngModel)]="Proportion" [config]="someKeyboardConfig" (ngModelChange)="onChange($event)"></nouislider>
+                                 </li>
+                                  <li class="sex-r-sliderm">
+
+                                      <div class="Parameters_Content_Title">Sex</div>
+                                       <nouislider [connect]="true" name="Sex" [(ngModel)]="Sex" [config]="someKeyboardConfig" (change)="saveBaseParamRange('sex',$event)"></nouislider>
+                                 </li>
+                                       <li>
+
+                                <div class="expand-box">
+                        <ul>
+                           <li style="background-color:#66afea">Asian</li>
+                           <li style="background-color:#0287f9">African</li>
+                           <li style="background-color:#072136">Caucasian</li>
+                        </ul>
+                     </div>
+
+                                <div class ="Parameters_Content_Title">Ethnicity</div>
+                                 <nouislider  class="eSlider" name="ethnicity" [(ngModel)]="ethnicity" [config]="ethinicityConfig"  (change)="saveBaseParamRange('allasian',$event,asianSlider)"></nouislider>
+
+
+
+
+
+
+                  </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+
+
+               </ul>
+                 <div class="shuffle-btn">
+                          <a   id="genButton" (click)="saveRanges()" >Generate</a>
+
+                  </div>
+            </div>
+            <div class="part-styler">
+               <ul>
+                  <li>
+                     <div class="integration-slider">
+                        <div class="detail b-none" style="display: block;">
+                           <div class="Parameters_object">
+                              <a (click)='bodyPartTypeSelected("torso")' *ngIf="showFace" style="position:absolute"  ><img src="assets/images/human/human.png"  style="width:40px;float:left" alt=""></a>
+
+                              <img *ngIf="!showFace" src={{bodyPartImage}} style=" width:202px;height:292px" alt="" usemap="#Bodymap">
+
+                              <map name="Bodymap">
+
+
+<area alt="" title="left leg" (click)='bodyPartTypeSelected("leg")' shape="poly" coords="75,123,100,147,87,258,74,258" />
+    <area alt="" title="right leg" (click)='bodyPartTypeSelected("leg")' shape="poly" coords="123,121,108,148,115,256,130,257" />
+    <area alt="" title="left foot" (click)='bodyPartTypeSelected("foot")' shape="rect" coords="68,260,88,280" />
+    <area alt="" title="right foot" (click)='bodyPartTypeSelected("foot")' shape="rect" coords="112,259,138,281" />
+
+	 <area alt="" title="left hand" (click)='bodyPartTypeSelected("hand")'shape="rect" coords="9,118,33,152" />
+    <area alt="" title="right hand" (click)='bodyPartTypeSelected("hand")' shape="rect" coords="164,124,199,147" />
+    <area alt="" title="left arm" (click)='bodyPartTypeSelected("arm")' shape="poly" coords="67,49,83,63,36,120,23,115" />
+    <area alt="" title="right arm" (click)='bodyPartTypeSelected("arm")' shape="poly" coords="126,48,119,63,164,118,179,114" />
+    <area alt="" title="neck" (click)='bodyPartTypeSelected("neck")' shape="rect" coords="94,36,112,60" />
+    <area alt="" title="face" (click)='bodyPartTypeSelected("face")' shape="rect" coords="84,8,120,40" />
+
+ <area alt="" title="breast" (click)='bodyPartTypeSelected("breast")' shape="poly" coords="80,51,122,49,128,84,76,86" />
+    <area alt="" title="torso" (click)='bodyPartTypeSelected("torso")' shape="poly" coords="79,92,127,93,128,119,103,136,77,118" />
+
+</map>
+
+<img  *ngIf="showFace"  src="{{bodyPartImage}}" style="height:329px" alt="" usemap="#FaceMap" />
+<map name="FaceMap" id="FaceMap" >
+    <area alt="" title="head" (click)='facePartTypeSelected("head")' shape="poly" coords="79,57,48,134,189,134,173,60" />
+    <area alt="" title="left-eye" (click)='facePartTypeSelected("eyes")'  shape="rect" coords="68,152,105,166" />
+    <area alt="" title="right-eye" (click)='facePartTypeSelected("eyes")' shape="rect" coords="132,154,167,167" />
+    <area alt="" title="nose" (click)='facePartTypeSelected("nose")' shape="poly" coords="113,155,97,206,135,207,123,160" />
+    <area alt="" title="left-cheek"  (click)='facePartTypeSelected("cheek")'  shape="rect" coords="62,185,89,220" />
+    <area alt="" title="right-cheek" (click)='facePartTypeSelected("cheek")' shape="rect" coords="142,188,170,220" />
+    <area alt="" title="lips" (click)='facePartTypeSelected("mouth")' shape="rect" coords="90,224,148,238" />
+    <area alt="" title="chin" (click)='facePartTypeSelected("chin")' shape="rect" coords="88,243,148,269" />
+    <area alt="" title="left-ear" (click)='facePartTypeSelected("ears")' shape="rect" coords="33,153,58,205" />
+    <area alt="" title="right-ear"   (click)='facePartTypeSelected("ears")' shape="rect" coords="180,150,195,207" />
+
+</map>
+
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <!--Lest Sidebar-->
+         <!--Container-->
+         <div id="content-wrapper">
+            <div class="object-container">
+               <div class="object-container-in">
+                  <div class="object-container-dna">
+                     <div class="dna-code-title">
+                        <h2>DNA CODE</h2>
+                     </div>
+                     <div class="dna-code-title2" *ngIf="false" >
+                        <h2>“ An old man is wiser than it appears”</h2>
+                     </div>
+
+                     <div class="block block-object">
+                        <span class="helper"></span>
+                        <img id="dnaCode_main_img"  [imageZoom]=selectedImage.file  src="{{selectedImage.file}}" appZooom >
+                        <div class="object-container-dna-btm">
+                           <div class="addgame">
+                              <a href="javascript:void(0)" class="addgame-btn" (click)="exportFbx(true)">Add to game</a>
+                              <a style="cursor: not-allowed" class="addgame-btn" style="margin-left:10px" (click)="exportFbx()" >Export fbx</a>
+
+                              <a href="javascript:void(0)" class="addgame-btn pull-right">Add to library</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="head-detail">
+                    <div class="head-title">
+                        <h3 *ngIf="processedFiles">{{processedFiles.title}}</h3>
+                        <div class="dropdown pull-right">
+                         <div ngbDropdown class="d-inline-block">
+                           <button class="btn btn-outline-primary list-btn" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i>List</button>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownBasic1">
+                             <li *ngFor="let gen of changeHistory;let i=index" >
+                               <a (click)="switchImage(gen.id)">{{gen.title}} </a>
+                              </li>
+
+                           </ul>
+                         </div>
+                       </div>
+                     </div>
+
+                    <div class="head-detail-block">
+
+
+                        <div class="full-btn left" style="display:none">
+                           <a (click)="scrollLeft()"><i class="fa fa-caret-left"></i></a>
+                        </div>
+                          <div class="scroller-content"*ngIf="processedFiles"  >
+                            <div  *ngFor="let pFile of processedFiles.files;let i=index"    (click)="imageSelected(i)" [class]="pFile.file==selectedImage.file?'block active':'block'">
+                              <img  class="block_img" src={{pFile.file}}/>
+                            </div>
+                          </div>
+                        <div class="full-btn right" style="display:none">
+                           <a (click)="scrollRight()"><i class="fa fa-caret-right"></i></a>
+                        </div>
+
+
+                    </div>
+                  </div>
+                  <div class="shuffle-btn" style="display: none" >
+                          <a   id="genButton" (click)="saveRanges()" >Generate</a>
+                          <a  (click)="generateImage()" >Merge</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Container-->
+         <!--Right Sidebar-->
+         <div id="RSidebar">
+
+
+<div class="btn-panel" *ngIf="false" >
+                  <button class="btn btn-primary btn-panel_btn" [disabled]="!changeHistory.length>0" (click)="undo()" >Undo</button>
+
+                  <button class="btn btn-primary btn-panel_btn " (click)="merge()"> Merge</button></div>
+
+          <h1>{{bodyParts.part}}</h1>
+            <div class="rsidebar-block" *ngFor="let bodyPart of bodyParts.files;let i=index"  >
+                    <div class="rangeSlider_block" (click)="bodyPartSelected(i)" >
+                  <div [class]="selectedBodyPart&&selectedBodyPart.file==bodyPart.file?'block active':'block'">
+
+                    <img src={{bodyPart.file}} class="block_img">
+                  </div>
+                 <!--  <nouislider [min]="0" [max]="15" [step]="0.05" [(ngModel)]="someValue" (change)="saveRange($event)" [disabled]="disabled"></nouislider> -->
+               </div>
+             </div>
+               <div class="shuffle-btn">
+                          <a  (click)="generateImage()" >Merge</a>
+                  </div>
+         </div>
+ <div id="toasterDiv" style="display: none ;position:absolute;top:0px;right:10px;color:white;background:yellowgreen;z-index:1000;" class="alert" ></div>
+
+         <!--Right Sidebar-->
+</div>

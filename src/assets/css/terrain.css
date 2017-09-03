@@ -1,0 +1,16 @@
+.popup-close{
+    position: absolute;
+    right: 960px;
+    top:0px;
+    width: 50px;
+    height: 50px;
+    background-image: url("../images/X.png");
+    z-index: 1;
+    background-size: contain;
+    transform: translate(100%, -100%);
+
+}
+
+.popup-close:hover{
+    background-image: url("../images/X-hover.png");
+}

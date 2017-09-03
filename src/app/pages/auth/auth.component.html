@@ -1,7 +1,4 @@
 <div class="AuthContainer">
-  <!--<img class="facebook" src="/assets/images/Facebook.png" alt="">-->
-  <!--<img class="google" src="/assets/images/Google+.png" alt="">-->
-  <!--<img class="twitter" src="/assets/images/Twitter.png" alt="">-->
   <div *ngIf="user" (click)="logout()" class="SignBtn" id="logOutBtn" type="button">Log-Out     {{ user?.email }}</div>
   <div *ngIf="!user" class="sign-in">
     <!-- Trigger the modal with a button -->
@@ -41,6 +38,7 @@
                 type="button"
                 class=""
                 id="loginBtn">{{ state === 'login' ? 'Sign In' : 'Create account' }}</button>
+        <span class="errorMsg" *ngIf="error">{{ error }}</span>
         <div *ngIf="state === 'login'" class="divider">OR</div>
         <div *ngIf="state === 'login'" id="firebaseui-auth-container">
           <button *ngFor="let provider of providers" (click)="loginWithProvider(provider)" class="SignBtn Button Button-{{provider}}">

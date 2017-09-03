@@ -1,15 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
+import { environment } from 'environments/environment';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AuthGuard } from './auth-guard.service';
 
 import { AuthComponent } from './auth.component';
-import { environment } from 'environments/environment';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { DialogComponent, DialogService } from './dialog/dialog.component';
-import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,6 @@ import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   exports: [
     AuthComponent
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, AuthComponent]
 })
 export class AuthModule { }

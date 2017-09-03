@@ -1,10 +1,15 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import * as $ from 'jquery';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GlobalRef } from './global-ref';
 import { AuthService } from './pages/auth/auth.service';
 import { RepositoryService } from './pages/repository/repository.service';
+import { LibraryService } from './pages/library/library.service';
+import { Title } from '@angular/platform-browser';
+import { SeoService } from './seo.service';
+import { SEO_CONFIGURATION } from './seo.config';
+import { dashCaseToCamelCase } from '@angular/platform-browser/src/dom/util';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +25,7 @@ export class AppComponent implements OnInit {
   userAuthorized: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private router: Router, private authService: AuthService,
-              private repService: RepositoryService) {
+              private repService: RepositoryService, private libService: LibraryService, private seoService: SeoService) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -30,13 +35,22 @@ export class AppComponent implements OnInit {
         this.hideFooter = event.url.indexOf('auto-rigger') !== -1 || event.url.indexOf('motion-editor') !== -1 ||
           event.url.indexOf('style-transfer') !== -1;
       }
+      if ( event instanceof NavigationStart ) {
+        const url = dashCaseToCamelCase(event.url.substring(1));
+        url ? this.setSEO(url) : this.setSEO('home');
+      }
     });
     repService.selectedTags$
       .subscribe((tag: string) => {
         this.tags.push(tag);
       });
   }
-
+  setSEO(page) {
+    const seoConfig = SEO_CONFIGURATION[page] ? SEO_CONFIGURATION[page].seo : SEO_CONFIGURATION['home'].seo;
+    this.seoService.setTitle(seoConfig.title);
+    this.seoService.setMetaDescription(seoConfig.description);
+    this.seoService.setMetaKeywords(seoConfig.keywords);
+}
   checkLogin(url: string): void {
     if (this.authService.authenticated) {
       this.router.navigate([url]);
@@ -49,7 +63,9 @@ export class AppComponent implements OnInit {
     this.tags.splice(this.tags.indexOf(tag), 1);
     this.repService.removeTagFromPanel(tag);
   }
-
+  deleteSelected($event) {
+    this.libService.removeAnimationEvent($event);
+  }
   ngOnInit() {
 
   }

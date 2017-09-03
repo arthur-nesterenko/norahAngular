@@ -1,0 +1,199 @@
+<div class="main_wapper wrapper wrap">
+    <div class="row">
+        <div class="col-md-2 terrain-sidebar">
+            <ul>
+                <li>
+                    <ul class="terrain-detail">
+                        <li><a><span style="font-size: 16px;
+    color: #0287f9;
+    font-weight: 500;">Terrain Generator</span></a></li>
+                        <li [ngClass]="{'active-gen': activeLink === 'canyons'}" (click)="selectTerrain('canyons')"><span>Canyons</span></li>
+                        <li [ngClass]="{'active-gen': activeLink === 'islands'}" (click)="selectTerrain('islands')"><span>Islands</span></li>
+                        <li [ngClass]="{'active-gen': activeLink === 'mountain'}" (click)="selectTerrain('mountain')"><span>Mountains</span></li>
+                        <li [ngClass]="{'active-gen': activeLink === 'rivers'}" (click)="selectTerrain('rivers')"><span>Rivers</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 terrain-content">
+            <div class="row">
+                <div class="terrain-components">
+                    <div class="ter-gen1" id="terrain-gen1" *ngIf="isGenerate">
+                        <div class="col-md-11">
+                            <h3 class="text-center">Terrain creator</h3>
+                            <section class="items clearfix terrain-wrap">
+                                <div class="col-md-3" *ngFor="let terrain of terrains | async">
+                                    <div class="item">
+                                        <img [src]="terrain.mediaLink" alt="">
+                                        <div class="overlay">
+                                            <div class="item-row">
+                                                <button>
+                          <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain.mediaLink)"></i>
+                        </button>
+                                            </div>
+                                            <div class="item-row action-btn">
+                                                <button (click)="addToLibrary(terrain)">Add to library</button>
+                                                <button (click)="addToGame(terrain)">Add to game</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </section>
+                            <div id="modalThree" class="modal">
+                                <div id="content" class="modal-content">
+                                    <span id="modalClose" class="close">&times;</span>
+                                    <div id="container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="full-btn" (click)="generationButton()">
+                                <span class="gen1">Generations</span>
+                                <a><i class=" fa fa-play fa-rotate-180 "></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ter-gen2" id="terrain-gen2" *ngIf="!isGenerate">
+                        <div class="col-md-1 right-arrow">
+                            <div class="full-btn" (click)="generationButton()">
+                                <span class="gen2">Generations</span>
+                                <a><i class="fa fa-play"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="ter-gen2">
+                                <h3 class="text-center">
+                                    Original Selections
+                                </h3>
+                                <div class="delete-selected" type="button" *ngIf="showDeleteSelected" (click)="deleteSelected()">Delete Selected</div>
+
+                                <section class="items clearfix" id="gen2-images">
+                                    <div class="col-md-3" *ngFor="let terrain of userTerrains | async; let i=i ndex">
+                                        <div class="item" (click)="selectImg($event, terrain)">
+                                            <label [for]="i">
+                        <i class="fa fa-check-circle-o fa-inverse" style="display: none;" aria-hidden="true"></i>
+                        <img [src]="terrain" alt="">
+                        <div class="overlay">
+                          <div class="item-row">
+                            <button style="position: absolute; left: 0; display: none;">
+                              <input class="imageSelection" [id]="i" type="checkbox" value="">
+                            </button>
+                            <button>
+                              <i class="fa fa-play" aria-hidden="true" (click)="openImage(terrain)"></i>
+                            </button>
+                          </div>
+                          <div class="item-row action-btn">
+                            <button (click)="deleteFromLibrary(terrain)">Delete</button>
+                          </div>
+                        </div>
+                      </label>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div id="modalThree" class="modal">
+                                    <div id="content" class="modal-content">
+                                        <span id="modalClose" class="close">&times;</span>
+                                        <div id="container"></div>
+                                    </div>
+                                </div>
+                                <h3 class="text-center new-gen-head">
+                                    <span>New Generations</span>
+                                    <i class="fa fa-sort fa-inverse" aria-hidden="true"></i>
+                                </h3>
+                                <section class="new-generations-accordion">
+                                    <div class="panel-group" id="accordion">
+
+                                        <div class="panel panel-default" *ngFor="let obj of receivedData?.reverse(); let i=i ndex">
+                                            <a (click)="isOpenAccord()" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i + 1 }}">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        Generation {{receivedData.length - i}}
+                                                        <div class="accordion-arrow" [hidden]="!isOpen">▼</div>
+                                                        <div class="accordion-arrow" [hidden]="isOpen">▲</div>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse{{ i + 1 }}" class="panel-collapse collapse">
+                                                    <div class="panel-body clearfix">
+
+                                                        <div class="col-md-3" *ngFor="let receivedImg of obj.receivedImages">
+                                                            <div class="item">
+                                                                <div class="rotate">
+                                                                    <img [src]="receivedImg" alt="" (error)="errorImage($event)" (load)="imageLoaded($event)"></div>
+                                                                <div class="overlay">
+                                                                    <div class="item-row">
+                                                                        <button>
+                                      <i class="fa fa-play" aria-hidden="true" (click)="openImage(receivedImg)"></i>
+                                    </button>
+                                                                    </div>
+                                                                    <div class="item-row action-btn">
+                                                                        <button (click)="addToLibraryFromGeneration(receivedImg)">Add to library</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </section>
+                                <div class="generate-btn text-center">
+                                    <button class="shuffle-gen" (click)="uploadImages( '1.0', 2)">Hybrid Generate</button>
+                                    <button class="shuffle-gen" (click)="uploadImages( '0.0', 1)">Shuffle Generate</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-unity" id="unity">
+    <div class="modal-content">
+        <div class="leftview">
+            <div id="leftView1">
+                <!-- Viewing controls
+                <br><br> mouse left click and drag - rotate terrain
+                <br> mouse right click and drag - rotate viewing angle
+                <br><br> enter - switch viewing modes
+                <br> esc - to close 3D terrain viewer -->
+            </div>
+            <div id="leftView2">
+                <!-- Viewing controls
+                <br><br> mouse move - rotate viewing angle
+                <br><br> enter - switch viewing mode
+                <br> esc - to close 3D terrain viewer -->
+            </div>
+        </div>
+        <div class="webGL-window" id="gameContainer"></div>
+        <div class="rightview">
+            <div id="rightView1">
+                <!-- Movement controls
+                <br><br> W / up arrow - front
+                <br> S / down arrow - back
+                <br> A / left arrow - left
+                <br> D / right arrow - right
+                <br> Q - up
+                <br> E - down
+                <br> + shift - accelerate
+            </div> -->
+                <div id="rightView2">
+                    <!-- Movement controls
+                <br><br>
+                <br> W / up arrow - front
+                <br> S / down arrow - back
+                <br> A / left arrow - left
+                <br> D / right arrow - right
+                <br> space - jump
+                <br> + shift - accelerate -->
+                </div>
+            </div>
+        </div>
+    </div>

@@ -3,6 +3,42 @@
 :host {
   background: $background-color;
 }
+
+.radioBox {
+  background-color: $navbar-color;
+  margin-bottom: 1%;
+  & span {
+    font-size: 23px;
+    text-align: center;
+    color: white;
+    margin-left: 3%;
+
+    &.searchLabel {
+      padding-left: 15px;
+    }
+  }
+  font: $navbar-font;
+}
+
+.tag {
+  color: darkgrey;
+  border: 1px solid $home-box-color;
+  background-color: $home-box-color3;
+  border-radius: 30px;
+  height: 40px;
+  padding: 0 14px 3px;
+  float: left;
+  margin-top: 3%;
+  line-height: 1;
+}
+
+.zodiacCont {
+  min-height: 815px;
+
+  .box-video {
+    float: left;
+  }
+}
 .zodiac_box {
   overflow: hidden;
   background: $background-color;
@@ -37,13 +73,11 @@
 }
 .subMenuS {
   z-index: 9999;
-  float: right;
   position: absolute;
   overflow-y: scroll;
-  margin-left: 70%;
-  margin-top: -13%;
   width: 100%;
-  height: 0;
+  top: 0;
+  left: 100%;
   &.scroll::-webkit-scrollbar {
     width: 7px;
     height: 8px;
@@ -55,7 +89,7 @@
 
   & li {
     display: none;
-    width: 70%;
+    width: 100%;
     z-index: 9999;
     margin-top: -14%;
     background-color: $home-box-color!important;
@@ -100,7 +134,7 @@ li.presentation:hover {
 }
 
 .pagination > li > a, .pagination > li > span {
-  background-colo: $navbar-color !important;
+  background-color: $navbar-color !important;
   color: darkgrey;
   border: 1px solid $home-box-color;
 
@@ -108,4 +142,7 @@ li.presentation:hover {
 .menuS {
   padding-top: 70px;
 
+}
+.searchBar {
+  padding-top: 20px;
 }
