@@ -273,7 +273,7 @@ export class GunGenComponent implements AfterViewInit {
       test[0].style.display = test[0].style.display === 'none' ? '' : 'none';
       event.currentTarget.getElementsByTagName('input')[0].checked = true;
       //images[i].classList.toggle('active-img');
-      event.currentTarget.classList.toggle('active-img');
+      // event.currentTarget.classList.toggle('active-img');
     }
 
     const images2 = document.getElementById('gen2-images').getElementsByClassName('item');
@@ -284,7 +284,7 @@ export class GunGenComponent implements AfterViewInit {
         images2[i].getElementsByTagName('input')[0].type === 'checkbox' &&
         images2[i].getElementsByTagName('input')[0].checked ) {
         this.showDeleteSelected = true;
-        this.selectedImgs.push(tera);
+        // this.selectedImgs.push(tera);
       }
     }
 
