@@ -1,0 +1,45 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\shumik\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] CLI Version:  3.6.1
+[debug] Platform:     win32
+[debug] Node Version: v6.10.2
+[debug] Time:         Sun Aug 13 2017 05:47:08 GMT+0300 (RTZ 2 (зима))
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/t8GECHnnyeqMXmGLFZVwl9DL4ri_LijkIRrvoOTYlU0',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Aug 13 2017 05:47:08 GMT+0300 (RTZ 2 (зима))
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/norahanimation  
+ Sun Aug 13 2017 05:47:12 GMT+0300 (RTZ 2 (зима))
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/norahanimation/tokens  
+ Sun Aug 13 2017 05:47:14 GMT+0300 (RTZ 2 (зима))
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'norahanimation'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing dist directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/norahanimation/uploads/-KrOUFrjCVcQjPHq16ak?fileCount=196&message=  
+ Sun Aug 13 2017 05:47:42 GMT+0300 (RTZ 2 (зима))
+[debug] <<< HTTP RESPONSE 403
+[debug] <<< HTTP RESPONSE BODY undefined
+[debug] TypeError: Cannot read property 'error' of undefined
+    at module.exports (C:\Users\shumik\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:10:12)
+    at Request._callback (C:\Users\shumik\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:25)
+    at Request.self.callback (C:\Users\shumik\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:188:22)
+    at emitTwo (events.js:106:13)
+    at Request.emit (events.js:191:7)
+    at Request.<anonymous> (C:\Users\shumik\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1171:10)
+    at emitOne (events.js:96:13)
+    at Request.emit (events.js:188:7)
+    at IncomingMessage.<anonymous> (C:\Users\shumik\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1091:12)
+    at IncomingMessage.g (events.js:291:16)
+[error] 
+[error] Error: An unexpected error has occurred.

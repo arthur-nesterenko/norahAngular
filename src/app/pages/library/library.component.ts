@@ -1,108 +1,65 @@
-import { AfterViewInit, Component } from '@angular/core';
-import * as $ from 'jquery';
-import * as firebase from 'firebase';
-import { GlobalRef } from '../../global-ref';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Http } from '@angular/http';
+import { LibraryService } from './library.service';
 
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss']
 })
-export class LibraryComponent implements AfterViewInit {
+export class LibraryComponent implements OnInit {
   animations: any;
+  terrains: any;
+  displayAnimations = [];
+  page = 1;
+  animationsCount = 0;
+  selectedAnimations = [];
 
-  constructor(private glob: GlobalRef) {
-  }
+  constructor(private libService: LibraryService, private http: Http) {}
 
-  ngAfterViewInit() {
-    const wnd = this.glob.nativeGlobal;
-    $(document).ready(function () {
-      setTimeout(loadPage, 1500);
-    });
+  ngOnInit() {
+    this.libService.removeSelected$
+      .skip(1)
+      .subscribe(() => this.removeAnimations());
+    this.libService.getAnimations()
+      .map(items => {
+        return items.map(item => {
+          const animFileName = encodeURIComponent('animFiles/' + item.name + '.anim');
+          const animMp4Name = encodeURIComponent('mp4Files/' + item.name + '.mp4');
+          item.animUrl = `https://firebasestorage.googleapis.com/v0/b/norahanimation.appspot.com/o/${animFileName}?alt=media`;
+          item.mp4Url = `https://firebasestorage.googleapis.com/v0/b/norahanimation.appspot.com/o/${animMp4Name}?alt=media`;
 
-    function loadPage() {
-      if (firebase.auth().currentUser) {
-        let blocks = '';
-        let animationsArray: Array<{}> | void = [];
-        let k = 1;
-        const userId = firebase.auth().currentUser.uid;
-        firebase.database().ref('usernames').child(userId).child('mylibrary').orderByValue().once('value', function (ss) {
-          const animations = ss.val();
-          if (!animations) {
-            alert('No items in library');
-          } else {
-            animationsArray = Object.keys(animations).map(function (key) {
-              console.log(animations)
-              const anim = animations[key];
+          item.selected = false;
 
-              anim.firebaseKey = key;
-
-              const storageBucket = (firebase.app().options as any).storageBucket;
-              const animMp4Name = 'mp4Files/' + anim.name + '.mp4';
-              const mp4Url = `https://firebasestorage.googleapis.com/v0/b/norahanimation.appspot.com/o/${encodeURIComponent(animMp4Name)}?alt=media`;
-
-              const animFileName = 'animFiles/' + anim.name + '.anim';
-              const animFileUrl = `https://firebasestorage.googleapis.com/v0/b/norahanimation.appspot.com/o/${encodeURIComponent(animFileName)}?alt=media`;
-
-              anim.mp4Url = mp4Url;
-              anim.animUrl = animFileUrl;
-
-              return anim;
-            }).forEach(function (anim) {
-              blocks += '<div class="box-video box' + k + ' fadeInUp clust" data-wow-delay="0.3s" data-page="#">';
-              blocks += '<div style="z-index: 111;">';
-              blocks += '<div class="animation-name" style="text-align:center;margin-top:40px;display:block">' + anim.name + '</div>';
-              blocks += '<a class="download-anim" href="' + anim.animUrl + '" data-url="' + anim.animUrl + '" data-duration="' + anim.duration + '" data-name="' + anim.name + '.anim" style="float:none !important;text-align:center;display:block;margin-top:0px"><br/><i class="fa fa-download fa-2x" aria-hidden="true"></i></a></center>';
-              blocks += '<label class="fancy-checkbox library-checkbox">';
-              blocks += '<input  type="checkbox" name="' + anim.firebaseKey + '" click="if(this.checked){ document.getElementById(' + k + ').checked = true;} else {document.getElementById(' + k + ').checked = false;}"/>';
-              blocks += '<span></span>';
-              blocks += '</label>';
-              blocks += '</div>';
-              // blocks += '<label class="fancy-checkbox">';
-              // blocks += '<input type="checkbox" name="' + anim.firebaseKey + '" id="' + k + '"/>';
-              blocks += '<span></span>';
-              blocks += '</label>';
-              blocks += '<video autoplay loop muted>';
-              blocks += '<source src="' + anim.mp4Url + '" type="video/mp4" />';
-              blocks += '</video>';
-              blocks += '</div>';
-              k++;
-            });
-
-            $('.zodiacCont').html(blocks);
-            $('.box').show();
-            $('.zodiacCont').show();
-            $('.temp_margin').hide();
-
-            $('.download-anim').click(function () {
-              const animDownloadUrl = $(this).data('url');
-              $.ajax({
-                url: animDownloadUrl,
-              });
-            });
-          }
+          return item;
         });
-      } else {
-        $('#myModal').modal({
-          backdrop: 'static',
-          keyboard: false,
-          show: true
-        });
-        $('.zodiacCont').show();
-        $('.temp_margin').hide();
-      }
-    }
-    wnd.deleteSelected = function () {
-      $('.fancy-checkbox input').each(function () {
-        const input = $(this);
-        if (input.is(':checked')) {
-          const userId = firebase.auth().currentUser.uid;
-          const imageKey = input.prop('name');
-          firebase.database().ref('usernames').child(userId).child('mylibrary').child(imageKey).remove();
-          input.parent().parent().parent().remove();
-        }
+      })
+      .subscribe(items => {
+        this.animations = items;
+        this.setPage(1);
       });
-    }
+  }
+  setPage(page) {
+    this.page = page;
+    this.animationsCount = this.animations.length;
+    this.displayAnimations = this.animations.slice((this.page - 1) * 15, (this.page - 1) * 15 + 15);
   }
 
+  download(url) {
+    this.http.get(url);
+  }
+  selectAnimation(animation, index) {
+    animation.selected = !animation.selected;
+    if (animation.selected) {
+      this.selectedAnimations.push(animation);
+    } else {
+      this.selectedAnimations.splice(index, 1);
+    }
+  }
+  removeAnimations() {
+    const arr = this.animations.filter(animation => animation.selected);
+    this.animations = this.animations.filter(animation => !animation.selected);
+    arr.forEach(animation => this.libService.removeAnimation(animation.$key));
+    this.selectedAnimations = [];
+  }
 }

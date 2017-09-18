@@ -1,64 +1,61 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseAuthState } from 'angularfire2';
-import {
-  AngularFireAuth, AuthConfiguration, AuthMethods, AuthProviders,
-  EmailPasswordCredentials
-} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 import { User } from 'firebase/app';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
+import TwitterAuthProvider = firebase.auth.TwitterAuthProvider;
 
 @Injectable()
 export class AuthService {
 
   currentUser: User;
-  currentState;
+  currentState: Observable<{}>;
+  error: EventEmitter<string> = new EventEmitter();
 
   constructor (private afAuth: AngularFireAuth, private router: Router) {
-    this.currentState = afAuth.map((state: FirebaseAuthState) => {
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
+      this.currentUser = firebase.auth().currentUser;
+    // });
+    this.currentState = afAuth.map((state) => {
       this.currentUser = state !== null ? state.auth : null;
       return state;
     });
   }
 
-  login(auth: EmailPasswordCredentials): void {
-    const loginConfig: AuthConfiguration = {
-      method: AuthMethods.Password,
-      provider: AuthProviders.Password
-    };
-    this.afAuth.login({email: auth.email, password: auth.password}, loginConfig).then(
-      () => location.reload()
-    );
+  login(auth: {email: string, password: string}): void {
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(value => {
+      firebase.auth().signInWithEmailAndPassword(auth.email, auth.password)
+        .then(() => location.reload());
+    // });
   }
   signWithCredentials(auth): void {
-    this.afAuth.createUser({email: auth.email, password: auth.password});
+    firebase.auth().createUserWithEmailAndPassword(auth.email, auth.password)
+      .then(() => location.reload())
+      .catch((error) => this.error.emit(error.message));
   }
   loginWithGoogle(): void {
-    this.afAuth.login({
-      method: AuthMethods.Redirect,
-      provider: AuthProviders.Google
-    });
+    const provider = new GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
   }
   loginWithFacebook(): void {
-    this.afAuth.login({
-      method: AuthMethods.Redirect,
-      provider: AuthProviders.Facebook
-    });
+    const provider = new FacebookAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
   }
   loginWithTwitter(): void {
-    this.afAuth.login({
-      method: AuthMethods.Redirect,
-      provider: AuthProviders.Twitter
-    });
+    const provider = new TwitterAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
   }
   logout() {
-    this.afAuth.logout().then(() => {
-      this.router.navigate(['/']);
-      location.reload();
-    });
+    firebase.auth().signOut().then(
+      () => location.reload()
+    );
   }
   get authenticated(): boolean {
     return this.currentUser !== null;

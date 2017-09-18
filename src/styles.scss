@@ -33,6 +33,32 @@ h3 {
     line-height: 1.1;
     font-size: 24px;
 }
+.delete-selected {
+  padding: 5px 5px !important;
+  width: 16%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid #008aff;
+  border-radius: 30px;
+  color: #fff;
+  background: #253443 none;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.popup{
+  display:none;
+  position:fixed;
+  z-index:1;
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.4);
+  padding: 0px;
+  margin: 0px;
+}
 
 span.property-name {
     text-align: left !important;
@@ -67,15 +93,19 @@ html body {
     background: none !important;
 }
 
-.zodiacCont .box-video {
+.zodiacCont {
+  .box-video {
     width: 19%;
     margin-right: 7px;
-    padding: 0;
     background: $home-box-color;
     display: inline-block;
     position: relative;
     z-index: 1;
     overflow: hidden;
+    padding: 10px;
+  }
+  .box-image {
+  }
 }
 
 .zodiac_box {
@@ -102,7 +132,6 @@ html body {
 
 .zodiac_box .clust:hover>div {
     background-color: #1f2933;
-    ;
     transition: all 0.35s;
     opacity: 0.85;
 }
@@ -132,4 +161,37 @@ html body {
     top: 20px;
     right: 35px;
     float: right;
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+.pagination {
+  .page-item {
+    .page-link {
+      background-color: $home-box-color !important;
+      border: 1px solid grey !important;
+      color: grey !important;
+    }
+
+    &.active {
+      .page-link {
+        background-color: $home-box-color !important;
+        border: 1px solid grey !important;
+        color: $blue !important;
+      }
+    }
+  }
+
+}
+
+.modal-backdrop {
+  opacity: 0.7 !important;
+}
+ngb-modal-window {
+  .modal-content {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+  }
 }

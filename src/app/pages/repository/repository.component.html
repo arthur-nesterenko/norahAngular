@@ -1,3 +1,25 @@
+<div class="container radioBox">
+  <div class="row">
+    <div class="col-sm-2 hidden-xs">
+      <span class="text-center pull-left searchLabel">Search: </span>
+    </div>
+    <div class="col-xs-12 col-sm-8 searchBar">
+      <input class="form-control" placeholder="Search..." type="text" (input)="search.emit($event.target.value)">
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 filter">
+    <div class="row">
+      <div class="col-lg-2">
+        <span class="text-center pull-left">Filters: </span>
+      </div>
+      <div class="col-lg-10 tagName">
+        <button (click)="removeTag(tag)" *ngFor="let tag of selectedTags" class="tag closeDiv">
+          {{tag}} <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class=" container-fluid zodiac_box zodiac_box_repos">
   <div class="row">
     <div class="col-sm-3 col-xs-4 leftSideBar">
@@ -16,13 +38,14 @@
 
     </div>
 
-    <div class="col-sm-9 col-xs-8 zodiacCont" *ngIf="displayAnimations">
-      <div *ngFor="let animation of displayAnimations.slice((page - 1) * 15 , (page - 1) * 15 + 15)" class="box-video fadeInUp clust">
+    <div class="col-sm-9 col-xs-8 zodiacCont" *ngIf="animationsCount" [style.minHeight]="(3 - animationsCount / 5) * 33 + '%'">
+      <div *ngFor="let animation of displayAnimations" class="box-video fadeInUp clust">
 
         <div style="z-index: 111;">
-        <a class="newwwww" (click)="addVideo(animation)"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
-        <a href="{{animation.animUrl}}" class="download-anim"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
-          <div class="animation-name">{{animation.name}}</div>
+          <a class="newwwww" (click)="addVideo(animation)"><i class="fa fa-plus-circle fa-2x"
+                                                              aria-hidden="true"></i></a>
+          <a href="{{animation.animUrl}}" class="download-anim"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
+          <div class="animation-name">{{animation.displayName}}</div>
         </div>
         <video autoplay loop muted src="{{animation.mp4Url}}">
 
@@ -34,9 +57,10 @@
   </div>
   <div class="row" *ngIf="animations?.length">
     <div class="col-lg-6 col-lg-offset-4">
-            <ngb-pagination [collectionSize]="displayAnimations?.length" [(page)]="page" (pageChange)="setPage($event)" [maxSize]="15" [rotate]="true" [boundaryLinks]="true">
+      <ngb-pagination [collectionSize]="animationsCount" [(page)]="page" (pageChange)="setPage($event)" [maxSize]="6"
+                      [pageSize]="15" [rotate]="true">
 
-            </ngb-pagination>
+      </ngb-pagination>
     </div>
   </div>
 </div>

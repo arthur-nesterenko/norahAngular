@@ -3,19 +3,43 @@
 
 :host {
   background: $background-color;
-}
 
-.zodiac_box {
+}
+ //.content {
+ //  width: 19%;
+ //  margin-right: 7px;
+ //  /* padding: 10px; */
+ //  background: #1f2933;
+ //  /* display: inline-block; */
+ //  /* position: relative; */
+ //  /* z-index: 1; */
+ //  /* overflow: hidden; */
+ //  height: 252px;
+ //  /* padding: 11px; */
+ //  margin-bottom: 25px;
+ //}
+.zodiac_box .box-video > div {
+  padding: 10px 5px 15px 10px;
+  display: flex;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background: $background-color;
-  text-align: left;
-  padding: 0;
-  min-height: 800px;
-  font-family: 'Questrial', sans-serif;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.35s;
+  align-items: center;
 }
-
+.selected-anim {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}
+.download-anim, .animation-name {
+  padding-left: 25px;
+}
 .leftSideBar {
-  background-color: $background-color;
+  background-color: transparent;
   margin-top: -80px;
   padding: 10px 0;
   width: 200px;
@@ -96,7 +120,7 @@ li.presentation:hover {
 }
 
 .pagination > li > a, .pagination > li > span {
-  background-colo: $navbar-color !important;
+  background-color: $navbar-color !important;
   color: darkgrey;
   border: 1px solid $home-box-color;
 
@@ -107,3 +131,46 @@ li.presentation:hover {
 
 }
 
+.radioBox {
+  background-color: $navbar-color;
+  margin-bottom: 1%;
+  & span {
+    font-size: 23px;
+    text-align: center;
+    color: white;
+    margin-left: 3%;
+  }
+  font: $navbar-font;
+}
+
+.del_btn button {
+  padding: 10px 20px !important;
+  width: 160px;
+  margin-top: 18px;
+  margin-right: 20px;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid $blue;
+  border-radius: 30px;
+  color: #fff;
+  background: $navbar-color none;
+  transition: all 0.2s ease-in-out;
+  font-size: $navbar-font;
+  float: left;
+
+  &:disabled {
+    border: 1px solid grey !important;
+    color: grey !important;
+  }
+
+  i {
+    padding-right: 19%;
+  }
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25);
+  }
+}
+[hidden] {
+  display: none !important;
+}

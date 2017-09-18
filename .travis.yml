@@ -8,7 +8,7 @@ branches:
 
 before_script:
   - npm install -g firebase-tools
-  - npm install -g @angular/cli
+  - npm install -g @angular/cli@1.2.1
 
 script:
   - ng build --base-href "https://norahanimation.firebaseapp.com/"

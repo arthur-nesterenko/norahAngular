@@ -1,0 +1,334 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/variables";
+
+.AuthContainer {
+  float: right;
+  background-color: $navbar-color;
+  color: white;
+}
+
+.SignBtn {
+  padding: 10px 20px !important;
+  width: 100%;
+  margin-top: 10px;
+  margin-right: 20px;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid $blue;
+  border-radius: 30px;
+  color: #fff;
+  background: $navbar-color none;
+  transition: all 0.2s ease-in-out;
+  font-size: $navbar-font;
+  float: right;
+
+  &#loginBtn {
+    width: 40%;
+    margin-right: 0;
+    float: none;
+    font-size: 18px;
+  }
+
+  i {
+    padding-right: 19%;
+  }
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25);
+  }
+}
+
+.UserEmail {
+  padding-top: 10px;
+  margin-right: 13% !important;
+}
+
+.log-Out {
+  padding-top: 10px;
+}
+
+.modal {
+  z-index: 1050;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.15s linear;
+}
+.modal-body {
+  padding: 0;
+}
+.modal.fade .modal-dialog {
+  transform: translate(0, 0);
+  transition: transform 0.3s ease-out;
+  width: 750px;
+  margin: 10px auto;
+}
+
+.reg {
+  position: fixed;
+  background-color: $home-box-color;
+  padding: 20% 15% 40px;
+  border-radius: 30px;
+  top: 85px;
+  z-index: 9999;
+  left: -80px;
+  width: 750px;
+
+  .img-logo {
+    width: 100%;
+  }
+
+  input {
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 2.1rem 0.75rem;
+    line-height: 1.25;
+    color: white;
+    background-clip: padding-box;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    background-color: #32363a;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 16px;
+    &:focus {
+      border: 2px solid $blue;
+    }
+  }
+  h2 {
+    position: absolute;
+    top: 15px;
+    left: 37%;
+    color: white;
+    font-weight: 300;
+    font-size: 50px;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+#firebaseui-auth-container {
+  position: relative;
+}
+
+.but1 {
+  display: inline-block;
+  padding: 6px 18.8%;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #E56381 none;
+  outline: none;
+  color: white;
+
+  &:hover {
+    color: #333333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25);
+  }
+}
+
+.login-form {
+  text-align: center;
+  padding-top: 100px;
+
+  .new-animake {
+    margin-left: 30%;
+    font-size: 100%;
+    color: #e56381;
+    cursor: pointer;
+    width: 40%;
+  }
+}
+
+.but2 {
+  display: inline-block;
+  padding: 6px 5.8%;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: white;
+  background-color: #837B81;
+}
+
+.SocialContainer {
+  box-sizing: border-box;
+  color: #757575;
+  direction: ltr;
+  font: 16px Roboto, arial, sans-serif;
+  margin: 0 auto;
+  max-width: 360px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &-Card {
+    padding: 0 24px;
+
+    .List {
+      list-style: none;
+      margin: 1em 0;
+      padding: 0;
+
+      &-Item {
+        text-align: center;
+        margin: 0 0 15px;
+        padding: 0;
+
+        .SocialIcon {
+          height: 18px;
+          width: 18px;
+        }
+
+      }
+    }
+  }
+}
+
+.Button {
+  direction: ltr;
+  font-weight: 500;
+  height: 40px;
+  max-width: 220px;
+  padding: 10px 15px !important;
+  text-align: left;
+  border: none;
+  margin-right: 0;
+  width: 31% !important;
+  float: left !important;
+  img {
+    //position: absolute;
+    //left: 10px;
+  }
+
+  &-Google {
+    background-color: #cc5b4d;
+
+    span {
+      color: white;
+    }
+  }
+  &-Facebook {
+    margin-right: 15px;
+    background-color: #3b5998;
+
+    span {
+      color: #fff;
+    }
+  }
+  &-Twitter {
+    margin-right: 15px;
+    background-color: #55acee;
+
+    span {
+      color: #fff;
+    }
+  }
+  span {
+    font-size: 14px;
+    padding-left: 16px;
+    text-transform: none;
+    vertical-align: middle;
+  }
+}
+
+.facebook {
+
+  position: absolute;
+  right: 18%;
+  width: 38px;
+  top: 15%;
+
+}
+
+.google {
+
+  position: absolute;
+  right: 15%;
+  width: 38px;
+  top: 15%;
+
+}
+
+.twitter {
+
+  position: absolute;
+  right: 12%;
+  width: 38px;
+  top: 18%;
+
+}
+
+.sign {
+  width: 47%;
+  display: inline;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  &.active {
+    color: $blue;
+  }
+}
+
+.divider {
+  margin: 30px 0;
+  color: white;
+  font-size: 20px;
+
+  &::before {
+    content: '';
+    border-bottom: 2px solid ghostwhite;
+    position: absolute;
+    height: 5px;
+    width: 30%;
+    bottom: 133px;
+    left: 115px;
+  }
+  &::after {
+    content: '';
+    border-bottom: 2px solid ghostwhite;
+    position: absolute;
+    height: 5px;
+    width: 30%;
+    bottom: 133px;
+    right: 115px;
+  }
+}
+
+

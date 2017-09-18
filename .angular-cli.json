@@ -37,8 +37,8 @@
         "assets/libs/UnityLoader.js",
         "assets/libs/UnityProgress.js",
         "assets/libs/toastr.js",
-        "assets/libs/tm-scripts.js"
-
+        "assets/libs/tm-scripts.js",
+        "../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

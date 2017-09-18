@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import {WOW} from 'wowjs/dist/wow.min.js'
+import { WOW } from 'wowjs/dist/wow.min.js';
 
 @Component({
   selector: 'app-home',

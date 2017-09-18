@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { User } from 'firebase/app';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { User } from 'firebase/app';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Observable } from 'rxjs';
-import { NavigationStart, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,27 +16,22 @@ export class AuthComponent {
   authForm: FormGroup;
   providers = ['Facebook', 'Twitter', 'Google'];
   state = 'login';
+  error = '';
   @Input() showModal: Observable<boolean>;
   @ViewChild('authModal') public authModal: ModalDirective;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        let path = event.url;
-
-      }
-    });
     this.authForm = this.formBuilder.group({
       email: new FormControl(''),
       password: new FormControl('')
     });
-    this.authService.currentState.subscribe(state => {
-      this.user = state !== null ? state.auth : null;
+    this.authService.currentState.subscribe((state: User) => {
+      this.user = state !== null ? state : null;
     });
+    this.authService.error.subscribe(error => this.error = error);
   }
   get email(): string {
     return this.authForm.value.email;
@@ -46,14 +40,17 @@ export class AuthComponent {
     return this.authForm.value.password;
   }
   switchForm(state): void {
+    this.error = '';
     this.state = state;
   }
   signWithCredentials() {
+    this.error = '';
     this.state === 'login' ?
       this.authService.login({email: this.email, password: this.password}, ) :
       this.authService.signWithCredentials({email: this.email, password: this.password});
   }
   loginWithProvider(provider: string): void {
+    this.error = '';
     switch (provider) {
       case 'Google':
         this.authService.loginWithGoogle();
